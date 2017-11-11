@@ -52,6 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .password("aa")
                 .roles("ADMIN")
                 .and()
+                .withUser("bb")
+                .password("bb")
+                .roles("ADMIN")
+                .and()
                 .configure(builder);
         builder.authenticationProvider(provider);
     }
