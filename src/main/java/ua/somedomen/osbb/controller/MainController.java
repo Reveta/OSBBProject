@@ -17,37 +17,12 @@ import java.security.Principal;
 @Controller
 public class MainController {
 
-//    String qwe = "Roman the best";
-//
     @Autowired
     private VotingService votingService;
 
     @Autowired
     private NewsService newsService;
 
-    @GetMapping("/")
-    public String index(Model model) {
-//        model.addAttribute("URL", new ListURL());
-//        model.addAttribute("ABC", qwe);
-        model.addAttribute("votingShowAll", votingService.findALL());
-        model.addAttribute("newsShowAll", newsService.findALL());
-        return "index";
-    }
-
-
-
-    @GetMapping("/admin")
-    public String loginAmd(Principal principal, Model model)
-    {
-        model.addAttribute("user", principal);
-        return "admin";
-    }
-
-    @GetMapping("/login")
-    public String indexLogin()
-    {
-        return "login";
-    }
 
 
     @PostMapping("/addNews")

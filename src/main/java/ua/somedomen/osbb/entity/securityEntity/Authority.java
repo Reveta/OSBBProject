@@ -1,4 +1,4 @@
-package ua.somedomen.osbb.entity;
+package ua.somedomen.osbb.entity.securityEntity;
 
 public enum Authority
 {

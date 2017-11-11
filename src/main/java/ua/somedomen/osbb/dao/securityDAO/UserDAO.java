@@ -1,10 +1,10 @@
-package ua.somedomen.osbb.dao;
+package ua.somedomen.osbb.dao.securityDAO;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ua.somedomen.osbb.entity.User;
+import ua.somedomen.osbb.entity.securityEntity.User;
 
 public interface UserDAO extends JpaRepository<User,Integer> {
 

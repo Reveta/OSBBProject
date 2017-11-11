@@ -1,5 +1,5 @@
 <style>
-    <%@include file='/WEB-INF/style/index/output-ALL.css' %>
+    <%@include file='/WEB-INF/style/index/outputNewsandVoting-ALL.css' %>
 </style>
 
 <body>

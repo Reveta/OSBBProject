@@ -1,7 +1,7 @@
-package ua.somedomen.osbb.service;
+package ua.somedomen.osbb.service.securityService;
 
 
-import ua.somedomen.osbb.entity.User;
+import ua.somedomen.osbb.entity.securityEntity.User;
 
 import java.util.List;
 

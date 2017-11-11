@@ -1,4 +1,4 @@
-package ua.somedomen.osbb.config;
+package ua.somedomen.osbb.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package ua.somedomen.osbb.service.impl;
+package ua.somedomen.osbb.service.securityService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.somedomen.osbb.dao.UserDAO;
-import ua.somedomen.osbb.entity.User;
-import ua.somedomen.osbb.service.UserService;
+import ua.somedomen.osbb.dao.securityDAO.UserDAO;
+import ua.somedomen.osbb.entity.securityEntity.User;
 
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package ua.somedomen.osbb.entity;
+package ua.somedomen.osbb.entity.securityEntity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
