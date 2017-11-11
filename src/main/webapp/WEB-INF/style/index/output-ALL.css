@@ -1,0 +1,27 @@
+.block{
+
+}
+
+.colLeft{
+    float: left;
+}
+
+.colRight{
+    float: right;
+}
+
+.newsBox{
+    margin: 10px 0;
+    border: 3px snow solid;
+}
+
+.newsNameBox{
+    text-align: center;
+    color: snow;
+}
+
+.newsTextBox{
+    text-align: left;
+    color: darkgrey;
+}
+
