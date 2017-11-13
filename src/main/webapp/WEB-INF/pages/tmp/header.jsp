@@ -7,7 +7,6 @@
                                        initial-scale=1.0">
     <title>I belive</title>
 
-
     <style>
         <%@include file='/WEB-INF/style/tmp/bootstrap.css' %>
         <%@include file='/WEB-INF/style/tmp/body.css' %>
