@@ -1,8 +1,13 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+
 <style>
-    <%@include file='/WEB-INF/style/index/outputNewsandVoting-ALL.css' %>
+    <%@include file='/style/index/outputNewsAndVoting-ALL.css' %>
 </style>
 
 <body>
+
+<p>Test gitHub</p>
+
 <div class="block container-fluid">
     <div class="colLeft col-xs-6">
         <h2>Place for yours news</h2>

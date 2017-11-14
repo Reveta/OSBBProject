@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and()
-                .formLogin().loginPage("/login")
+                .formLogin().loginPage("/")
                 .and()
                 .csrf().disable();
 //                .antMatchers("/user/**").access("hasRole('USER')")
