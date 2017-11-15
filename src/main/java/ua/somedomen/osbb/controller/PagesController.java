@@ -28,10 +28,8 @@ public class PagesController {
         return "index";
     }
 
-
-
     @GetMapping("/admin")
-    public String loginAmd(Principal principal, Model model) {
+    public String loginAdm(Principal principal, Model model) {
         model.addAttribute("user", principal);
         return "admin";
     }
@@ -39,6 +37,17 @@ public class PagesController {
     @GetMapping("/login")
     public String indexLogin() {
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "index";
+    }
+
+
+    @GetMapping("/cabinet")
+    public String cabinet() {
+        return "cabinet";
     }
 
 }
