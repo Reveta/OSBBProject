@@ -1,5 +1,6 @@
 package ua.somedomen.osbb.entity.securityEntity;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,9 @@ public class User implements UserDetails
 
     private String username;
     private String password;
+    private String passwordConfirm;
+
+    @Email(message = "Введіть email коректно")
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -32,11 +36,10 @@ public class User implements UserDetails
     {
     }
 
-    public User(String username, String password, String email)
+    public User(String username, String password)
     {
         this.username = username;
         this.password = password;
-        this.email = email;
     }
 
     @Override
@@ -59,6 +62,13 @@ public class User implements UserDetails
         return username;
     }
 
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
     @Override
     public boolean isAccountNonExpired()
     {
@@ -144,8 +154,7 @@ public class User implements UserDetails
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder()
@@ -67,10 +75,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/user/**").access("hasRole('USER')")
                 //  Треба зробити доступ до кабінету лише для юзера
 //                .antMatchers("/cabinet/**").access("hasRole('USER')")
                 .and()
-                .formLogin().loginPage("/admin")
+                .formLogin().loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
@@ -79,6 +88,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .formLogin().loginPage("/")
                 .and()
                 .csrf().disable();
-//                .antMatchers("/user/**").access("hasRole('USER')")
     }
 }

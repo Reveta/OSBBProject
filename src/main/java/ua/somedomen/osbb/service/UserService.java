@@ -1,4 +1,4 @@
-package ua.somedomen.osbb.service.securityService;
+package ua.somedomen.osbb.service;
 
 
 import ua.somedomen.osbb.entity.securityEntity.User;
