@@ -92,7 +92,7 @@ public String login(Model model, String error, String logout) {
 
     @GetMapping("/logout")
     public String logout() {
-        return "index";
+        return "redirect:/index";
     }
 
 

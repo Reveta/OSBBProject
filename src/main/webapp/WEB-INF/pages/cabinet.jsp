@@ -6,6 +6,5 @@
 
 <%@include file="tmp/head.jsp" %>
 <%@include file="tmp/navbar.jsp" %>
-<%@include file="index/index-bigPicture-ALL.jsp" %>
 <%@include file="cabinet/cabinet-selfInfo-ALL.jsp" %>
 <%@include file="tmp/footer.jsp" %>

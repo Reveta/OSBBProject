@@ -27,7 +27,7 @@
                 </sec:authorize>
 
                 <li><a href="#">Архів</a></li>
-                <li><a href="/cabinet"><i class="fa fa-envelope-o" aria-hidden="true">Cabinet</i></a></li>
+                <li><a href="/cabinet"><i class="fa fa-envelope-o" aria-hidden="true">Кабінет</i></a></li>
             </ul>
         </div>
     </div>
