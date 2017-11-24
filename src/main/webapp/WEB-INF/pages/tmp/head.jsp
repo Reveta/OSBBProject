@@ -16,9 +16,19 @@
         <%--<%@include file="/style/tmp/footer.css" %>--%>
 <%----%>
 
-        <%@include file="/style/tmp/demoCss/bootstrap.css" %>
-        <%@include file="/style/tmp/demoCss/font-awesome.min.css" %>
-        <%@include file="/style/tmp/demoCss/main.css" %>
+        <%@include file="/style/bootstrap.css"%>
+        <%@include file="/style/font-awesome.min.css"%>
+        <%--<%@include file="/style/tmp/demoCss/main.css" %>--%>
+
+
+        <%@include file="/style/sections-css/body.css" %>
+        <%@include file="/style/sections-css/footer.css" %>
+        <%@include file="/style/sections-css/main picture.css" %>
+        <%@include file="/style/sections-css/map.css" %>
+        <%@include file="/style/sections-css/navbar.css" %>
+        <%@include file="/style/sections-css/news.css" %>
+
+
         /*<link rel="stylesheet" href="css/bootstrap.css">*/
         /*<link rel="stylesheet" href="css/font-awesome.min.css">*/
         /*<link rel="stylesheet" href="css/main.css">*/

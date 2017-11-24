@@ -38,6 +38,8 @@ public class MainController {
     public String addVoting(
             @RequestParam("votingName") String votingName,
             @RequestParam("votingText") String votingText){
+        System.out.println(votingName);
+        System.out.println(votingText);
         votingService.addVoting(new Voting(votingName, votingText));
 
         return "redirect:/";
