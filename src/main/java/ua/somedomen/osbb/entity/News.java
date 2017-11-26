@@ -37,4 +37,8 @@ public class News {
 
     public News() {
     }
+
+    public void setNewsName(String newsName) {
+        this.newsName = newsName;
+    }
 }
