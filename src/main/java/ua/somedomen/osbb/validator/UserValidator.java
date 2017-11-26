@@ -1,6 +1,7 @@
 package ua.somedomen.osbb.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -9,6 +10,7 @@ import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.UserService;
 
 @Component
+@PropertySource("classpath:validation.properties")
 public class UserValidator implements Validator {
     @Autowired
     private UserService userService;

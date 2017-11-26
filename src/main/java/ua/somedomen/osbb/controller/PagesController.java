@@ -69,7 +69,7 @@ public String login(Model model, String error, String logout) {
 }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
+    public String registration(Model model, String error) {
         model.addAttribute("userForm", new User());
 
         return "registration";

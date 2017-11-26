@@ -72,17 +72,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+// для зберігання кирилиці в бд
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/", "/index", "/registration", "/login").permitAll()
+                .antMatchers("/**", "/index", "/registration", "/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/user/**").access("hasRole('USER')")
-//                .anyRequest().authenticated()
+//                .anyRequest().authenticated() // з ним не паше front-and
                 //  Треба зробити доступ до кабінету лише для юзера
 //                .antMatchers("/cabinet/**").access("hasRole('USER')")
                 .and()
@@ -90,10 +90,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()
                 .formLogin().loginPage("/")
                 .and()
-                .csrf().disable();
+                .csrf();
     }
 }
