@@ -38,6 +38,10 @@ public class News {
     public News() {
     }
 
+    public void setNewsText(String newsText) {
+        this.newsText = newsText;
+    }
+
     public void setNewsName(String newsName) {
         this.newsName = newsName;
     }

@@ -15,6 +15,7 @@
 
                     <input type="hidden" name="newsId" value="${News.id}">
                     <input type="text" name="newsName" value="${News.newsName}">
+                    <input type="text" name="newsText" value="${News.newsText}">
                     <input type="submit" value="GO">
 
 

@@ -13,7 +13,11 @@ import java.security.Principal;
 public class PagesController {
 
     @Autowired
+    private VotingService userService;
+
+    @Autowired
     private VotingService votingService;
+
 
     @Autowired
     private NewsService newsService;
@@ -46,7 +50,9 @@ public class PagesController {
 
 
     @GetMapping("/cabinet")
-    public String cabinet() {
+    public String cabinet(Model model)
+    {
+        model.addAttribute("showUserInfo", userService.findALL());
         return "cabinet";
     }
 
