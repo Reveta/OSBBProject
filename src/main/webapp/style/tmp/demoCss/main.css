@@ -74,6 +74,17 @@ min-height: 600px;
   -o-background-size: cover;
   background-size: cover;
 }
+.img_elastic1{
+  background: url(https://pm1.narvii.com/6272/9d365bc33fab3821251cf1f9e093f7ca1bbf6fb3_hq.jpg) no-repeat center top;
+  text-align: center;
+  background-position: center;
+  width: 100%;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 .minihead{
   max-width: 200px;

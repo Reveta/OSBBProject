@@ -3,7 +3,7 @@
 
 <section id="footer">
     <div class="imperial-line">
-        <p>Copyright © "Imperial" 2017</P>
+        <p>Copyright © "DreamTeam" 2017</P>
         <p>Всі права захищені. Копіювання та використання інформації без згоди власника переслідується законом</p>
     </div>
     <div class="end">
