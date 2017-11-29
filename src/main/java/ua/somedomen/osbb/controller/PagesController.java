@@ -1,6 +1,8 @@
 package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -97,9 +99,13 @@ public String login(Model model, String error, String logout) {
 
 
     @GetMapping("/cabinet")
-    public String cabinet(Model model)
-    {
+    public String cabinet(Model model, Principal principal){
+
         model.addAttribute("showUserInfo", userService.findAll());
+
+        String currentUser = principal.getName();
+
+
         return "cabinet";
     }
 

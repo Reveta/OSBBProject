@@ -12,6 +12,8 @@
                             <%--<br>--%>
                         <h2>Мешканці квартири :</h2>
 
+                                <p>${currentUser}</p>
+
                         <input type="hidden" name="id" value="${User.id}">
                         <input type="text" name="name" value="${User.name}">
                         <input type="tel" name="prename" value="${User.prename}">
