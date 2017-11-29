@@ -11,4 +11,8 @@ public interface NewsService {
 //    void addNewsComment(News news);
 
     List<News> findALL();
+
+    News findOne(int newsId);
+
+    News save(News newsName);
 }

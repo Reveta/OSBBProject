@@ -6,11 +6,9 @@
 
 <body>
 
-<p>Test gitHub</p>
-
 <div class="block container-fluid">
     <div class="colLeft col-xs-6">
-        <h2>Place for yours news</h2>
+        <h2>Місце для ваших новин</h2>
         <c:forEach items="${newsShowAll}" var="News">
             <div class="newsBox">
                 <div class="newsNameBox">

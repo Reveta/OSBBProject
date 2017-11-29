@@ -54,4 +54,9 @@ public class UserServiceImpl implements UserService, UserDetailsService
     {
         return findByUsername(username);
     }
+
+    @Override
+    public User findOne(int id) {
+        return dao.findOne(id);
+    }
 }

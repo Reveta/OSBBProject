@@ -27,7 +27,10 @@
                 </sec:authorize>
 
                 <li><a href="#">Архів</a></li>
-                <li><a href="/cabinet"><i class="fa fa-envelope-o" aria-hidden="true">Кабінет</i></a></li>
+
+                <sec:authorize access="hasAnyRole('USER')">
+                    <li><a href="/cabinet"><i class="fa fa-envelope-o" aria-hidden="true">Cabinet</i></a></li>
+                </sec:authorize>
             </ul>
         </div>
     </div>

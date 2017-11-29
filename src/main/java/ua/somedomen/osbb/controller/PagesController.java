@@ -97,7 +97,9 @@ public String login(Model model, String error, String logout) {
 
 
     @GetMapping("/cabinet")
-    public String cabinet() {
+    public String cabinet(Model model)
+    {
+        model.addAttribute("showUserInfo", userService.findAll());
         return "cabinet";
     }
 
