@@ -12,12 +12,12 @@
         <c:forEach items="${newsShowAll}" var="News">
             <form action="/testUpdate" method="post">
                 <div class="row one-news">
-
+                    <sec:authorize access="hasAnyRole('ADMIN')">
                     <input type="hidden" name="newsId" value="${News.id}">
                     <input type="text" name="newsName" value="${News.newsName}">
                     <input type="text" name="newsText" value="${News.newsText}">
                     <input type="submit" value="GO">
-
+                    </sec:authorize>
 
 
                     <div class="col-lg-4 col-md-6 col-sm-6">
@@ -27,6 +27,9 @@
                     <div class="col-lg-8 col-md-6 col-sm-6">
                         <h1><a href="#">${News.newsName}</a></h1>
                         <p>${News.newsText}</p>
+                        <c:forEach items="${News.newsComment}" var="Comment">
+                            ${Comment.commentValue}
+                        </c:forEach>
                         <button type="button" name="button"><a href="comments.html">Коментарі</a></button>
                     </div>
                 </div>

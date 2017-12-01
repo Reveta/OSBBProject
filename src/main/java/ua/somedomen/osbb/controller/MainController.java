@@ -27,12 +27,13 @@ public class MainController {
 
     @PostMapping("/addNews")
     public String addNews(
-            @RequestParam("newsName") String newsName,
-            @RequestParam("newsText") String newsText){
+            @RequestParam String newsName,
+            @RequestParam String newsText){
         newsService.addNews(new News(newsName, newsText));
 
         return "redirect:/";
     }
+
 
     @PostMapping("/addVoting")
     public String addVoting(
