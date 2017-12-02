@@ -109,4 +109,10 @@ public String login(Model model, String error, String logout) {
         return "cabinet";
     }
 
+    @GetMapping("/oneNews&&comments")
+    public String newsAndComments(){
+        return "oneNews&&comments";
+
+    }
+
 }
