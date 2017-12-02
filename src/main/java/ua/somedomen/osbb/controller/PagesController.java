@@ -58,15 +58,15 @@ public class PagesController {
 //        return "login";
 //    }
 @RequestMapping(value = "/login", method = RequestMethod.GET)
-public String login(Model model, String error, String logout) {
-    if (error != null) {
-        model.addAttribute("error", "Ваш логін або пароль не вірні.");
-        return "login";
-    }
-    if (logout != null) {
-        model.addAttribute("message", "Ви успішно вийшли.");
-        return "index";
-    }
+public String login(Model model/*, String error, String logout*/) {
+//    if (error != null) {
+//        model.addAttribute("error", "Ваш логін або пароль не вірні.");
+//        return "login";
+//    }
+//    if (logout != null) {
+//        model.addAttribute("message", "Ви успішно вийшли.");
+//        return "index";
+//    }
     return "login";
 }
 
@@ -99,13 +99,11 @@ public String login(Model model, String error, String logout) {
 
 
     @GetMapping("/cabinet")
-    public String cabinet(Model model, Principal principal){
+    public String cabinet(Model model, Principal principal) {
 
-        model.addAttribute("showUserInfo", userService.findAll());
-
-        String currentUser = principal.getName();
-
-
+        User byUsername = userService.findByUsername(principal.getName());
+//        model.addAttribute("showUserInfo", userService.findALL());
+        model.addAttribute("User", byUsername);
         return "cabinet";
     }
 
