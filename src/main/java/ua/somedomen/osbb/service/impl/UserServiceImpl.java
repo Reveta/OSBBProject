@@ -1,4 +1,4 @@
-package ua.somedomen.osbb.service.securityService;
+package ua.somedomen.osbb.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.somedomen.osbb.dao.securityDAO.UserDAO;
 import ua.somedomen.osbb.entity.securityEntity.User;
+import ua.somedomen.osbb.service.UserService;
 
 
 import java.util.List;
@@ -28,8 +29,11 @@ public class UserServiceImpl implements UserService, UserDetailsService
     public void save(User user)
     {
         String password = user.getPassword();
+        String passwordConfirm = user.getPasswordConfirm();
         String encode = passwordEncoder.encode(password);
+        String encodeConfirm = passwordEncoder.encode(passwordConfirm);
         user.setPassword(encode);
+        user.setPasswordConfirm(encodeConfirm);
         dao.save(user);
     }
 
@@ -54,5 +58,10 @@ public class UserServiceImpl implements UserService, UserDetailsService
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
         return findByUsername(username);
+    }
+
+    @Override
+    public User findOne(int id) {
+        return dao.findOne(id);
     }
 }

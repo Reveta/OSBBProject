@@ -13,11 +13,16 @@ import java.security.Principal;
 public class PagesController {
 
     @Autowired
-    private VotingService userService;
+    private UserService userService;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserValidator userValidator;
 
     @Autowired
     private VotingService votingService;
-
 
     @Autowired
     private NewsService newsService;
@@ -38,22 +43,64 @@ public class PagesController {
         return "admin";
     }
 
-    @GetMapping("/login")
-    public String indexLogin() {
-        return "login";
+//    @GetMapping("/login")
+//    public String indexLogin() {
+//        return "login";
+//    }
+@RequestMapping(value = "/login", method = RequestMethod.GET)
+public String login(Model model/*, String error, String logout*/) {
+//    if (error != null) {
+//        model.addAttribute("error", "Ваш логін або пароль не вірні.");
+//        return "login";
+//    }
+//    if (logout != null) {
+//        model.addAttribute("message", "Ви успішно вийшли.");
+//        return "index";
+//    }
+    return "login";
+}
+
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(Model model, String error) {
+        model.addAttribute("userForm", new User());
+
+        return "registration";
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+        userValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        userService.save(userForm);
+
+        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return "redirect:/index";
     }
 
     @GetMapping("/logout")
     public String logout() {
-        return "index";
+        return "redirect:/";
     }
 
 
     @GetMapping("/cabinet")
-    public String cabinet(Model model)
-    {
-        model.addAttribute("showUserInfo", userService.findALL());
+    public String cabinet(Model model, Principal principal) {
+
+        User byUsername = userService.findByUsername(principal.getName());
+//        model.addAttribute("showUserInfo", userService.findALL());
+        model.addAttribute("User", byUsername);
         return "cabinet";
+    }
+
+    @GetMapping("/oneNews&&comments")
+    public String newsAndComments(){
+        return "oneNews&&comments";
+
     }
 
 }

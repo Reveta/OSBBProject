@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
+import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VotingService;
-import ua.somedomen.osbb.service.securityService.UserService;
 
 @Controller
 public class EditingModelController {
@@ -75,7 +75,7 @@ public class EditingModelController {
 
 
     public void findById(int id){
-            one = newsService.findOne(id);
+        one = newsService.findOne(id);
     }
 
 

@@ -1,5 +1,6 @@
 package ua.somedomen.osbb.entity.securityEntity;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,9 @@ public class User implements UserDetails
 
     private String username;
     private String password;
+    private String passwordConfirm;
+
+    @Email(message = "Введіть email коректно")
     private String email;
 
 
@@ -42,16 +46,60 @@ public class User implements UserDetails
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
+    private String name;
+    private String prename;
+    private String phoneNumber;
+
+    private String someInfo;
+
+    public User(String email, String name, String prename, String phoneNumber, String someInfo) {
+        this.email = email;
+        this.name = name;
+        this.prename = prename;
+        this.phoneNumber = phoneNumber;
+        this.someInfo = someInfo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrename() {
+        return prename;
+    }
+
+    public void setPrename(String prename) {
+        this.prename = prename;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getSomeInfo() {
+        return someInfo;
+    }
+
+    public void setSomeInfo(String someInfo) {
+        this.someInfo = someInfo;
+    }
 
     public User()
     {
     }
 
-    public User(String username, String password, String email)
+    public User(String username, String password)
     {
         this.username = username;
         this.password = password;
-        this.email = email;
     }
 
     @Override
@@ -74,6 +122,13 @@ public class User implements UserDetails
         return username;
     }
 
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
     @Override
     public boolean isAccountNonExpired()
     {

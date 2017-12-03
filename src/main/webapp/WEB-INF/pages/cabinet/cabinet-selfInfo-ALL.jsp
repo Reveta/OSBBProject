@@ -5,12 +5,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <c:forEach items="${showUserInfo}" var="User">
+                <%--<c:forEach items="${showUserInfo}" var="User">--%>
                     <form action="/updatePersonalInfo" method="post">
                             <%--<h1><span class="bold" title="Код квартири в базі ОСББ"><i class="fa fa-home" aria-hidden="true"> 325</i></span></h1>--%>
                         <h2> Вул. Шевченка 42, кв. 25</h2>
                             <%--<br>--%>
                         <h2>Мешканці квартири :</h2>
+
+                                <p>${currentUser}</p>
 
                         <input type="hidden" name="id" value="${User.id}">
                         <input type="text" name="name" value="${User.name}">
@@ -24,7 +26,7 @@
                         <h3><a href="#">додати мешканця</a></h3>
                         <br>
                     </form>
-                </c:forEach>
+                <%--</c:forEach>--%>
             </div>
         </div>
     </div>

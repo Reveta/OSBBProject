@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +27,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder()
@@ -56,24 +66,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .password("bb")
                 .roles("ADMIN")
                 .and()
-                .withUser("cc")
-                .password("cc")
-                .roles("USER")
-                .and()
                 .configure(builder);
         builder.authenticationProvider(provider);
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
+// для зберігання кирилиці в бд
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/index", "/registration", "/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .antMatchers("/cabinet/**").access("hasRole('USER')")
+//                .antMatchers("/user/**").access("hasRole('USER')")
+//                .antMatchers("/cabinet/**").access("hasRole('USER')")
+//                .anyRequest().authenticated() // з ним не паше front-and
+                //  Треба зробити доступ до кабінету лише для юзера
                 .and()
-                .formLogin().loginPage("/admin")
+                .formLogin().loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()

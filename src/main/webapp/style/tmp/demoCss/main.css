@@ -61,12 +61,23 @@ min-height: 600px;
 }
 
 .img_elastic{
-  background: url(https://image.jimcdn.com/app/cms/image/transf/none/path/sf84db3920b66dcc4/image/icd6c4a46fbde9808/version/1418330941/image.jpg) no-repeat center top;
+  background: url(https://pm1.narvii.com/6272/9d365bc33fab3821251cf1f9e093f7ca1bbf6fb3_hq.jpg) no-repeat center top;
 
   padding-top: 20px;
   text-align: center;
   /*background-attachment: relative;*/
   background-position: center center;
+  width: 100%;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.img_elastic1{
+  background: url(https://pm1.narvii.com/6272/9d365bc33fab3821251cf1f9e093f7ca1bbf6fb3_hq.jpg) no-repeat center top;
+  text-align: center;
+  background-position: center;
   width: 100%;
 
   -webkit-background-size: cover;
