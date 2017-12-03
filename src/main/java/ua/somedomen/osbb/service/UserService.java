@@ -1,4 +1,4 @@
-package ua.somedomen.osbb.service.securityService;
+package ua.somedomen.osbb.service;
 
 
 import ua.somedomen.osbb.entity.securityEntity.User;
@@ -10,4 +10,6 @@ public interface UserService
     void save(User user);
     List<User> findAll();
     User findByUsername(String name);
+
+    User findOne(int id);
 }

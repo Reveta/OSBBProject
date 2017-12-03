@@ -1,39 +1,60 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<c:url var="xxx" value="/admin"/>
 
-<div class="img_elastic" id="headerwrap">
-<h1 class="margin-top-70">LOGIN</h1>
-<form id="login-form" action="${xxx}" method="post">
-    <div class="form-group">
-        <input type="text" name="username"
-               class="form-control center" id="email" placeholder="Введіть ім'я">
-    </div>
-    <div class="form-group">
-        <input type="password" name="password"
-               class="form-control center" id="pwd" placeholder="Введіть пароль">
-    </div>
-    <input type="submit" class="btn btn-default" value="Submit"/>
-    <input type="hidden"
-           name="${_csrf.parameterName}"
-           value="${_csrf.token}"/>
-</form>
-</form>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
+<%--<!DOCTYPE html>--%>
+<%--<head>--%>
+    <%--<meta charset="utf-8">--%>
+    <%--<meta http-equiv="X-UA-Compatible" content="IE=edge">--%>
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1">--%>
+    <%--<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->--%>
+    <%--<meta name="description" content="">--%>
+    <%--<meta name="author" content="">--%>
+
+    <%--<title>Вхід у ваш акаунт</title>--%>
+
+    <%--<link href="${contextPath}/style/css/bootstrap.min.css" rel="stylesheet">--%>
+    <%--<link href="${contextPath}/style/css/common.css" rel="stylesheet">--%>
+
+    <%--<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->--%>
+    <%--<!--[if lt IE 9]>--%>
+    <%--<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>--%>
+    <%--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>--%>
+    <%--<![endif]-->--%>
+<%--</head>--%>
+
+<%--<body>--%>
+
+<div class=img_elastic1" id="headerwrap">
+    <%--Параметр action указывает на адрес страницы, на которую мы будем передавать наши данные.--%>
+    <form method="POST" action="/login" class="form-signin">
+        <h2 class="form-heading">Вхід</h2>
+
+        <c:if test="${param.error!=null}">
+            sdadfws
+        </c:if>
+        <c:if test="${param.logout!=null}">
+            sdadfws
+        </c:if>
+
+        <div class="form-group">
+            <input name="username" type="text" class="form-control" placeholder="Логін" autofocus="true"/>
+
+            <input name="password" type="password" class="form-control" placeholder="Пароль"/>
+
+            <input type="submit" class="btn btn-lg btn-primary btn-block">Увійти</input>
+
+            <h4 class="text-center"><a href="${contextPath}/registration">Створити акаунт</a></h4>
+        </div>
+
+
+
+    </form>
+
 </div>
-
-
-<%--<h1 class="margin-top-70">LOGIN</h1>--%>
-<%--<form id=login-form >--%>
-<%--<div class="form-group">--%>
-<%--<!-- <label for="email">Email:</label> -->--%>
-<%--<input type="email" class="form-control center" id="email" placeholder="Введіть email">--%>
-<%--</div>--%>
-<%--<div class="form-group">--%>
-<%--<!-- <label for="pwd">Password:</label> -->--%>
-<%--<input type="password" class="form-control center" id="pwd" placeholder="Введіть пароль">--%>
-<%--</div>--%>
-<%--<!-- <div class="checkbox">--%>
-<%--<label><input type="checkbox"> Remember me</label>--%>
-<%--</div> -->--%>
-<%--<button type="submit" class="btn btn-default">Submit</button>--%>
-<%--</form>--%>
-<%--</div>--%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/style/js/bootstrap.min.js"></script>

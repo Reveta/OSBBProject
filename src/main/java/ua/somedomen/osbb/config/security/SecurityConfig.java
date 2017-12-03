@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,29 +23,40 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @Configuration
 @EnableWebSecurity
 @ComponentScan("ua.somedomen.osbb.*")
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter
+{
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder()
+    {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider()
+    {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
-    private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryConfigure() {
+    private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryConfigure()
+    {
         return new InMemoryUserDetailsManagerConfigurer<>();
     }
 
     @Autowired
-    public void globalConfigure(AuthenticationManagerBuilder builder, AuthenticationProvider provider) throws Exception {
+    public void globalConfigure(AuthenticationManagerBuilder builder, AuthenticationProvider provider) throws Exception
+    {
         inMemoryConfigure()
                 .withUser("aa")
                 .password("aa")
@@ -59,16 +72,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+// для зберігання кирилиці в бд
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
 
-        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter("UTF-8", true);
-        http.addFilterBefore(characterEncodingFilter, CsrfFilter.class);
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/index", "/registration", "/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/cabinet/**").access("hasRole('USER')")
+//                .anyRequest().authenticated() // з ним не паше front-end
                 //  Треба зробити доступ до кабінету лише для юзера
-//                .antMatchers("/cabinet/**").access("hasRole('USER')")
                 .and()
-                .formLogin().loginPage("/admin")
+                .formLogin().loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
@@ -77,6 +94,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/")
                 .and()
                 .csrf().disable();
-//                .antMatchers("/user/**").access("hasRole('USER')")
     }
 }

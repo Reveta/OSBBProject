@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="osbbDB@localhost" uuid="18f9f32a-9a20-47ee-afdc-957f3ab6aaef">
+    <data-source source="LOCAL" name="osbbdb@localhost" uuid="f369c188-2953-405d-bc9b-5a129427d73f">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/osbbDB</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/osbbdb</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

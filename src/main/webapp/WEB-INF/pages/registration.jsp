@@ -3,7 +3,6 @@
 
 <%@include file="tmp/head.jsp" %>
 
-<%@include file="tmp/navbar.jsp" %>
-<%@include file="cabinet/cabinet-editingSelfInfo-ALL.jsp" %>
+<%@include file="registration/registration-ALL.jsp" %>
 
 <%@include file="tmp/footer.jsp" %>

@@ -3,6 +3,7 @@ package ua.somedomen.osbb.config.web;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -22,8 +23,20 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         return viewResolver;
     }
 
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/img/**").addResourceLocations("/static/images");
+//    }
+
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**").addResourceLocations("/static/images");
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/style/**").addResourceLocations("/style/");
+    }
+
+    @Bean               // бін для валідації полів
+    public ReloadableResourceBundleMessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames(new String[] { "classpath:validation" });
+        return messageSource;
     }
 }

@@ -3,7 +3,7 @@
 
 <%@include file="tmp/head.jsp" %>
 
-<%@include file="tmp/navbar.jsp" %>
-<%@include file="cabinet/cabinet-editingSelfInfo-ALL.jsp" %>
+<%@include file="tmp/navbar.jsp"%>
+<%@include file="newsPage/newsPage-outputAndEditingNewsPlusComments.jsp" %>
 
 <%@include file="tmp/footer.jsp" %>

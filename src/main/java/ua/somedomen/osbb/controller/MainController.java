@@ -27,12 +27,13 @@ public class MainController {
 
     @PostMapping("/addNews")
     public String addNews(
-            @RequestParam("newsName") String newsName,
-            @RequestParam("newsText") String newsText){
+            @RequestParam String newsName,
+            @RequestParam String newsText){
         newsService.addNews(new News(newsName, newsText));
 
         return "redirect:/";
     }
+
 
     @PostMapping("/addVoting")
     public String addVoting(
@@ -44,33 +45,4 @@ public class MainController {
 
         return "redirect:/";
     }
-
-//    @PostMapping("/addNewsComment")
-//    public String addNewsComment(
-//            @RequestParam("newsComment") String newsComment,
-//        newsService.(new News(news));
-//
-//        return "redirect:/";
-//    }
-
-
-//    @PostMapping("/saveURLforVideo")
-//    public String saveURLforVideo(@RequestParam("url") String url,
-//                                  @RequestParam("nameOfVideo") String nameOfVideo,
-//                                  @RequestParam("textForVideo") String textOfVideo) {
-//        System.out.println("Hello MainController");
-//        listURLService.saveURLforVideo(new ListURL(nameOfVideo, textOfVideo, url));
-//        return "redirect:/";
-//    }
-
-
-
-//    @GetMapping("/allURL")
-//    public String findALL(Model model){
-//        model.addAttribute("listURL", listURLService.findALL());
-//
-//        List<ListURL> all = listURLService.findALL();
-//        System.out.println(all + " \n");
-//        return "listURL";
-//    }
 }
