@@ -1,0 +1,15 @@
+#footer{
+  text-align: center;
+}
+
+.imperial-line{
+  background: #e65b4a;
+  padding: 20px 20px;
+}
+
+.end{
+  background: #222;
+  padding: 15px;
+  height: 50px;
+  font-size: 20px;
+}

@@ -1,0 +1,35 @@
+#news{
+  padding: 80px 0 60px 0;
+
+}.one-news{
+  padding: 30px 60px 60px 60px;
+  border-bottom: 1px gray solid;
+}
+
+.img_elastic {
+  /*фон міста позаду png картинок*/
+  /*background: url(/style/images/channels3_background.jpg) no-repeat center top;*/
+
+  /*padding-top: 20px;*/
+  text-align: center;
+  /*background-attachment: relative;*/
+  background-position: center center;
+  width: 100%;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.section-title {
+  font-size: 32px;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 700;
+}
+
+.newsfhoto {
+  /*background: url(https://pm1.narvii.com/6272/9d365bc33fab3821251cf1f9e093f7ca1bbf6fb3_hq.jpg) no-repeat center top;*/
+  height: 300px;
+}

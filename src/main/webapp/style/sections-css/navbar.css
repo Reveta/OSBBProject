@@ -1,0 +1,17 @@
+.navbar {
+  font-weight: 900;
+  font-size: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.navbar-inverce {
+  background: #2d2d2d;
+  border-color: red;
+}
+
+.navbar-inverce .navbar-nav>.active>a {
+  background-color: #ff7878;
+}
+
+
