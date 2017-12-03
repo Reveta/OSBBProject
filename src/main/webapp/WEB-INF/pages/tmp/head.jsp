@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="uk">
 <head>
-    <title>Вхід у ваш акаунт</title>
+    <title>OSBB</title>
 
     <link href="${contextPath}/style/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/style/css/common.css" rel="stylesheet">

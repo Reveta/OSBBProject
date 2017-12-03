@@ -31,6 +31,43 @@ public class User implements UserDetails
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
+    private String name;
+    private String prename;
+    private String phoneNumber;
+
+    private String someInfo;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrename() {
+        return prename;
+    }
+
+    public void setPrename(String prename) {
+        this.prename = prename;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getSomeInfo() {
+        return someInfo;
+    }
+
+    public void setSomeInfo(String someInfo) {
+        this.someInfo = someInfo;
+    }
 
     public User()
     {
@@ -41,6 +78,8 @@ public class User implements UserDetails
         this.username = username;
         this.password = password;
     }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()

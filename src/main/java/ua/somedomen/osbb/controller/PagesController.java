@@ -4,13 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
-import ua.somedomen.osbb.service.SecurityService;
+//import ua.somedomen.osbb.service.SecurityService;
 import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VotingService;
 import ua.somedomen.osbb.validator.UserValidator;
@@ -23,8 +20,8 @@ public class PagesController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SecurityService securityService;
+//    @Autowired
+//    private SecurityService securityService;
 
     @Autowired
     private UserValidator userValidator;
@@ -36,10 +33,8 @@ public class PagesController {
     private NewsService newsService;
 
 
-    @GetMapping(value = {"/", "/index"} )
+    @GetMapping("/")
     public String index(Model model) {
-//        model.addAttribute("URL", new ListURL());
-//        model.addAttribute("ABC", qwe);
         model.addAttribute("votingShowAll", votingService.findALL());
         model.addAttribute("newsShowAll", newsService.findALL());
         return "index";
@@ -51,32 +46,27 @@ public class PagesController {
         return "admin";
     }
 
-//    @GetMapping("/login")
-//    public String indexLogin() {
-//        return "login";
-//    }
-@RequestMapping(value = "/login", method = RequestMethod.GET)
-public String login(Model model, String error, String logout) {
-    if (error != null) {
-        model.addAttribute("error", "Ваш логін або пароль не вірні.");
-        return "login";
-    }
+    @GetMapping(value = "/login")
+    public String login(String logout) {
+
     if (logout != null) {
-        model.addAttribute("message", "Ви успішно вийшли.");
         return "index";
     }
-    return "login";
-}
+        return "login";
+    }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model, String error) {
+    @GetMapping(value = "/registration")
+    public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult /*, @RequestParam("username") String name,
+                               @RequestParam("password") String password,
+                               @RequestParam("passwordConfirm") String passwordConfirm */){
+
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -84,10 +74,11 @@ public String login(Model model, String error, String logout) {
         }
 
         userService.save(userForm);
+//        userService.save(new User(name, password, passwordConfirm));
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+//        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
@@ -97,8 +88,26 @@ public String login(Model model, String error, String logout) {
 
 
     @GetMapping("/cabinet")
-    public String cabinet() {
+    public String cabinet(Model model, Principal principal) {
+
+        User byUsername = userService.findByUsername(principal.getName());
+        model.addAttribute("User", byUsername);
         return "cabinet";
     }
+
+    @GetMapping("/newsPage")
+    public String newsPage(){
+        return "newsPage";
+
+    }
+
+//    @PostMapping("/save")
+//    public String save(@RequestParam("username") String name,
+//                       @RequestParam("password") String password,
+//                       @RequestParam("passwordConfirm") String passwordConfirm){
+//
+//        userService.save(new User(name, password, passwordConfirm));
+//        return "redirect:/";
+//    }
 
 }

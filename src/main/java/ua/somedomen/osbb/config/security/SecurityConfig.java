@@ -28,11 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder()
@@ -94,6 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .formLogin().loginPage("/")
                 .and()
-                .csrf();
+                .csrf().disable();
     }
 }

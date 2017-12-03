@@ -10,4 +10,6 @@ public interface UserService
     void save(User user);
     List<User> findAll();
     User findByUsername(String name);
+
+    User findOne(int id);
 }

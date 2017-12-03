@@ -6,5 +6,5 @@
 
 <%@include file="tmp/head.jsp" %>
 <%@include file="tmp/navbar.jsp" %>
-<%@include file="index/inputNewsAndVoting-Admin.jsp" %>
+<%@include file="admin/admin-inputNewsAndVoting-Admin.jsp" %>
 <%@include file="tmp/footer.jsp" %>
