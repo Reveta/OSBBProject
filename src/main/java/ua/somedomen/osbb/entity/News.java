@@ -22,6 +22,7 @@ public class News {
     private String newsName;
     private String newsText;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "news", fetch = FetchType.EAGER)
     private List<Comments> newsComment = new ArrayList<>();
 

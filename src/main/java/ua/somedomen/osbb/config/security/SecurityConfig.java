@@ -81,9 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.authorizeRequests()
                 .antMatchers("/", "/index", "/registration", "/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
-//                .antMatchers("/user/**").access("hasRole('USER')")
-//                .antMatchers("/cabinet/**").access("hasRole('USER')")
-//                .anyRequest().authenticated() // з ним не паше front-and
+                .antMatchers("/cabinet/**").access("hasRole('USER')")
+//                .anyRequest().authenticated() // з ним не паше front-end
                 //  Треба зробити доступ до кабінету лише для юзера
                 .and()
                 .formLogin().loginPage("/login")
@@ -95,6 +94,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .formLogin().loginPage("/")
                 .and()
                 .csrf().disable();
-//                .antMatchers("/user/**").access("hasRole('USER')")
     }
 }

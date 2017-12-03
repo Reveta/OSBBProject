@@ -29,18 +29,13 @@ public class EditingModelController {
     private UserService userService;
 
 
-    public Object one;
-
-
-    @PostMapping("/testUpdate")
+    @PostMapping("/newsUpdate")
     public String testUpdate(
-            @RequestParam int newsId,
+            @RequestParam int id,
             @RequestParam String newsName,
             @RequestParam String newsText) {
-        findById(newsId);
 
-        News thisis;
-        thisis = (News) one;
+        News thisis = newsService.findOne(id);
 
         thisis.setNewsName(newsName);
         thisis.setNewsText(newsText);
@@ -57,10 +52,8 @@ public class EditingModelController {
             @RequestParam String email,
             @RequestParam String phoneNumber,
             @RequestParam String someInfo) {
-        findById(id);
 
-        User thisis;
-        thisis = (User) one;
+        User thisis = userService.findOne(id);
 
         thisis.setEmail(email);
         thisis.setName(name);
@@ -71,12 +64,5 @@ public class EditingModelController {
 
         return "redirect:/";
     }
-
-
-
-    public void findById(int id){
-        one = newsService.findOne(id);
-    }
-
 
 }

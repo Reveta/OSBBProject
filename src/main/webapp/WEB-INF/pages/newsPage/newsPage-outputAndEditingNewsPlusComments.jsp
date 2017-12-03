@@ -18,18 +18,18 @@
                 <p>${News.newsName}</p>
             </div>
         </div>
-        1
+
         <c:forEach items="${newsShowAll}" var="News">
         <form action="/testUpdate" method="post">
         <div class="row one-news">
-            2
+
             <sec:authorize access="hasAnyRole('ADMIN')">
 
                 <input type="hidden" name="newsId" value="${News.id}">
                 <input type="text" name="newsName" value="${News.newsName}">
                 <input type="text" name="newsText" value="${News.newsText}">
                 <input type="submit" value="Редагувати">
-                3
+
             </sec:authorize>
 
             <div class="col-lg-4 col-md-6 col-sm-6">

@@ -30,7 +30,13 @@ public class User implements UserDetails
 
     private String someInfo;
 
-    public User(String email, String name, String prename, String phoneNumber, String someInfo) {
+    public User() {
+    }
+
+    public User(String username, String password, String passwordConfirm, String email, String name, String prename, String phoneNumber, String someInfo) {
+        this.username = username;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
         this.email = email;
         this.name = name;
         this.prename = prename;
@@ -38,69 +44,29 @@ public class User implements UserDetails
         this.someInfo = someInfo;
     }
 
-    @Enumerated(EnumType.STRING)
-    private Authority authority = Authority.ROLE_USER;
+    public User(String username, String password, String passwordConfirm) {
+        this.username = username;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public User(String email, String name, String prename, String phoneNumber, String someInfo) {
+        this.email = email;
+        this.name = name;
+        this.prename = prename;
+        this.phoneNumber = phoneNumber;
+        this.someInfo = someInfo;
+    }
 
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
-    private String name;
-    private String prename;
-    private String phoneNumber;
 
-    private String someInfo;
 
-    public User(String email, String name, String prename, String phoneNumber, String someInfo) {
-        this.email = email;
-        this.name = name;
-        this.prename = prename;
-        this.phoneNumber = phoneNumber;
-        this.someInfo = someInfo;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPrename() {
-        return prename;
-    }
-
-    public void setPrename(String prename) {
-        this.prename = prename;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getSomeInfo() {
-        return someInfo;
-    }
-
-    public void setSomeInfo(String someInfo) {
-        this.someInfo = someInfo;
-    }
-
-    public User()
-    {
-    }
-
-    public User(String username, String password)
-    {
-        this.username = username;
-        this.password = password;
-    }
+    @Enumerated(EnumType.STRING)
+    private Authority authority = Authority.ROLE_USER;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
@@ -208,10 +174,20 @@ public class User implements UserDetails
         this.credentialsNonExpired = credentialsNonExpired;
     }
 
-    public void setEnabled(boolean enabled)
-    {
-        this.enabled = enabled;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", prename='" + prename + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", someInfo='" + someInfo + '\'' +
+                '}';
     }
+
 
     public String getName() {
         return name;
@@ -245,17 +221,7 @@ public class User implements UserDetails
         this.someInfo = someInfo;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", prename='" + prename + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", someInfo='" + someInfo + '\'' +
-                '}';
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

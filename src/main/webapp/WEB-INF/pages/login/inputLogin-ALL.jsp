@@ -32,34 +32,29 @@
 <div class=img_elastic1" id="headerwrap">
     <%--Параметр action указывает на адрес страницы, на которую мы будем передавать наши данные.--%>
     <form method="POST" action="/login" class="form-signin">
-        <%--<h2 class="form-heading">Вхід</h2>--%>
+        <h2 class="form-heading">Вхід</h2>
 
-        <%--<div class="form-group ${error != null ? 'has-error' : ''}">--%>
-            <%--<span>${message}</span>--%>
-            <%--<input name="username" type="text" class="form-control" placeholder="Логін"--%>
-                   <%--autofocus="true"/>--%>
-            <%--<input name="password" type="password" class="form-control" placeholder="Пароль"/>--%>
-            <%--<span>${error}</span>--%>
-            <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+        <c:if test="${param.error!=null}">
+            sdadfws
+        </c:if>
+        <c:if test="${param.logout!=null}">
+            sdadfws
+        </c:if>
 
-            <%--<button class="btn btn-lg btn-primary btn-block" type="submit">Увійти</button>--%>
-            <%--<h4 class="text-center"><a href="${contextPath}/registration">Створити акаунт</a></h4>--%>
-        <%--</div>--%>
-            <c:if test="${param.error!=null}">
-                sdadfws
-            </c:if>
-            <c:if test="${param.logout!=null}">
-                sdadfws
-            </c:if>
-        <input type="text" name="username" >
-        <input type="text" name="password" >
-        <input type="submit" value="go" >
+        <div class="form-group">
+            <input name="username" type="text" class="form-control" placeholder="Логін" autofocus="true"/>
+
+            <input name="password" type="password" class="form-control" placeholder="Пароль"/>
+
+            <input type="submit" class="btn btn-lg btn-primary btn-block">Увійти</input>
+
+            <h4 class="text-center"><a href="${contextPath}/registration">Створити акаунт</a></h4>
+        </div>
+
+
 
     </form>
 
 </div>
-<!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/style/js/bootstrap.min.js"></script>
-<%--</body>--%>
-<%--</html>--%>
