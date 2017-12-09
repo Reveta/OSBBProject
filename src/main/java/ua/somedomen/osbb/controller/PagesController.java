@@ -37,7 +37,13 @@ public class PagesController {
 
 
     @GetMapping("/")
-    public String index(Model model) {
+    //Не можу вивести принципал, просто тому, що по дефолту немає людини в сесії,
+    //принаймні я так думаю. Хочу надіслати дані про авторизованого користувача
+    // і добаляти його як власника коментаря.
+    public String index(Model model/*, Principal principal*/) {
+//        User byUsername = userService.findByUsername(principal.getName());
+//        model.addAttribute("user", principal.getName());
+
         model.addAttribute("votingShowAll", votingService.findALL());
         model.addAttribute("newsShowAll", newsService.findALL());
         return "index";
@@ -49,20 +55,9 @@ public class PagesController {
         return "admin";
     }
 
-    //    @GetMapping("/login")
-//    public String indexLogin() {
-//        return "login";
-//    }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model/*, String error, String logout*/) {
-//    if (error != null) {
-//        model.addAttribute("error", "Ваш логін або пароль не вірні.");
-//        return "login";
-//    }
-//    if (logout != null) {
-//        model.addAttribute("message", "Ви успішно вийшли.");
-//        return "index";
-//    }
+    public String login(Model model) {
+
         return "login";
     }
 

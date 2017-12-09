@@ -79,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.addFilterBefore(filter, CsrfFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/", "/index", "/registration", "/login").permitAll()
+                .antMatchers("/", "/index/**", "/registration", "/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/cabinet/**").access("hasRole('USER')")
 //                .anyRequest().authenticated() // з ним не паше front-end

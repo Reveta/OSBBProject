@@ -22,6 +22,8 @@
         <%@include file="/style/sections-css/map.css" %>
         <%@include file="/style/sections-css/navbar.css" %>
         <%@include file="/style/sections-css/news.css" %>
+
+        <%@include file="/style/index/outputNewsAndVoting-ALL.css" %>
     </style>
 
 
