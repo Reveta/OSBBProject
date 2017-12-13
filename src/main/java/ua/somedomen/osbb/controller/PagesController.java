@@ -1,10 +1,15 @@
 package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
 //import ua.somedomen.osbb.service.SecurityService;
@@ -34,7 +39,20 @@ public class PagesController {
 
 
     @GetMapping("/")
-    public String index(Model model) {
+    //Не можу вивести принципал, просто тому, що по дефолту немає людини в сесії,
+    //принаймні я так думаю. Хочу надіслати дані про авторизованого користувача
+    // і добаляти його як власника коментаря.
+    public String index(Model model, Principal principal) {
+//        User user = userService.findByUsername(principal.getName());
+//        model.addAttribute("user", principal.getName());
+
+        Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (currentUser instanceof UserDetails) {
+            String username = ((UserDetails) currentUser).getUsername();
+        } else {
+            String username = currentUser.toString();
+        }
+
         model.addAttribute("votingShowAll", votingService.findALL());
         model.addAttribute("newsShowAll", newsService.findALL());
         return "index";
@@ -74,7 +92,6 @@ public class PagesController {
         }
 
         userService.save(userForm);
-//        userService.save(new User(name, password, passwordConfirm));
 
 //        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
@@ -100,14 +117,5 @@ public class PagesController {
         return "newsPage";
 
     }
-
-//    @PostMapping("/save")
-//    public String save(@RequestParam("username") String name,
-//                       @RequestParam("password") String password,
-//                       @RequestParam("passwordConfirm") String passwordConfirm){
-//
-//        userService.save(new User(name, password, passwordConfirm));
-//        return "redirect:/";
-//    }
 
 }

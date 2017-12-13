@@ -63,7 +63,7 @@ min-height: 600px;
 .img_elastic{
   background: url(https://pm1.narvii.com/6272/9d365bc33fab3821251cf1f9e093f7ca1bbf6fb3_hq.jpg) no-repeat center top;
 
-  padding-top: 20px;
+  /*padding-top: 20px;*/
   text-align: center;
   /*background-attachment: relative;*/
   background-position: center center;
