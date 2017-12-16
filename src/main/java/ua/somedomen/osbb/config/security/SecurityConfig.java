@@ -28,11 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder()
@@ -79,17 +79,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.addFilterBefore(filter, CsrfFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/", "/index", "/registration", "/login").permitAll()
+                .antMatchers("/**", "/index", "/registration", "/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/user/**").access("hasRole('USER')")
                 .antMatchers("/cabinet/**").access("hasRole('USER')")
-//                .anyRequest().authenticated() // з ним не паше front-end
+//                .anyRequest().authenticated() // з ним не паше front-and
                 //  Треба зробити доступ до кабінету лише для юзера
                 .and()
                 .formLogin().loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()
                 .formLogin().loginPage("/")
                 .and()

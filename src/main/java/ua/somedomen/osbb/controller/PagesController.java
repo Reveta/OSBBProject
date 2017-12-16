@@ -1,6 +1,8 @@
 package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
-import ua.somedomen.osbb.service.SecurityService;
+//import ua.somedomen.osbb.service.SecurityService;
 import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VotingService;
 import ua.somedomen.osbb.validator.UserValidator;
@@ -23,8 +25,8 @@ public class PagesController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SecurityService securityService;
+//    @Autowired
+//    private SecurityService securityService;
 
     @Autowired
     private UserValidator userValidator;
@@ -37,7 +39,20 @@ public class PagesController {
 
 
     @GetMapping("/")
-    public String index(Model model) {
+    //Не можу вивести принципал, просто тому, що по дефолту немає людини в сесії,
+    //принаймні я так думаю. Хочу надіслати дані про авторизованого користувача
+    // і добаляти його як власника коментаря.
+    public String index(Model model, Principal principal) {
+//        User user = userService.findByUsername(principal.getName());
+//        model.addAttribute("user", principal.getName());
+
+        Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (currentUser instanceof UserDetails) {
+            String username = ((UserDetails) currentUser).getUsername();
+        } else {
+            String username = currentUser.toString();
+        }
+
         model.addAttribute("votingShowAll", votingService.findALL());
         model.addAttribute("newsShowAll", newsService.findALL());
         return "index";
@@ -49,32 +64,27 @@ public class PagesController {
         return "admin";
     }
 
-    //    @GetMapping("/login")
-//    public String indexLogin() {
-//        return "login";
-//    }
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model/*, String error, String logout*/) {
-//    if (error != null) {
-//        model.addAttribute("error", "Ваш логін або пароль не вірні.");
-//        return "login";
-//    }
-//    if (logout != null) {
-//        model.addAttribute("message", "Ви успішно вийшли.");
-//        return "index";
-//    }
+    @GetMapping(value = "/login")
+    public String login(String logout) {
+
+    if (logout != null) {
+        return "index";
+    }
         return "login";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model, String error) {
+    @GetMapping(value = "/registration")
+    public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult /*, @RequestParam("username") String name,
+                               @RequestParam("password") String password,
+                               @RequestParam("passwordConfirm") String passwordConfirm */){
+
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -83,14 +93,14 @@ public class PagesController {
 
         userService.save(userForm);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+//        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
     public String logout() {
-        return "redirect:/";
+        return "redirect:/index";
     }
 
 
@@ -102,9 +112,9 @@ public class PagesController {
         return "cabinet";
     }
 
-    @GetMapping("/oneNews&&comments")
-    public String newsAndComments() {
-        return "oneNews&&comments";
+    @GetMapping("/newsPage")
+    public String newsPage(){
+        return "newsPage";
 
     }
 

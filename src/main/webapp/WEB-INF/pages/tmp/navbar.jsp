@@ -29,12 +29,8 @@
                 <li><a href="#">Архів</a></li>
 
                 <sec:authorize access="hasAnyRole('USER')">
-                    <li><a href="/cabinet"><i class="fa fa-envelope-o" aria-hidden="true">Cabinet</i></a></li>
+                    <li><a href="/cabinet"><i class="fa fa-envelope-o" aria-hidden="true">Кабінет</i></a></li>
                 </sec:authorize>
-
-
-                <%--Значок голосування, який буде зявлятись, коли є нове голосування--%>
-                <li><a href="/"></a></li>
             </ul>
         </div>
     </div>

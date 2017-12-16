@@ -1,7 +1,7 @@
-package ua.somedomen.osbb.service;
-
-public interface SecurityService {
-    String findLoggedInUsername();
-
-    void autologin(String username, String password);
-}
+//package ua.somedomen.osbb.service;
+//
+//public interface SecurityService {
+//    String findLoggedInUsername();
+//
+//    void autologin(String username, String password);
+//}

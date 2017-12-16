@@ -27,20 +27,17 @@ public class MainController {
 
     @PostMapping("/addNews")
     public String addNews(
-            @RequestParam String newsName,
-            @RequestParam String newsText){
+            @RequestParam("newsName") String newsName,
+            @RequestParam("newsText") String newsText){
         newsService.addNews(new News(newsName, newsText));
 
         return "redirect:/";
     }
 
-
     @PostMapping("/addVoting")
     public String addVoting(
             @RequestParam("votingName") String votingName,
             @RequestParam("votingText") String votingText){
-        System.out.println(votingName);
-        System.out.println(votingText);
         votingService.addVoting(new Voting(votingName, votingText));
 
         return "redirect:/";

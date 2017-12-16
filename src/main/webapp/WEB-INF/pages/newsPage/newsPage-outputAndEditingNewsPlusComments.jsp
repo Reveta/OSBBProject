@@ -6,10 +6,14 @@
 
 <section id="news">
 
-    <c:forEach var="newss" items="${newsShowAll}">
-        <p>${newss.newsName}</p>
-    </c:forEach>
-
+    <%--<c:forEach var="newss" items="${newsShowAll}">--%>
+    <form action="/newsUpdate" method="post">
+        1
+        ${News.newsId}
+        <c:out value="${News.newsName}">raz</c:out>
+        <p>${News.newsName}</p>
+    <%--</c:forEach>--%>
+    </form>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 margin-bottom-70">

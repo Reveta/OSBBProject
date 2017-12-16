@@ -1,6 +1,7 @@
 package ua.somedomen.osbb.service;
 
 import ua.somedomen.osbb.entity.News;
+
 import java.util.List;
 
 public interface NewsService {
