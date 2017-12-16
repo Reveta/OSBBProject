@@ -12,13 +12,12 @@ import ua.somedomen.osbb.dao.securityDAO.UserDAO;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.UserService;
 
-
 import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService, UserDetailsService
-{
+public class UserServiceImpl implements UserService, UserDetailsService {
+
     @Autowired
     private UserDAO dao;
 
@@ -26,8 +25,7 @@ public class UserServiceImpl implements UserService, UserDetailsService
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void save(User user)
-    {
+    public void save(User user) {
         String password = user.getPassword();
         String passwordConfirm = user.getPasswordConfirm();
         String encode = passwordEncoder.encode(password);
@@ -38,14 +36,12 @@ public class UserServiceImpl implements UserService, UserDetailsService
     }
 
     @Override
-    public List<User> findAll()
-    {
+    public List<User> findAll() {
         return dao.findAll();
     }
 
     @Override
-    public User findByUsername(String name)
-    {
+    public User findByUsername(String name) {
         return dao.findByUsername(name);
     }
 
@@ -55,8 +51,13 @@ public class UserServiceImpl implements UserService, UserDetailsService
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return findByUsername(username);
     }
+
+    @Override
+    public void saveWithoutPassword(User user) {
+        dao.save(user);
+    }
+
 }
