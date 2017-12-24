@@ -8,7 +8,7 @@
         <br>
     </c:forEach>
 
-    <%--<sec:authorize access="hasAnyRole('USER')">--%>
+    <sec:authorize access="hasAnyRole('USER','ADMIN')">
     <form action="/addComment" method="post">
         <input type="hidden" name="id" value="${News.id}">
          <%--очікуємо на Principal--%>
@@ -16,5 +16,5 @@
         <input type="text" name="commentValue">
         <input type="submit" value="addComment">
     </form>
-    <%--</sec:authorize>--%>
+    </sec:authorize>
 </div>

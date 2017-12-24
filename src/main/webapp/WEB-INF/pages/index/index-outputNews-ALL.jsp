@@ -31,7 +31,9 @@
                     <h1>
                             <a href="/newsPage">Ім'я новини:${News.newsName}</a>
                     </h1>
-                    <p>Текст новини:${News.newsText}</p>
+                    <p>${News.newsTime}</p>
+                    <p>Текст новини: ${News.newsShort}</p>
+                    <p>Текст новини: ${News.newsText}</p>
 
                     <%@include file="outputNews/outputNewsComment.jsp" %>
 

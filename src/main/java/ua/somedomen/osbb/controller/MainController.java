@@ -32,8 +32,10 @@ public class MainController{
     @PostMapping("/addNews")
     public String addNews(
             @RequestParam String newsName,
+            @RequestParam String newsShort,
             @RequestParam String newsText){
-        newsService.addNews(new News(newsName, newsText));
+        newsService.addNews(new News(newsName, newsShort, newsText,
+                /*Добавляю час створення новини*/String.valueOf(new Date())));
 
         return "redirect:/";
     }

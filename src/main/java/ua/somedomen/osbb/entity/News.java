@@ -20,21 +20,27 @@ public class News {
     private int id;
 
     private String newsName;
+    private String newsShort;
     private String newsText;
+    private String newsTime;
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "news", fetch = FetchType.EAGER)
     private List<Comments> newsComment = new ArrayList<>();
 
-    public News(String newsName, String newsText, List<Comments> newsComment) {
+    public News(String newsName, String newsShort, String newsText, String newsTime, List<Comments> newsComment) {
         this.newsName = newsName;
+        this.newsShort = newsShort;
         this.newsText = newsText;
+        this.newsTime = newsTime;
         this.newsComment = newsComment;
     }
 
-    public News(String newsName, String newsText) {
+    public News(String newsName, String newsShort, String newsText, String newsTime) {
         this.newsName = newsName;
+        this.newsShort = newsShort;
         this.newsText = newsText;
+        this.newsTime = newsTime;
     }
 
     public News() {

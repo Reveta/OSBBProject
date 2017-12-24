@@ -18,6 +18,7 @@
     <div class="newsInput col-xs-6">
         <form action="/addNews" method="post">
             <input type="text" name="newsName" placeholder="Заголовок новини">
+            <input type="text" name="newsShort" placeholder="Коротко про новину">
             <input type="text" name="newsText" placeholder="Текст новини">
             <input type="submit" value="addNews">
             <input type="reset">
