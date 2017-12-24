@@ -37,42 +37,6 @@ public class News {
         this.newsText = newsText;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNewsName() {
-        return newsName;
-    }
-
-    public String getNewsText() {
-        return newsText;
-    }
-
-    public News(List<Comments> newsComment) {
-        this.newsComment = newsComment;
-    }
-
     public News() {
-    }
-
-    public void setNewsText(String newsText) {
-        this.newsText = newsText;
-    }
-
-    public void setNewsName(String newsName) {
-        this.newsName = newsName;
-    }
-
-    public List<Comments> getNewsComment() {
-        return newsComment;
-    }
-
-    public void setNewsComment(List<Comments> newsComment) {
-        this.newsComment = newsComment;
     }
 }

@@ -1,27 +1,23 @@
 package ua.somedomen.osbb.controller;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.somedomen.osbb.entity.Comments;
 import ua.somedomen.osbb.entity.News;
+import ua.somedomen.osbb.entity.Status;
 import ua.somedomen.osbb.entity.Voting;
-import ua.somedomen.osbb.service.CommentService;
 import ua.somedomen.osbb.service.NewsService;
+import ua.somedomen.osbb.service.StatusService;
 import ua.somedomen.osbb.service.VotingService;
 
-import javax.xml.crypto.Data;
-import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
 
 @Controller
-public class MainController {
+public class MainController{
 
     @Autowired
     private VotingService votingService;
@@ -30,7 +26,7 @@ public class MainController {
     private NewsService newsService;
 
     @Autowired
-    private CommentService commentService;
+    private StatusService statusService;
 
 
     @PostMapping("/addNews")
@@ -60,21 +56,32 @@ public class MainController {
             @RequestParam String commentValue
 //            @RequestParam String userName
     ){
-// Параметри авторизованого користувача, без Principal їх не вивести.
+// Параметри авторизованого користувача, без Principal не вивести.
 
         News thisis = newsService.findOne(id);
 
-        List<Comments> commentsList = thisis.getNewsComment();
-        commentsList.add(new Comments(commentValue, String.valueOf(new Date()), thisis));
+            //Не зважайте на червоні методи, LomBok працює, все гаразд :)
+            List<Comments> commentsList = thisis.getNewsComment();
+            commentsList.add(new Comments(commentValue, String.valueOf(new Date()), thisis));
 
-        thisis.setNewsName(thisis.getNewsName());
-        thisis.setNewsText(thisis.getNewsText());
-        thisis.setNewsComment(commentsList);
-
+            thisis.setNewsName(thisis.getNewsName());
+            thisis.setNewsText(thisis.getNewsText());
+            thisis.setNewsComment(commentsList);
         newsService.save(thisis);
 
-//        System.out.println(id + commentValue);
-
          return "redirect:/";
+    }
+
+    //Мапінг для статуса
+    @PostMapping("/addStatus")
+    public String addStatus(
+            //Приймає два поля інформації
+            @RequestParam String statusName,
+            @RequestParam String statusText){
+
+                //Зберегти(Створити) новий статус за допомогою наслідуваного метода з сервісРівня
+        statusService.save(new Status(String.valueOf(new Date()), statusName, statusText));
+
+        return "redirect:/";
     }
 }
