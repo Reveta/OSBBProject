@@ -3,6 +3,7 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 ${News.newsName}
+${News.newsTime}
 <br>
 <br>
 ${News.newsText}
