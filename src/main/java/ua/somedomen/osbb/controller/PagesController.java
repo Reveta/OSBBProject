@@ -6,27 +6,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
-//import ua.somedomen.osbb.service.SecurityService;
+import ua.somedomen.osbb.service.StatusService;
 import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VotingService;
 import ua.somedomen.osbb.validator.UserValidator;
 
 import java.security.Principal;
 
+//import ua.somedomen.osbb.service.SecurityService;
+
 @Controller
 public class PagesController {
 
     @Autowired
     private UserService userService;
-
-//    @Autowired
-//    private SecurityService securityService;
 
     @Autowired
     private UserValidator userValidator;
@@ -37,26 +34,30 @@ public class PagesController {
     @Autowired
     private NewsService newsService;
 
+    @Autowired
+    private StatusService statusService;
 
-    @GetMapping("/")
-    //Не можу вивести принципал, просто тому, що по дефолту немає людини в сесії,
-    //принаймні я так думаю. Хочу надіслати дані про авторизованого користувача
-    // і добаляти його як власника коментаря.
-    public String index(Model model, Principal principal) {
-//        User user = userService.findByUsername(principal.getName());
-//        model.addAttribute("user", principal.getName());
 
-        Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (currentUser instanceof UserDetails) {
-            String username = ((UserDetails) currentUser).getUsername();
-        } else {
-            String username = currentUser.toString();
-        }
 
-        model.addAttribute("votingShowAll", votingService.findALL());
-        model.addAttribute("newsShowAll", newsService.findALL());
-        return "index";
-    }
+
+//        Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (currentUser instanceof UserDetails) {
+//            String username = ((UserDetails) currentUser).getUsername();
+//        } else {
+//            String username = currentUser.toString();
+//        }
+@GetMapping("/")
+//Працюємо над тим як виводити принціпал навіть якщо його немає, soon be end
+public String index(Model model/*, Principal principal*/) {
+//        User byUsername = userService.findByUsername(principal.getName());
+
+//      model.addAttribute("user", principal.getName());
+    model.addAttribute("statusShowAll", statusService.findAll());
+    model.addAttribute("votingShowAll", votingService.findALL());
+    model.addAttribute("newsShowAll", newsService.findALL());
+    return "index";
+}
+
 
     @GetMapping("/admin")
     public String loginAdm(Principal principal, Model model) {
@@ -67,9 +68,9 @@ public class PagesController {
     @GetMapping(value = "/login")
     public String login(String logout) {
 
-    if (logout != null) {
-        return "index";
-    }
+        if (logout != null) {
+            return "index";
+        }
         return "login";
     }
 
@@ -81,9 +82,7 @@ public class PagesController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult /*, @RequestParam("username") String name,
-                               @RequestParam("password") String password,
-                               @RequestParam("passwordConfirm") String passwordConfirm */){
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
 
         userValidator.validate(userForm, bindingResult);
 
@@ -92,8 +91,6 @@ public class PagesController {
         }
 
         userService.save(userForm);
-
-//        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         return "redirect:/";
     }
@@ -112,10 +109,9 @@ public class PagesController {
         return "cabinet";
     }
 
-    @GetMapping("/newsPage")
-    public String newsPage(){
+    @GetMapping("newsPage-{id}")
+    public String newsPage(@PathVariable("id") int id, Model model){
+        model.addAttribute("News", newsService.findOne(id));
         return "newsPage";
-
     }
-
 }

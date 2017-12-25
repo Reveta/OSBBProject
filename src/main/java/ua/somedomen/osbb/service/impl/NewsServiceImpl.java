@@ -27,8 +27,8 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
-    public News findOne(int newsId) {
-        return  newsDAO.findOne(newsId);
+    public News findOne(int id) {
+        return  newsDAO.findOne(id);
     }
 
     @Override

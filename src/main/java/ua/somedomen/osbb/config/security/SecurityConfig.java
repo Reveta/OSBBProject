@@ -28,12 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Autowired
     private UserDetailsService userDetailsService;
 
-//    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
     @Bean
     public PasswordEncoder passwordEncoder()
     {
@@ -83,8 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/user/**").access("hasRole('USER')")
                 .antMatchers("/cabinet/**").access("hasRole('USER')")
-//                .anyRequest().authenticated() // з ним не паше front-and
-                //  Треба зробити доступ до кабінету лише для юзера
                 .and()
                 .formLogin().loginPage("/login")
                 .usernameParameter("username")

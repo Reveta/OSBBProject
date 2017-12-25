@@ -1,5 +1,6 @@
 package ua.somedomen.osbb.entity.securityEntity;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,9 +18,9 @@ public class User implements UserDetails
     private int id;
 
     private String username;
-    @Column(updatable = false)
+//    @Column(updatable = false)
     private String password;
-    @Column(updatable = false)
+//    @Column(updatable = false)
     private String passwordConfirm;
 
     @Email(message = "Введіть email коректно")
