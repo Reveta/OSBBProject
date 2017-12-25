@@ -6,18 +6,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
-//import ua.somedomen.osbb.service.SecurityService;
 import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VotingService;
 import ua.somedomen.osbb.validator.UserValidator;
 
 import java.security.Principal;
+
+//import ua.somedomen.osbb.service.SecurityService;
 
 @Controller
 public class PagesController {
@@ -67,9 +66,9 @@ public class PagesController {
     @GetMapping(value = "/login")
     public String login(String logout) {
 
-    if (logout != null) {
-        return "index";
-    }
+        if (logout != null) {
+            return "index";
+        }
         return "login";
     }
 
@@ -83,7 +82,7 @@ public class PagesController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult /*, @RequestParam("username") String name,
                                @RequestParam("password") String password,
-                               @RequestParam("passwordConfirm") String passwordConfirm */){
+                               @RequestParam("passwordConfirm") String passwordConfirm */) {
 
         userValidator.validate(userForm, bindingResult);
 
@@ -112,10 +111,9 @@ public class PagesController {
         return "cabinet";
     }
 
-    @GetMapping("/newsPage")
-    public String newsPage(){
+    @GetMapping("newsPage-{id}")
+    public String newsPage(@PathVariable("id") int id, Model model){
+        model.addAttribute("News", newsService.findOne(id));
         return "newsPage";
-
     }
-
 }

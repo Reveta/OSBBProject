@@ -12,7 +12,7 @@ public interface NewsService {
 
     List<News> findALL();
 
-    News findOne(int newsId);
+    News findOne(int id);
 
     News save(News newsName);
 }

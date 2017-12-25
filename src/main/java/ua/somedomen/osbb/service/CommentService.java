@@ -9,7 +9,7 @@ public interface CommentService {
 
     List<Comments> findALL();
 
-    Comments findOne(int newsId);
+    Comments findOne(int id);
 
     Comments save(Comments comments);
 }

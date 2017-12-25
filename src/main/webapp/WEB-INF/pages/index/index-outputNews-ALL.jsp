@@ -27,7 +27,7 @@
 
 
                     <div class="col-lg-8 col-md-6 col-sm-6">
-                        <h1><a href="/newsPage">${News.newsName}</a></h1>
+                        <h1><a href="/newsPage-${News.id}">${News.newsName}</a></h1>
                         <p>${News.newsText}</p>
                     </div>
 
