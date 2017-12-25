@@ -5,8 +5,8 @@
 <head>
     <title>OSBB</title>
 
-    <link href="${contextPath}/style/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${contextPath}/style/css/common.css" rel="stylesheet">
+    <link href="/style/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/style/css/common.css" rel="stylesheet">
 
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -29,6 +29,9 @@
 
         <%@include file="/style/index/outputNewsAndVoting-ALL.css" %>
     </style>
+
+
 </head>
 <body>
+
 

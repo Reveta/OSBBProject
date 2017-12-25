@@ -3,6 +3,8 @@
 
 <section id="news">
     <div class="container-fluid">
+
+
         <div class="row">
             <div class="col-lg-12 margin-bottom-70">
                 <h2 class="section-title">Актуальні новини та оголошення</h2>
@@ -40,6 +42,8 @@
 
             </div>
         </c:forEach>
+
+
     </div>
     </div>
 </section>

@@ -14,9 +14,9 @@ import ua.somedomen.osbb.service.NewsService;
 import ua.somedomen.osbb.service.StatusService;
 import ua.somedomen.osbb.service.VotingService;
 
-import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+
 
 
 @Controller

@@ -9,6 +9,7 @@
 <sec:authorize access="hasAnyRole('ADMIN')">
     <%@include file="admin/admin-inputNewsAndVoting-Admin.jsp" %>
 </sec:authorize>
+<%@include file="index/index-status-USER.jsp" %>
 <%@include file="index/index-bigPicture-ALL.jsp" %>
 <%@include file="index/index-outputNews-ALL.jsp" %>
 <%@include file="index/index-googleMap-ALL.jsp" %>

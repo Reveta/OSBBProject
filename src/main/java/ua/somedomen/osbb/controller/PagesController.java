@@ -17,8 +17,6 @@ import ua.somedomen.osbb.validator.UserValidator;
 
 import java.security.Principal;
 
-//import ua.somedomen.osbb.service.SecurityService;
-
 @Controller
 public class PagesController {
 
@@ -114,4 +112,5 @@ public String index(Model model/*, Principal principal*/) {
         model.addAttribute("News", newsService.findOne(id));
         return "newsPage";
     }
+
 }

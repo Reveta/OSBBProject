@@ -33,11 +33,14 @@ public class EditingModelController {
     public String testUpdate(
             @RequestParam int id,
             @RequestParam String newsName,
+            @RequestParam String newsShort,
             @RequestParam String newsText) {
 
         News thisis = newsService.findOne(id);
 
+        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
         thisis.setNewsName(newsName);
+        thisis.setNewsText(newsShort);
         thisis.setNewsText(newsText);
         newsService.save(thisis);
 
