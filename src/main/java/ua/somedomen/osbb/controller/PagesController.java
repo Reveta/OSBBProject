@@ -1,13 +1,10 @@
 package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
 import ua.somedomen.osbb.service.StatusService;
@@ -16,6 +13,7 @@ import ua.somedomen.osbb.service.VotingService;
 import ua.somedomen.osbb.validator.UserValidator;
 
 import java.security.Principal;
+
 
 @Controller
 public class PagesController {
@@ -112,5 +110,4 @@ public String index(Model model/*, Principal principal*/) {
         model.addAttribute("News", newsService.findOne(id));
         return "newsPage";
     }
-
 }
