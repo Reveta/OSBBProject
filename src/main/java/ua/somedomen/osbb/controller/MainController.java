@@ -2,6 +2,8 @@ package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.somedomen.osbb.entity.Comments;
@@ -18,8 +20,9 @@ import java.util.Date;
 import java.util.List;
 
 
+
 @Controller
-public class MainController{
+public class MainController {
 
     @Autowired
     private VotingService votingService;
@@ -29,6 +32,7 @@ public class MainController{
 
     @Autowired
     private StatusService statusService;
+
 
 
     @PostMapping("/addNews")
@@ -41,7 +45,6 @@ public class MainController{
 
         return "redirect:/";
     }
-
 
     @PostMapping("/addVoting")
     public String addVoting(
@@ -83,7 +86,6 @@ public class MainController{
 
         return "redirect:/";
     }
-
     @PostMapping("/addComment")
     public String addComment(
             @RequestParam int id,
@@ -94,16 +96,16 @@ public class MainController{
 
         News thisis = newsService.findOne(id);
 
-            //Не зважайте на червоні методи, LomBok працює, все гаразд :)
-            List<Comments> commentsList = thisis.getNewsComment();
-            commentsList.add(new Comments(commentValue, String.valueOf(new Date()), thisis));
+        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
+        List<Comments> commentsList = thisis.getNewsComment();
+        commentsList.add(new Comments(commentValue, String.valueOf(new Date()), thisis));
 
-            thisis.setNewsName(thisis.getNewsName());
-            thisis.setNewsText(thisis.getNewsText());
-            thisis.setNewsComment(commentsList);
+        thisis.setNewsName(thisis.getNewsName());
+        thisis.setNewsText(thisis.getNewsText());
+        thisis.setNewsComment(commentsList);
         newsService.save(thisis);
 
-         return "redirect:/";
+        return "redirect:/";
     }
 
     //Мапінг для статуса
@@ -113,7 +115,7 @@ public class MainController{
             @RequestParam String statusName,
             @RequestParam String statusText){
 
-                //Зберегти(Створити) новий статус за допомогою наслідуваного метода з сервісРівня
+        //Зберегти(Створити) новий статус за допомогою наслідуваного метода з сервісРівня
         statusService.save(new Status(String.valueOf(new Date()), statusName, statusText));
 
         return "redirect:/";

@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comments findOne(int newsId) {
+    public Comments findOne(int id) {
         return null;
     }
 

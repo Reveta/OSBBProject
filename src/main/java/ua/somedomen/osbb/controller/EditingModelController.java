@@ -51,9 +51,9 @@ public class EditingModelController {
     @PostMapping("/updatePersonalInfo")
     public String updatePersonalInfo(
             @RequestParam int id,
+            @RequestParam String email,
             @RequestParam String name,
             @RequestParam String prename,
-            @RequestParam String email,
             @RequestParam String phoneNumber,
             @RequestParam String someInfo) {
 
@@ -64,7 +64,7 @@ public class EditingModelController {
         thisis.setPrename(prename);
         thisis.setPhoneNumber(phoneNumber);
         thisis.setSomeInfo(someInfo);
-        userService.save(thisis);
+        userService.saveWithoutPassword(thisis);
 
         return "redirect:/";
     }
