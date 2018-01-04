@@ -12,6 +12,8 @@ import ua.somedomen.osbb.service.NewsService;
 import ua.somedomen.osbb.service.StatusService;
 import ua.somedomen.osbb.service.VotingService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -43,11 +45,41 @@ public class MainController{
 
     @PostMapping("/addVoting")
     public String addVoting(
-            @RequestParam("votingName") String votingName,
-            @RequestParam("votingText") String votingText){
+            @RequestParam String votingName,
+            @RequestParam String votingShort,
+            @RequestParam String votingText) {
         System.out.println(votingName);
+        System.out.println(votingShort);
         System.out.println(votingText);
-        votingService.addVoting(new Voting(votingName, votingText));
+
+        votingService.save(new Voting(votingName, votingShort, votingText, String.valueOf(new Date()), 0, 0));
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/addTrue")
+    public String addTrue(@RequestParam int id, HttpServletRequest request, Principal principal) {
+        int value = Integer.parseInt(request.getParameter("count"));
+
+//        Voting thisIS = votingService.findByVotingAndUserId(id, principal.getName());
+        Voting thisIS = votingService.findOne(id);
+        thisIS.setVotingTrue(value + 1);
+
+        votingService.save(thisIS);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/addFalse")
+    public String addFalse(@RequestParam int id, HttpServletRequest request, Principal principal) {
+        int value = Integer.parseInt(request.getParameter("count"));
+
+//        Voting thisIS = votingService.findByVotingAndUserId(id, principal.getName());
+        Voting thisIS = votingService.findOne(id);
+
+        thisIS.setVotingFalse(value + 1);
+
+        votingService.save(thisIS);
 
         return "redirect:/";
     }

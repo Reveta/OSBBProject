@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.*;
 import ua.somedomen.osbb.validator.UserValidator;
@@ -95,11 +92,10 @@ public class PagesController {
         return "cabinet";
     }
 
-    @GetMapping("/oneNews&&comments")
-    public String newsAndComments() {
-
-        return "oneNews&&comments";
-
+    @GetMapping("newsPage-{id}")
+    public String newsPage(@PathVariable("id") int id, Model model){
+        model.addAttribute("News", newsService.findOne(id));
+        return "newsPage";
     }
 
 }

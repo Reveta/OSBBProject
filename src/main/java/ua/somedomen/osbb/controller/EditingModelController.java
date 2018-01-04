@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.somedomen.osbb.entity.News;
+import ua.somedomen.osbb.entity.Voting;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
 import ua.somedomen.osbb.service.UserService;
@@ -67,5 +68,24 @@ public class EditingModelController {
 
         return "redirect:/";
     }
+
+    @PostMapping("/votingUpdate")
+    public String votingUpdate(
+            @RequestParam int id,
+            @RequestParam String votingName,
+            @RequestParam String votingShort,
+            @RequestParam String votingText) {
+
+        Voting thisis = votingService.findOne(id);
+
+        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
+        thisis.setVotingName(votingName);
+        thisis.setVotingShort(votingShort);
+        thisis.setVotingText(votingText);
+        votingService.save(thisis);
+
+        return "redirect:/";
+    }
+
 
 }

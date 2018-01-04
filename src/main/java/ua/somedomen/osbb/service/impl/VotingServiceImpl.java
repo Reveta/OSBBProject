@@ -16,14 +16,25 @@ public class VotingServiceImpl implements VotingService {
     @Autowired
     private VotingDAO votingDAO;
 
+
     @Override
-    public void addVoting(Voting voting)
-    {
-        votingDAO.save(voting);
+    public Voting save(Voting voting) {
+        return votingDAO.save(voting);
     }
 
     @Override
     public List<Voting> findALL() {
         return votingDAO.findAll();
     }
+
+    @Override
+    public Voting findOne(int votingId) {
+        return votingDAO.findOne(votingId);
+    }
+
+    @Override
+    public Voting findByVotingAndUserId(int id, String username) {
+        return votingDAO.findByVotingAndUserId(id, username);
+    }
+
 }

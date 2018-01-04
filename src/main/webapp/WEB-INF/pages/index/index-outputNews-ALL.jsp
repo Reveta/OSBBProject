@@ -28,9 +28,7 @@
 
 
                 <div class="col-lg-8 col-md-6 col-sm-6">
-                    <h1>
-                            <a href="/newsPage">Ім'я новини:${News.newsName}</a>
-                    </h1>
+                    <h1><a href="/newsPage-${News.id}">${News.newsName}</a></h1>
                     <p>${News.newsTime}</p>
                     <p>Текст новини: ${News.newsShort}</p>
                     <p>Текст новини: ${News.newsText}</p>
@@ -42,8 +40,5 @@
 
             </div>
         </c:forEach>
-
-
-    </div>
     </div>
 </section>
