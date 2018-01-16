@@ -37,4 +37,8 @@ public class VotingServiceImpl implements VotingService {
         return votingDAO.findByVotingAndUserId(id, username);
     }
 
+    @Override
+    public void delete(int id) {
+        votingDAO.delete(id);
+    }
 }

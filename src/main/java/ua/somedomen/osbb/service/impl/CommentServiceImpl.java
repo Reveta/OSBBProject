@@ -23,11 +23,16 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comments findOne(int id) {
-        return null;
+        return commentDAO.findById(id);
     }
 
     @Override
     public Comments save(Comments comments) {
-        return null;
+        return commentDAO.save(comments);
+    }
+
+    @Override
+    public void delete(int id) {
+        commentDAO.delete(id);
     }
 }

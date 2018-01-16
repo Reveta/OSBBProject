@@ -2,7 +2,13 @@
 
 <div class="commentBlock">
     <c:forEach items="${News.newsComment}" var="Comment">
-        <p1>${Comment.userName}  ${Comment.time}</p1>
+
+        <form action="/deleteComment">
+            <input type="hidden" name="newsId" value="${News.id}">
+            <input type="hidden" name="commentId" value="${15}">
+            <input type="submit" value="X">
+        </form>
+        <p1>${Comment.userName} ${Comment.time}</p1>
         <br>
         ${Comment.commentValue}
         <br>

@@ -7,6 +7,10 @@
 
 
     <div class="col-lg-8 col-md-6 col-sm-6">
+        <form action="/deleteVoting">
+            <input type="hidden" name="id" value="${Voting.id}">
+            <input type="submit" value="X">
+        </form>
         <h1>
             <a href="/newsPage">Ім'я голосування:${Voting.votingName}</a>
         </h1>

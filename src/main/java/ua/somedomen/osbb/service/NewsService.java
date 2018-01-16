@@ -15,4 +15,6 @@ public interface NewsService {
     News findOne(int id);
 
     News save(News newsName);
+
+    void delete(int id);
 }

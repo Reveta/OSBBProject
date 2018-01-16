@@ -14,4 +14,5 @@ public interface VotingService{
 
     Voting findByVotingAndUserId(int id, String username);
 
+    void delete(int id);
 }

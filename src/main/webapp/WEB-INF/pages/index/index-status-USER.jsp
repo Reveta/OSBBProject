@@ -23,7 +23,11 @@
         ${Status.statusName};
         <%--вивести текст статуса--%>
         ${Status.statusText};
+        <form action="/deleteStatus">
+            <input type="hidden" name="id" value="${Status.id}">
+            <input type="submit" value="X">
+        </form>
 
     </c:forEach>
-</sec:authorize>
 </div>
+</sec:authorize>

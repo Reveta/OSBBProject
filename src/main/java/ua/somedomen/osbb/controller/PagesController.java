@@ -6,12 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.somedomen.osbb.entity.securityEntity.User;
-import ua.somedomen.osbb.service.NewsService;
-import ua.somedomen.osbb.service.StatusService;
-import ua.somedomen.osbb.service.UserService;
-import ua.somedomen.osbb.service.VotingService;
+import ua.somedomen.osbb.service.*;
 import ua.somedomen.osbb.validator.UserValidator;
 
+import javax.xml.stream.events.Comment;
 import java.security.Principal;
 
 
@@ -32,6 +30,9 @@ public class PagesController {
 
     @Autowired
     private StatusService statusService;
+
+    @Autowired
+    private CommentService commentService;
 
 
 

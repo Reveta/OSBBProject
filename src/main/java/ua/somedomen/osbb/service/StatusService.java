@@ -10,4 +10,6 @@ public interface StatusService {
     Status save (Status status);
 
     List<Status> findAll();
+
+    void delete(int id);
 }

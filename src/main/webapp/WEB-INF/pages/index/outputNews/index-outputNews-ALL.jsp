@@ -23,17 +23,21 @@
 
 
                 <sec:authorize access="hasAnyRole('ADMIN')">
-                    <%@include file="editingNews/editingNews.jsp" %>
+                    <%@include file="../editingNews/editingNews.jsp" %>
                 </sec:authorize>
 
 
                 <div class="col-lg-8 col-md-6 col-sm-6">
+                <form action="/deleteNews">
+                    <input type="hidden" name="id" value="${News.id}">
+                    <input type="submit" value="X">
+                </form>
                     <h1><a href="/newsPage-${News.id}">${News.newsName}</a></h1>
                     <p>${News.newsTime}</p>
                     <p>Текст новини: ${News.newsShort}</p>
                     <p>Текст новини: ${News.newsText}</p>
 
-                    <%@include file="outputNews/outputNewsComment.jsp" %>
+                    <%@include file="outputNewsComment.jsp" %>
 
                 </div>
 
