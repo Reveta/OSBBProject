@@ -39,91 +39,88 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <sec:authorize access="hasAnyRole('USER')">
-                    <li class="active"><a href="/cabinet">Кабінет</a></li>
+                        <li class="active"><a href="/cabinet">Кабінет</a></li>
                     </sec:authorize>
                     <%--<li><a href="#">Голосування</a></li>--%>
                     <%--<li><a href="#">Документи</a></li>--%>
-                    <sec:authorize access="hasAnyRole('USER','ADMIN')">
-                    <li>
-                        <a href="#" id="vissible-category">Статус
-                            <!--<span class="glyphicon glyphicon-menu-down test" aria-hidden="true"></span>-->
-                        </a>
-                    </li>
-                    </sec:authorize>
-                    <sec:authorize access="hasAnyRole('USER','ADMIN')">
-                    <li>
-                        <a href="/logout">Вихід
-                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                        </a>
-                    </li>
-                    </sec:authorize>
-
                     <sec:authorize access="isAnonymous()">
-                    <li>
-                        <a href="/login">Увійти
-                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                        </a>
-                    </li>
+                        <li id="log-in">
+                            <a href="/login">Вхід
+                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                            </a>
+                        </li>
                     </sec:authorize>
-
+                    <sec:authorize access="hasAnyRole('USER','ADMIN')">
+                        <li id="log-out">
+                            <a href="/logout">Вихід
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                    </sec:authorize>
                     <li class="nav-date" id="nav-date"></li>
                 </ul>
             </div>
         </div>
     </nav>
-
-
-    <div id="categories" class="nav-categories">
-        <div class="container">
-            <ul class="nav navbar-nav navbar-right navbar-categories">
-                <c:forEach items="${statusShowAll}" var="Status">
-                <li>
-                    <a href="#category">${Status.statusName}; ${Status.statusText};
-                        <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
-                    </a>
-                    <form action="/deleteStatus">
-                        <input type="hidden" name="id" value="${Status.id}">
-                        <input type="submit" value="X">
-                    </form>
-                </li>
-                </c:forEach>
-            </ul>
-        </div>
-    </div>
 </header>
 
 <section id="main-page" class="main-page">
     <div id="news" class="news">
         <div class="container container-news">
+            <div class="news-status-container">
+                <div id="status" class="nav-status">
+                    <ul class="nav navbar-nav navbar-left navbar-status">
+                        <c:forEach items="${statusShowAll}" var="Status">
+                            <li class="active">
+                                <a href="#status">${Status.statusName}; ${Status.statusText}
+                                    <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                                </a>
+                                <form action="/deleteStatus">
+                                    <input type="hidden" name="id" value="${Status.id}">
+                                    <input type="submit" value="X">
+                                </form>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- News Slider -->
             <div id="news-slider" class="news-slider">
                 <div class="news-slider-list">
                     <div class="news-slider-item " id="news-slider-item-1">
                         <div class="news-slider-container">
                             <div class="news-slider-content">
-                                <h3><a href="#news-date" class="gold">${newsLast.newsTime}</a></h3>
-                                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h1>
-                                <p>${newsLast.newsText}</p>
-                                <div class="news-meta">
-                                    <div class="news-meta-content">
-                                        <span class="news-author-date">
-                                            <a href="https://vk.com/reveta_ua">
-                                                <img src="sourses/img/punkiv.jpg" alt="Punkiv">
-                                            </a>
-                                            <span>
-                                                <a href="#news-author" class="news-author">Pankiv,</a>
+                                <div class="news-slider-header">
+                                    <h3><a href="#news-date" class="gold">${newsLast.newsTime}</a></h3>
+                                    <h1>${newsLast.newsName}</h1>
+                                </div>
+                                <div class="news-slider-section">
+                                    <p> ${newsLast.newsText} </p>
+                                </div>
+                                <div class="news-slider-footer">
+                                    <div class="news-meta">
+                                        <div class="news-meta-content">
+                                            <span class="news-author-date">
+                                                <a href="https://vk.com/reveta_ua">
+                                                    <img src="sourses/img/pankiv.jpg" alt="Pankiv">
+                                                </a>
+                                                <span>
+                                                    <a href="#news-author" class="news-author">Pankiv,</a>
+                                                </span>
+                                                <a href="#news-date" class="news-date">${newsLast.newsTime} </a>
                                             </span>
-                                            <a href="#news-date" class="news-date">11 minute ago</a>
-                                        </span>
-                                        <a href="#news-coments" class="news-coments">
-                                            <span class="glyphicon glyphicon-comment"></span> 1
-                                        </a>
-                                        <span class="news-readtime">
-                                            <span class="glyphicon glyphicon-time"></span>1 min<span>read</span>
-                                        </span>
-                                        <span class="news-views">
-                                            <span class="glyphicon glyphicon-eye-open"></span>2395
-                                        </span>
-                                        <span></span>
+                                            <a href="#news-coments" class="news-coments">
+                                                <span class="glyphicon glyphicon-comment"></span> 1
+                                            </a>
+                                            <span class="news-readtime">
+                                                <span class="glyphicon glyphicon-time"></span>1 min<span>read</span>
+                                            </span>
+                                            <span class="news-views">
+                                                <span class="glyphicon glyphicon-eye-open"></span>2395
+                                            </span>
+                                            <span></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -131,137 +128,63 @@
                     </div>
                 </div>
 
-
-
                 <div class="news-slider-mini-list">
                     <c:forEach items="${newsListTree}" var="News">
-
-
-                    <div class="news-mini-item">
-                        <div class="news-mini-img news-mini-img-1"></div>
-                        <div class="news-mini-content">
-                            <div class="news-mini-date-container">
-                                <div class="news-mini-dates">
-                                    <a href="#date" class="news-mini-date"> ${News.newsTime}; ${News.newsName}</a>
-                                </div>
+                        <div class="news-mini-item">
+                            <div class="news-mini-img" id="news-mini-img-1">
+                                <img src="sourses/img/news1.jpg" alt="news">
                             </div>
-                            <h4 class="news-mini-title">
-                                <a href="#news">${News.newsShort};</a>
-                            </h4>
+                            <div class="news-mini-content">
+                                <div class="news-mini-date-container">
+                                    <div class="news-mini-dates">
+                                        <a href="#date" class="news-mini-date gold"> ${News.newsTime}; </a>
+                                    </div>
+                                </div>
+                                <h4 class="news-mini-title">
+                                    <a href="#news">${News.newsShort};</a>
+                                </h4>
+                            </div>
                         </div>
-                    </div>
                     </c:forEach>
 
-
                 </div>
-
-
-
             </div>
         </div>
     </div>
 
     <div id="archive-news" class="archive-news">
-        <!--        <div class="container">-->
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <div class="carousel">
+            <div class="carousel-button carousel-button-prev" id="carousel-button-prev">
+                <a href="#prev" class="gold">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="carousel-button carousel-button-next" id="carousel-button-next">
+                <a href="#next" class="gold">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </a>
+            </div>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-2">
+            //Карусель працює не правильно, воно кожного разу підтягує інфу з бази
+
+            <div class="container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-items">
+                        <c:forEach items="${newsShowAll}" var="News">
+                            <div class="carousel-item">
                                 <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
+                                    <p class="archive-news-date"><a href="#date"> ${News.newsTime};</a></p>
+                                    <p class="archive-news-title"><a href="#news">${News.newsName}</a></p>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="archive-news-item">
-                                    <p class="archive-news-date"><a href="#date"> 15.01.2018 </a></p>
-                                    <p class="archive-news-title"><a href="#news">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit.</a></p>
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
 
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
-        <!--        </div>-->
+
+    </div>
     </div>
 </section>
 

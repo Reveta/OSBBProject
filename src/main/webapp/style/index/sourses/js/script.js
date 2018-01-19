@@ -11,29 +11,41 @@ function getTopDate() {
     
     var topDate = new Date();
     
-    $('#nav-date').append(
+    $("#nav-date").append(
         '<span class="date-day">' + topDate.getDate() + '</span>' + '<span class="date-meta">' +
             '<span class="date-month">' + topDate.getMonthName() + '</span>' + '<br>' +
             '<span class="date-year">' + topDate.getFullYear() + '</span>' + '</span>'
     );
 }
 
-
-// Header dropdown animation
-function vissibleCategory() {
+function carouselStart() {
     "use strict";
     
-    var oH = 0, hH = 52, speed = 1000;
-    
-    function fadeOutDownAnimate() {
-        $('#categories').stop().animate({'max-height': oH, 'owerflow': 'hidden'}, speed);
+    function prevCarousel(carousel, itemWidth, speed) {
+        $(carousel).find(".carousel-items .carousel-item").eq(-1).clone().prependTo($(carousel).find(".carousel-items"));
+        $(carousel).find(".carousel-items").css({"left": "-" + itemWidth + "px"});
+        $(carousel).find(".carousel-items .carousel-item").eq(-1).remove();
+        $(carousel).find(".carousel-items").animate({left: "0px"}, speed);
     }
     
-    function fadeInDownAnimate() {
-        $('#categories').stop().animate({'max-height': hH, 'owerflow': 'vissible'}, speed);
+    function nextCarousel(carousel, itemWidth, speed) {
+        $(carousel).find(".carousel-items .carousel-item").eq(0).clone().appendTo($(carousel).find(".carousel-items"));
+        $(carousel).find(".carousel-items").css({"left": "0px"});
+        $(carousel).find(".carousel-items .carousel-item").eq(0).remove();
+        $(carousel).find(".carousel-items").animate({left: "-" + itemWidth + "px"}, speed);
     }
     
-    $('#vissible-category, #categories').hover(fadeInDownAnimate, fadeOutDownAnimate);
+    $(".carousel-button").on("click", function () {
+        var id = $(this).attr("id"), speed = 800, carousel = $(this).parents(".carousel"), itemWidth = $(carousel).find(".carousel-item").outerWidth();
+        
+        if (id === "carousel-button-prev") {
+            prevCarousel(carousel, itemWidth, speed);
+            return false;
+            
+        } else if (id === "carousel-button-next") {
+            nextCarousel(carousel, itemWidth, speed);
+        }
+    });
 }
 
 // Document ready function
@@ -41,9 +53,5 @@ $(document).ready(function () {
     "use strict";
     
     getTopDate();
-    vissibleCategory();
-    $('.carousel').carousel({
-    interval: 3000,
-    pause: "true"
-    });
+    carouselStart();
 });
