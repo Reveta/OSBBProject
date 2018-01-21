@@ -2,23 +2,22 @@ package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.somedomen.osbb.entity.Comments;
 import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.Status;
 import ua.somedomen.osbb.entity.Voting;
+import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
 import ua.somedomen.osbb.service.StatusService;
+import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VotingService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
-
 
 
 @Controller
@@ -33,13 +32,15 @@ public class MainController {
     @Autowired
     private StatusService statusService;
 
+    @Autowired
+    private UserService userService;
 
 
     @PostMapping("/addNews")
     public String addNews(
             @RequestParam String newsName,
             @RequestParam String newsShort,
-            @RequestParam String newsText){
+            @RequestParam String newsText) {
         newsService.addNews(new News(newsName, newsShort, newsText,
                 /*Добавляю час створення новини*/String.valueOf(new Date())));
 
@@ -64,11 +65,27 @@ public class MainController {
     public String addTrue(@RequestParam int id, HttpServletRequest request, Principal principal) {
         int value = Integer.parseInt(request.getParameter("count"));
 
-//        Voting thisIS = votingService.findByVotingAndUserId(id, principal.getName());
-        Voting thisIS = votingService.findOne(id);
-        thisIS.setVotingTrue(value + 1);
+        User user = userService.findByUsername(principal.getName());
+        Voting voting = votingService.findOne(id);
 
-        votingService.save(thisIS);
+//        if (!voting.getUsers().contains(user)) { // чого воно не паше?
+        if (!user.getVotings().contains(voting)) {
+//            user.getVotings().add(voting);
+            voting.getUsers().add(user);
+            voting.setVotingTrue(value + 1);
+        } else {
+            System.out.println("ви вже голосували!!!!!!!!!!!!!!");
+        }
+//
+        for (Object obh : voting.getUsers()) {
+            System.out.println(obh.toString());
+        }
+        for (Object obh : user.getVotings()) {
+            System.out.println(obh.toString());
+        }
+
+        votingService.save(voting);
+//        userService.saveWithoutPassword(user);
 
         return "redirect:/";
     }
@@ -77,21 +94,28 @@ public class MainController {
     public String addFalse(@RequestParam int id, HttpServletRequest request, Principal principal) {
         int value = Integer.parseInt(request.getParameter("count"));
 
-//        Voting thisIS = votingService.findByVotingAndUserId(id, principal.getName());
-        Voting thisIS = votingService.findOne(id);
+        User user = userService.findByUsername(principal.getName());
+        Voting voting = votingService.findOne(id);
 
-        thisIS.setVotingFalse(value + 1);
+        if (!user.getVotings().contains(voting)) {
+//            user.getVotings().add(voting);
+            voting.getUsers().add(user);
+            voting.setVotingFalse(value + 1);
+        } else {
+            System.out.println("ви вже голосували!!!!!!!!!!!!!!");
+        }
 
-        votingService.save(thisIS);
+        votingService.save(voting);
 
         return "redirect:/";
     }
+
     @PostMapping("/addComment")
     public String addComment(
             @RequestParam int id,
             @RequestParam String commentValue
 //            @RequestParam String userName
-    ){
+    ) {
 // Параметри авторизованого користувача, без Principal не вивести.
 
         News thisis = newsService.findOne(id);
@@ -113,7 +137,7 @@ public class MainController {
     public String addStatus(
             //Приймає два поля інформації
             @RequestParam String statusName,
-            @RequestParam String statusText){
+            @RequestParam String statusText) {
 
         //Зберегти(Створити) новий статус за допомогою наслідуваного метода з сервісРівня
         statusService.save(new Status(String.valueOf(new Date()), statusName, statusText));
