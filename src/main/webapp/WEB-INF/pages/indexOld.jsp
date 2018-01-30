@@ -6,7 +6,7 @@
 <%@include file="tmp/head.jsp" %>
 
 <%@include file="tmp/navbar.jsp" %>
-<sec:authorize access="hasAnyRole('ADMIN')">
+<sec:authorize access="hasAnyRole('USER')">
     <%@include file="admin/admin-inputNewsAndVoting-Admin.jsp" %>
 </sec:authorize>
 <%@include file="indexOld/index-status-USER.jsp" %>

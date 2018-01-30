@@ -3,58 +3,105 @@ package ua.somedomen.osbb.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Setter
 @Getter
-@ToString
 public class Voting{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String votingName;
-    private String votingShort;
-    private String votingText;
+    private boolean status;
+    private String votingName = "Ваше звичайне голосування";
+    private String votingShort = "Програмісти також люди";
+    private String votingText = "Подайте на хліб";
     private String votingTime;
 
-    private int votingTrue;
-    private int votingFalse;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "voteList")
+    private List<Vote> voteList;
 
-
-    public Voting(String votingName, String votingShort, String votingText, String votingTime, int votingTrue, int votingFalse) {
+    public Voting(boolean status, String votingName, String votingShort, String votingText, String votingTime) {
+        this.status = status;
         this.votingName = votingName;
         this.votingShort = votingShort;
         this.votingText = votingText;
         this.votingTime = votingTime;
-        this.votingTrue = votingTrue;
-        this.votingFalse = votingFalse;
     }
 
     public Voting() {
     }
 
-    public int getVotingTrue() {
-        return votingTrue;
+    @Override
+    public String toString() {
+        return "Voting{" +
+                "id=" + id +
+                ", votingName='" + votingName + '\'' +
+                ", votingShort='" + votingShort + '\'' +
+                ", votingText='" + votingText + '\'' +
+                ", votingTime='" + votingTime + '\'' +
+                '}';
     }
 
-    public void setVotingTrue(int votingTrue) {
-        this.votingTrue = votingTrue;
+    public boolean isStatus() {
+        return status;
     }
 
-    public int getVotingFalse() {
-        return votingFalse;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
-    public void setVotingFalse(int votingFalse) {
-        this.votingFalse = votingFalse;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getVotingName() {
+        return votingName;
+    }
+
+    public void setVotingName(String votingName) {
+        this.votingName = votingName;
+    }
+
+    public String getVotingShort() {
+        return votingShort;
+    }
+
+    public void setVotingShort(String votingShort) {
+        this.votingShort = votingShort;
+    }
+
+    public String getVotingText() {
+        return votingText;
+    }
+
+    public void setVotingText(String votingText) {
+        this.votingText = votingText;
+    }
+
+    public String getVotingTime() {
+        return votingTime;
+    }
+
+    public void setVotingTime(String votingTime) {
+        this.votingTime = votingTime;
+    }
+
+    public List<Vote> getVoteList() {
+        return voteList;
+    }
+
+    public void setVoteList(List<Vote> voteList) {
+        this.voteList = voteList;
     }
 }
 

@@ -46,46 +46,35 @@ public class MainController {
         return "redirect:/";
     }
 
-    @PostMapping("/addVoting")
-    public String addVoting(
-            @RequestParam String votingName,
-            @RequestParam String votingShort,
-            @RequestParam String votingText) {
-        System.out.println(votingName);
-        System.out.println(votingShort);
-        System.out.println(votingText);
 
-        votingService.save(new Voting(votingName, votingShort, votingText, String.valueOf(new Date()), 0, 0));
 
-        return "redirect:/";
-    }
+//    @PostMapping("/addTrue")
+//    public String addTrue(@RequestParam int id, HttpServletRequest request, Principal principal) {
+//        int value = Integer.parseInt(request.getParameter("count"));
+//
+////        Voting thisIS = votingService.findByVotingAndUserId(id, principal.getName());
+//        Voting thisIS = votingService.findOne(id);
+////        thisIS.setVotingTrue(value + 1);
+//
+//        votingService.save(thisIS);
+//
+//        return "redirect:/";
+//    }
+//
+//    @PostMapping("/addFalse")
+//    public String addFalse(@RequestParam int id, HttpServletRequest request, Principal principal) {
+//        int value = Integer.parseInt(request.getParameter("count"));
+//
+////        Voting thisIS = votingService.findByVotingAndUserId(id, principal.getName());
+//        Voting thisIS = votingService.findOne(id);
+//
+////        thisIS.setVotingFalse(value + 1);
+//
+//        votingService.save(thisIS);
+//
+//        return "redirect:/";
+//    }
 
-    @PostMapping("/addTrue")
-    public String addTrue(@RequestParam int id, HttpServletRequest request, Principal principal) {
-        int value = Integer.parseInt(request.getParameter("count"));
-
-//        Voting thisIS = votingService.findByVotingAndUserId(id, principal.getName());
-        Voting thisIS = votingService.findOne(id);
-        thisIS.setVotingTrue(value + 1);
-
-        votingService.save(thisIS);
-
-        return "redirect:/";
-    }
-
-    @PostMapping("/addFalse")
-    public String addFalse(@RequestParam int id, HttpServletRequest request, Principal principal) {
-        int value = Integer.parseInt(request.getParameter("count"));
-
-//        Voting thisIS = votingService.findByVotingAndUserId(id, principal.getName());
-        Voting thisIS = votingService.findOne(id);
-
-        thisIS.setVotingFalse(value + 1);
-
-        votingService.save(thisIS);
-
-        return "redirect:/";
-    }
     @PostMapping("/addComment")
     public String addComment(
             @RequestParam int id,

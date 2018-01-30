@@ -22,7 +22,7 @@ public class Comments {
     private String commentValue;
     private String time;
     private String userName;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private News news;
 
 

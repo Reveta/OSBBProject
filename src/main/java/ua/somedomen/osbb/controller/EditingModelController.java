@@ -79,9 +79,9 @@ public class EditingModelController {
         Voting thisis = votingService.findOne(id);
 
         //Не зважайте на червоні методи, LomBok працює, все гаразд :)
-        thisis.setVotingName(votingName);
-        thisis.setVotingShort(votingShort);
-        thisis.setVotingText(votingText);
+//        thisis.setVotingName(votingName);
+//        thisis.setVotingShort(votingShort);
+//        thisis.setVotingText(votingText);
         votingService.save(thisis);
 
         return "redirect:/";

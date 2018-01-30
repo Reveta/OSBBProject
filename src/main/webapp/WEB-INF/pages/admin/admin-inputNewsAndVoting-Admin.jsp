@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <style>
     <%@include file='/style/index/inputNewsAndVoting-Admin.css' %>
@@ -15,6 +16,22 @@
             <input type="reset">
         </form>
     </div>
+
+    <%--<sec:authentication var="user" property="principal">--%>
+        <%--<sec:authorize access="hasAnyRole('USER') and isAuthenticated()">--%>
+            <div class="votingInput col-xs-6">
+                <form action="/addVote" method="post">
+                    <input type="hidden" name="votingId" value="${votingActive.id}">
+                    <input type="text" name="vote" placeholder="true/false">
+
+                    <input type="hidden" name="userId" value="${user.id}">
+
+                    <input type="submit" value="addVote">
+                    <input type="reset">
+                </form>
+            </div>
+        <%--</sec:authorize>--%>
+    <%--</sec:authentication>--%>
 
     <div class="newsInput col-xs-6">
         <form action="/addNews" method="post">

@@ -1,11 +1,14 @@
 package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.somedomen.osbb.entity.News;
+import ua.somedomen.osbb.entity.Voting;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.*;
 import ua.somedomen.osbb.validator.UserValidator;
@@ -29,6 +32,9 @@ public class PagesController {
     private VotingService votingService;
 
     @Autowired
+    private VoteService voteService;
+
+    @Autowired
     private NewsService newsService;
 
     @Autowired
@@ -46,27 +52,39 @@ public class PagesController {
 //        }
     @GetMapping("/")
 //Працюємо над тим як виводити принціпал навіть якщо його немає, soon be end
-    public String index(Model model/*, Principal principal*/) {
-//        User byUsername = userService.findByUsername(principal.getName());
+    public String index(Model model , Principal principal) {
+        Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails byUsername = userService.loadUserByUsername( principalO instanceof UserDetails ?
+                principal.getName() : "яяяяяя");
 
-//      model.addAttribute("user", principal.getName());
-//    int cout = 0;
         List<News> newsListTree = new ArrayList<>();
         List<News> newsListFull = newsService.findALL();
 
-        News newsLast = newsListFull.get(newsListFull.size() - 1);
+//        News newsLast = newsListFull.get(newsListFull.size() - 1);
 
-        newsListTree.add(newsLast);
-        newsListTree.add(newsListFull.get(newsListFull.size() - 2));
-        newsListTree.add(newsListFull.get(newsListFull.size() - 3));
+//        newsListTree.add(newsLast);
+//        newsListTree.add(newsListFull.get(newsListFull.size() - 2));
+//        newsListTree.add(newsListFull.get(newsListFull.size() - 3));
 
 
-        model.addAttribute("newsLast", newsLast);
-        model.addAttribute("newsListTree", newsListTree);
+        Voting votingActive = null;
+        List<Voting> votingList = votingService.findALL();
+        for (int i = 0; i < votingList.size(); i++) {
+            Voting voting = votingList.get(i);
+            if (voting.isStatus() == true){
+                votingActive = voting;
+            }
+        }
+
+//        model.addAttribute("newsLast", newsLast);
+//        model.addAttribute("newsListTree", newsListTree);
         model.addAttribute("statusShowAll", statusService.findAll());
         model.addAttribute("votingShowAll", votingService.findALL());
+//        model.addAttribute("voteShowCom", voteService.findALL());
         model.addAttribute("newsShowAll", newsListFull);
-        return "index";
+        model.addAttribute("votingActive", votingActive);
+        model.addAttribute("user", byUsername);
+        return "indexOld";
     }
 
 

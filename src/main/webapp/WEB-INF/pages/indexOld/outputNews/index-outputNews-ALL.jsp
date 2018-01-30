@@ -2,6 +2,7 @@
 
 
 <section id="news">
+    <div>Новини</div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 margin-bottom-70">
