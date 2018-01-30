@@ -21,30 +21,29 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "votings")
-public class User implements UserDetails
-{
+//@ToString(exclude = "votings")
+@ToString
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String username;
-//    @Column(updatable = false)
     private String password;
-//    @Column(updatable = false)
     private String passwordConfirm;
 
     @Email(message = "Введіть email коректно")
     private String email;
 
-    @ManyToMany( /* cascade =
+    @ManyToMany(/* cascade = CascadeType.ALL, */ /* cascade =
             {
                     CascadeType.DETACH,
                     CascadeType.MERGE,
                     CascadeType.REFRESH,
-                    CascadeType.PERSIST
+                    CascadeTe.PERSIST
             }, */ fetch = FetchType.EAGER /* targetEntity = User.class */)
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.REFRESH})
+     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.REFRESH})
+
     @JoinTable(name = "USERS_VOTINGS_TRUE",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "votings_id"))
@@ -52,6 +51,7 @@ public class User implements UserDetails
 
     @Enumerated(EnumType.STRING)
     private Authority authority = Authority.ROLE_USER;
+
 
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
@@ -99,6 +99,33 @@ public class User implements UserDetails
     }
 
 
+//    @Override
+//    public int hashCode() {
+//        final int prime = 31;
+//        int result = 1;
+//        result = prime * result + (int) (id ^ (id >>> 32));
+//        result = prime * result + ((name == null) ? 0 : name.hashCode());
+//        return result;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj)
+//            return true;
+//        if (obj == null)
+//            return false;
+//        if (!(obj instanceof User))
+//            return false;
+//        User other = (User) obj;
+//        if (id != other.id)
+//            return false;
+//        if (name == null) {
+//            if (other.name != null)
+//                return false;
+//        } else if (!name.equals(other.name))
+//            return false;
+//        return true;
+//    }
 //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;

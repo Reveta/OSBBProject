@@ -1,6 +1,8 @@
 package ua.somedomen.osbb.service;
 
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ua.somedomen.osbb.entity.securityEntity.User;
 
 import java.util.List;
@@ -14,4 +16,5 @@ public interface UserService {
 
     void saveWithoutPassword(User user);
 
+     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

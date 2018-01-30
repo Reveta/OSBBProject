@@ -9,7 +9,6 @@ import org.hibernate.annotations.Cascade;
 import ua.somedomen.osbb.entity.securityEntity.User;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,7 +17,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString(exclude = "users")
-public class Voting{
+public class Voting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +31,13 @@ public class Voting{
     private int votingTrue;
     private int votingFalse;
 
-    @ManyToMany( /*cascade =
+
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "users_votes", joinColumns = @JoinColumn(name = "Voting_id"),
+//            inverseJoinColumns = @JoinColumn(name = "User_id"))
+//    private Set<User> users;
+
+    @ManyToMany( /*cascade = CascadeType.ALL,*/ /*cascade =
             {
                     CascadeType.DETACH,
                     CascadeType.MERGE,
@@ -46,15 +51,15 @@ public class Voting{
     private Set<User> users = new LinkedHashSet<>();
 
 
-    public Voting(String votingName, String votingShort, String votingText, String votingTime, int votingTrue, int votingFalse, Set<User> users) {
-        this.votingName = votingName;
-        this.votingShort = votingShort;
-        this.votingText = votingText;
-        this.votingTime = votingTime;
-        this.votingTrue = votingTrue;
-        this.votingFalse = votingFalse;
-        this.users = users;
-    }
+//    public Voting(String votingName, String votingShort, String votingText, String votingTime, int votingTrue, int votingFalse, Set<User> users) {
+//        this.votingName = votingName;
+//        this.votingShort = votingShort;
+//        this.votingText = votingText;
+//        this.votingTime = votingTime;
+//        this.votingTrue = votingTrue;
+//        this.votingFalse = votingFalse;
+//        this.users = users;
+//    }
 
     public Voting(String votingName, String votingShort, String votingText, String votingTime, int votingTrue, int votingFalse) {
         this.votingName = votingName;
@@ -66,6 +71,29 @@ public class Voting{
     }
 
 //    @Override
+//    public int hashCode() {
+//        final int prime = 31;
+//        int result = 1;
+//        result = prime * result + (int) (id ^ (id >>> 32));
+//        return result;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj)
+//            return true;
+//        if (obj == null)
+//            return false;
+//        if (!(obj instanceof Voting))
+//            return false;
+//        Voting other = (Voting) obj;
+//        if (id != other.id)
+//            return false;
+//        return true;
+//    }
+
+
+    //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;

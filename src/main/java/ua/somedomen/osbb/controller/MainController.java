@@ -18,10 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 
 
 @Controller
 public class MainController {
+
+//    private List<Integer> usersId = new ArrayList<>();
 
     @Autowired
     private VotingService votingService;
@@ -68,24 +71,15 @@ public class MainController {
         User user = userService.findByUsername(principal.getName());
         Voting voting = votingService.findOne(id);
 
-//        if (!voting.getUsers().contains(user)) { // чого воно не паше?
-        if (!user.getVotings().contains(voting)) {
-//            user.getVotings().add(voting);
+        Predicate<Voting> p = e -> id == e.getId();
+        if (user.getVotings().stream().anyMatch(p)) {
+            System.out.println("\nВи вже голосували");
+        }else {
             voting.getUsers().add(user);
             voting.setVotingTrue(value + 1);
-        } else {
-            System.out.println("ви вже голосували!!!!!!!!!!!!!!");
-        }
-//
-        for (Object obh : voting.getUsers()) {
-            System.out.println(obh.toString());
-        }
-        for (Object obh : user.getVotings()) {
-            System.out.println(obh.toString());
         }
 
         votingService.save(voting);
-//        userService.saveWithoutPassword(user);
 
         return "redirect:/";
     }
@@ -97,12 +91,12 @@ public class MainController {
         User user = userService.findByUsername(principal.getName());
         Voting voting = votingService.findOne(id);
 
-        if (!user.getVotings().contains(voting)) {
-//            user.getVotings().add(voting);
+        Predicate<Voting> p = e -> id == e.getId();
+        if (user.getVotings().stream().anyMatch(p)) {
+            System.out.println("\nВи вже голосували");
+        }else {
             voting.getUsers().add(user);
             voting.setVotingFalse(value + 1);
-        } else {
-            System.out.println("ви вже голосували!!!!!!!!!!!!!!");
         }
 
         votingService.save(voting);
