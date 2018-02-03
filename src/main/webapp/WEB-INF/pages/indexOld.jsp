@@ -7,6 +7,8 @@
 
 <%@include file="tmp/navbar.jsp" %>
 <sec:authorize access="hasAnyRole('USER')">
+    <div> <p>Статус голосування = ${status}</p></div>
+
     <%@include file="admin/admin-inputNewsAndVoting-Admin.jsp" %>
 </sec:authorize>
 <%@include file="indexOld/index-status-USER.jsp" %>

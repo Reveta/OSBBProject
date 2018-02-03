@@ -34,16 +34,45 @@ public class Vote{
         this.vote = vote;
     }
 
-
-
     public Vote() {
     }
 
     @Override
     public String toString() {
         return "Vote{" +
-                "id=" + id +
                 ", vote='" + vote + '\'' +
-                '}';
+                '}'+ '\n';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Voting getVoteList() {
+        return voteList;
+    }
+
+    public void setVoteList(Voting voteList) {
+        this.voteList = voteList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String isVote() {
+        return vote;
+    }
+
+    public void setVote(String vote) {
+        this.vote = vote;
     }
 }

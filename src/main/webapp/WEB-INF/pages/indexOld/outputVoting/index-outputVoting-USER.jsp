@@ -4,64 +4,50 @@
 <p>Активне голосування</p>
 
     <div class="col-lg-8 col-md-6 col-sm-6">
+        <div>Початок голосування</div>
         <form action="/deleteVoting">
-            <input type="hidden" name="id" value="${votingActive.id}">
+            <input type="hidden" name="id" value="${dtoVoting.votingId}">
             <input type="submit" value="X">
         </form>
         <h1>
-            <a href="/newsPage">Ім'я голосування:${votingActive.votingName}</a>
-        </h1>
-        <%--<p>${News.newsTime}</p> // має бути voting--%>
-        <p>Короткий опис голосування: ${votingActive.votingShort}</p>
-        <p>Текст голосування: ${votingActive.votingText}</p>
-        <p>qweqrqdafsdqw</p>
-        <%--<div>--%>
-        <%--<p>За: ${Voting.votingTrue}</p>--%>
-        <%--<p>Проти: ${Voting.votingFalse}</p>--%>
-        <%--</div>--%>
-        <c:forEach items="${votingActive.voteList}" var="Vote">
-            <br>
-            <%--${Vote.voteList_id}--%>
-            <%--${Vote.user_id}--%>
-            ${Vote.vote}
-        </c:forEach>
-        <%--<%@include file="index-userVoit-User.jsp" %>--%>
-        <p>qweqrqdafsdqw</p>
-    </div class="col-lg-8 col-md-6 col-sm-6">
+            <a href="/newsPage">Ім'я голосування:${dtoVoting.votingName}</a>
+        </h1>voting
+        <p>Короткий опис голосування: ${dtoVoting.votingShort}</p>
+        <p>Текст голосування: ${dtoVoting.votingText}</p>
+        <div>Місце для голосувань</div>
+        <div>
+            <p>За проголосувало ${dtoVoting.votingTrue}</p>
+            <p>Проти проголосувало ${dtoVoting.votingFalse}</p>
+        </div>
+        <div>Кінець голосування</div>
+    </div>
 
 
 </div>
 
 <p>Голосування</p>
 
-<c:forEach items="${votingShowAll}" var="Voting">
+<c:forEach items="${dtoVoting.votingListVote}" var="Voting">
 
 
     <div class="col-lg-8 col-md-6 col-sm-6">
+        <div>Початок голосування</div>
         <form action="/deleteVoting">
-            <input type="hidden" name="id" value="${Voting.id}">
+            <input type="hidden" name="id" value="${Voting.votingId}">
             <input type="submit" value="X">
         </form>
         <h1>
             <a href="/newsPage">Ім'я голосування:${Voting.votingName}</a>
         </h1>
-        <%--<p>${News.newsTime}</p> // має бути voting--%>
         <p>Короткий опис голосування: ${Voting.votingShort}</p>
         <p>Текст голосування: ${Voting.votingText}</p>
-<p>qweqrqdafsdqw</p>
-        <%--<div>--%>
-        <%--<p>За: ${Voting.votingTrue}</p>--%>
-        <%--<p>Проти: ${Voting.votingFalse}</p>--%>
-        <%--</div>--%>
-        <c:forEach items="${Voting.voteList}" var="Vote">
-            <br>
-            <%--${Vote.voteList_id}--%>
-            <%--${Vote.user_id}--%>
-            ${Vote.vote}
-        </c:forEach>
-        <%--<%@include file="index-userVoit-User.jsp" %>--%>
-        <p>qweqrqdafsdqw</p>
-    </div class="col-lg-8 col-md-6 col-sm-6">
+        <div>Місце для голосувань</div>
+        <div>
+            <p>За проголосувало ${Voting.votingTrue}</p>
+            <p>Проти проголосувало ${Voting.votingFalse}</p>
+        </div>
+        <div>Кінець голосування</div>
+    </div>
 
 
     </div>

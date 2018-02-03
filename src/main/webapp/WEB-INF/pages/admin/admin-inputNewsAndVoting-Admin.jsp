@@ -21,11 +21,11 @@
         <%--<sec:authorize access="hasAnyRole('USER') and isAuthenticated()">--%>
             <div class="votingInput col-xs-6">
                 <form action="/addVote" method="post">
-                    <input type="hidden" name="votingId" value="${votingActive.id}">
+                    <input type="hidden" name="votingId" value="${dtoVoting.votingId}">
+
                     <input type="text" name="vote" placeholder="true/false">
 
                     <input type="hidden" name="userId" value="${user.id}">
-
                     <input type="submit" value="addVote">
                     <input type="reset">
                 </form>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ua.somedomen.osbb.dto.DTOActiveVoting;
 import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.Voting;
 import ua.somedomen.osbb.entity.securityEntity.User;
@@ -52,10 +53,12 @@ public class PagesController {
 //        }
     @GetMapping("/")
 //Працюємо над тим як виводити принціпал навіть якщо його немає, soon be end
-    public String index(Model model , Principal principal) {
+    public String index(Model model, Principal principal) {
         Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDetails byUsername = userService.loadUserByUsername( principalO instanceof UserDetails ?
-                principal.getName() : "яяяяяя");
+
+        String userName = principalO instanceof UserDetails ? principal.getName() : "qweqweqweqwe";
+
+        UserDetails byUsername = userService.loadUserByUsername(userName);
 
         List<News> newsListTree = new ArrayList<>();
         List<News> newsListFull = newsService.findALL();
@@ -66,24 +69,46 @@ public class PagesController {
 //        newsListTree.add(newsListFull.get(newsListFull.size() - 2));
 //        newsListTree.add(newsListFull.get(newsListFull.size() - 3));
 
+//!!!!!!!!!!!!
+//Якщо що, то треба буде переписати, є багато варіантів як це оптимізувати,
+// але поки, головне, що працює правильно
+//!!!!!!!!!!!!
 
-        Voting votingActive = null;
+        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
         List<Voting> votingList = votingService.findALL();
-        for (int i = 0; i < votingList.size(); i++) {
-            Voting voting = votingList.get(i);
-            if (voting.isStatus() == true){
-                votingActive = voting;
-            }
+
+        List<DTOActiveVoting> dtoVotingList = new ArrayList<>();
+        for (Voting voting : votingList) {
+            DTOActiveVoting dtoVoting = new DTOActiveVoting();
+
+//            Оцей метод наповнює ліст голосувань
+            dtoVotingList.add(dtoVoting.resultVoting(voting));
         }
+
+
+        int status = 3;
+        dtoActiveVoting.setVotingListVote(dtoVotingList);
+        for (Voting voting : votingList) {
+            if (voting.isActiveStatus()) {
+                status = 2;
+
+//            Оцей метод наповнює актуальне голосування
+                dtoActiveVoting.resultVoting(voting);
+                if (!voting.wasVote(userName)) {
+                    status = 1;
+                }
+            }
+            dtoActiveVoting.setVotingStatus(status);
+        }
+        
 
 //        model.addAttribute("newsLast", newsLast);
 //        model.addAttribute("newsListTree", newsListTree);
         model.addAttribute("statusShowAll", statusService.findAll());
-        model.addAttribute("votingShowAll", votingService.findALL());
-//        model.addAttribute("voteShowCom", voteService.findALL());
         model.addAttribute("newsShowAll", newsListFull);
-        model.addAttribute("votingActive", votingActive);
+        model.addAttribute("dtoVoting", dtoActiveVoting);
         model.addAttribute("user", byUsername);
+        model.addAttribute("status", status);
         return "indexOld";
     }
 

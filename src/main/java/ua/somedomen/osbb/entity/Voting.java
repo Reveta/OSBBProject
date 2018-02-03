@@ -3,6 +3,8 @@ package ua.somedomen.osbb.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
+import ua.somedomen.osbb.entity.securityEntity.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,13 +13,14 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-public class Voting{
+public class Voting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private boolean status;
+
+    private boolean activeStatus;
     private String votingName = "Ваше звичайне голосування";
     private String votingShort = "Програмісти також люди";
     private String votingText = "Подайте на хліб";
@@ -26,8 +29,8 @@ public class Voting{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "voteList")
     private List<Vote> voteList;
 
-    public Voting(boolean status, String votingName, String votingShort, String votingText, String votingTime) {
-        this.status = status;
+    public Voting(boolean activeStatus, String votingName, String votingShort, String votingText, String votingTime) {
+        this.activeStatus = activeStatus;
         this.votingName = votingName;
         this.votingShort = votingShort;
         this.votingText = votingText;
@@ -37,6 +40,44 @@ public class Voting{
     public Voting() {
     }
 
+    public int nuberOfTrue() {
+        int sum = 0;
+        List<Vote> voteList = this.voteList;
+        for (Vote vote : voteList) {
+            if (vote.isVote().equals("true")) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    public int nuberOfFalse() {
+        int sum = 0;
+        List<Vote> voteList = this.voteList;
+        for (Vote vote : voteList) {
+            if (vote.isVote().equals("false")) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    public boolean wasVote(String principal) {
+        boolean status = false;
+        List<Vote> voteList = this.voteList;
+        for (Vote vote: voteList) {
+            System.out.println(principal);
+            String username = vote.getUser().getUsername();
+            System.out.println(username);
+            if (principal.equals(username)){
+                status = true;
+            }
+        }
+        System.out.println(status);
+        return status;
+    }
+
+
     @Override
     public String toString() {
         return "Voting{" +
@@ -45,15 +86,15 @@ public class Voting{
                 ", votingShort='" + votingShort + '\'' +
                 ", votingText='" + votingText + '\'' +
                 ", votingTime='" + votingTime + '\'' +
-                '}';
+                '}' + '\n';
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isActiveStatus() {
+        return activeStatus;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setStatus(boolean activeStatus) {
+        this.activeStatus = activeStatus;
     }
 
     public int getId() {
