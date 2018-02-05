@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import ua.somedomen.osbb.entity.Comments;
 import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.Status;
@@ -15,6 +16,8 @@ import ua.somedomen.osbb.service.StatusService;
 import ua.somedomen.osbb.service.VotingService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -39,9 +42,24 @@ public class MainController {
     public String addNews(
             @RequestParam String newsName,
             @RequestParam String newsShort,
+            @RequestParam("backscreen") MultipartFile multipartFile,
             @RequestParam String newsText){
-        newsService.addNews(new News(newsName, newsShort, newsText,
-                /*Добавляю час створення новини*/String.valueOf(new Date())));
+
+        String path = System.getProperty("user.home") + File.separator + "projectOSBB"
+                + File.separator +  "newsImages\\";
+
+        try {
+            multipartFile.transferTo(new File(path + multipartFile.getOriginalFilename()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        News news = new News(newsName, newsShort, newsText,
+                /*Добавляю час створення новини*/String.valueOf(new Date()));
+
+        news.setBackscreen("\\newsImages\\" + multipartFile.getOriginalFilename());
+
+        newsService.addNews(news);
 
         return "redirect:/";
     }

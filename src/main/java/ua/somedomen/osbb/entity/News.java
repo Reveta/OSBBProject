@@ -24,6 +24,8 @@ public class News {
     private String newsText;
     private String newsTime;
 
+    private String backscreen;
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "news", fetch = FetchType.EAGER)
     private List<Comments> newsComment = new ArrayList<>();
@@ -44,5 +46,13 @@ public class News {
     }
 
     public News() {
+    }
+
+    public String getBackscreen() {
+        return backscreen;
+    }
+
+    public void setBackscreen(String backscreen) {
+        this.backscreen = backscreen;
     }
 }

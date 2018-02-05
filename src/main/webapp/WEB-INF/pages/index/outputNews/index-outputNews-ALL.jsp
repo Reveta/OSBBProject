@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
+<style>
+
+</style>
 
 <section id="news">
     <div class="container-fluid">
@@ -13,25 +16,19 @@
         <c:forEach items="${newsShowAll}" var="News">
             <div class="row one-news">
 
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <img
-                            class="img_elastic"
-                            src="https://pm1.narvii.com/6272/9d365bc33fab3821251cf1f9e093f7ca1bbf6fb3_hq.jpg"
-                            alt=""
-                    >
-                </div>
+                <img class="col-lg-12 col-md-12 col-sm-12">
+                <img height="300" width="1000"
+                     class="img_elastic backscreen"
+                     src="${News.backscreen}"
+                     alt="${News.newsName}"
+                >
 
 
-                <sec:authorize access="hasAnyRole('ADMIN')">
-                    <%@include file="../editingNews/editingNews.jsp" %>
-                </sec:authorize>
-
-
-                <div class="col-lg-8 col-md-6 col-sm-6">
-                <form action="/deleteNews">
-                    <input type="hidden" name="id" value="${News.id}">
-                    <input type="submit" value="X">
-                </form>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <form action="/deleteNews">
+                        <input type="hidden" name="id" value="${News.id}">
+                        <input type="submit" value="X">
+                    </form>
                     <h1><a href="/newsPage-${News.id}">${News.newsName}</a></h1>
                     <p>${News.newsTime}</p>
                     <p>Текст новини: ${News.newsShort}</p>
@@ -41,8 +38,16 @@
 
                 </div>
 
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <sec:authorize access="hasAnyRole('ADMIN')">
+                        <%@include file="../editingNews/editingNews.jsp" %>
+                    </sec:authorize>
+                </div>
 
+                </img>
             </div>
         </c:forEach>
+
+
     </div>
 </section>

@@ -5,7 +5,7 @@
 
         <form action="/deleteComment">
             <input type="hidden" name="newsId" value="${News.id}">
-            <input type="hidden" name="commentId" value="${15}">
+            <input type="hidden" name="commentId" value="${Comment.id}">
             <input type="submit" value="X">
         </form>
         <p1>${Comment.userName} ${Comment.time}</p1>
