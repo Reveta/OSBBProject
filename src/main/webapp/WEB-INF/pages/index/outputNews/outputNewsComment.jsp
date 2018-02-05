@@ -3,12 +3,15 @@
 <div class="commentBlock">
     <c:forEach items="${News.newsComment}" var="Comment">
 
-        <form action="/deleteComment">
-            <input type="hidden" name="newsId" value="${News.id}">
-            <input type="hidden" name="commentId" value="${Comment.id}">
-            <input type="submit" value="X">
-        </form>
-        <p1>${Comment.userName} ${Comment.time}</p1>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <form action="/deleteComment">
+                <input type="hidden" name="newsId" value="${News.id}">
+                <input type="hidden" name="commentId" value="${Comment.id}">
+                <input type="submit" value="X">
+
+            <p1>${Comment.userName} ${Comment.time}</p1>
+            </form>
+        </div>
         <br>
         ${Comment.commentValue}
         <br>

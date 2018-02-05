@@ -17,7 +17,7 @@
             <div class="row one-news">
 
                 <img class="col-lg-12 col-md-12 col-sm-12">
-                <img height="300" width="1000"
+                <img height="100" width="1000"
                      class="img_elastic backscreen"
                      src="${News.backscreen}"
                      alt="${News.newsName}"
@@ -34,7 +34,7 @@
                     <p>Текст новини: ${News.newsShort}</p>
                     <p>Текст новини: ${News.newsText}</p>
 
-                    <%@include file="outputNewsComment.jsp" %>
+
 
                 </div>
 
@@ -42,6 +42,10 @@
                     <sec:authorize access="hasAnyRole('ADMIN')">
                         <%@include file="../editingNews/editingNews.jsp" %>
                     </sec:authorize>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <%@include file="outputNewsComment.jsp" %>
                 </div>
 
                 </img>
