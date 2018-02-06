@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 import ua.somedomen.osbb.entity.securityEntity.User;
 
+
 import javax.persistence.*;
 
 @Entity

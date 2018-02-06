@@ -38,10 +38,16 @@
             <input type="text" name="newsName" placeholder="Заголовок новини">
             <input type="text" name="newsShort" placeholder="Коротко про новину">
             <input type="text" name="newsText" placeholder="Текст новини">
-            <input type="file" name="newsbackscreen" placeholder="Backsreen">
-            <input type="hidden" name="newsAuthor" value="${user.name}">
+            <input type="file" name="newsBackscreen" placeholder="Backsreen">
+            <input type="hidden" name="newsAuthor" value="${user.username}">
             <input type="submit" value="addNews">
             <input type="reset">
+        </form>
+    </div>
+
+    <div class="col-xs-6">
+        <form action="/disableVoting" method="get">
+            <input type="submit" value="Деактивувати голосування">
         </form>
     </div>
 

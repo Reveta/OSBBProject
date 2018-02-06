@@ -37,8 +37,8 @@ public class DeleteController {
     @GetMapping("/deleteVoting")
     public String deleteVoting(
             @RequestParam int id) {
-
-        votingService.delete(id);
+//
+//        votingService.delete(id);
         return "redirect:/";
     }
 

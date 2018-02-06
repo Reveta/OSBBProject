@@ -10,9 +10,9 @@
 
     <%--Форма куди вводити(створити) новий статус--%>
     <form action="/addStatus" method="post">
-        <input type="hidden" name="statusAuthor" value="${user.name}">
         <input type="text" name="statusName" placeholder="Опис">
         <input type="text" name="statusText" placeholder="Текст">
+        <input type="hidden" name="statusAuthor" value="${user.username}">
         <input type="submit">
     </form>
 

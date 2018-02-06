@@ -16,7 +16,6 @@ public class VotingServiceImpl implements VotingService {
     @Autowired
     private VotingDAO votingDAO;
 
-
     @Override
     public Voting save(Voting voting) {
         return votingDAO.save(voting);

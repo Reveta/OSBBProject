@@ -35,6 +35,9 @@ public class PagesController {
     private VotingService votingService;
 
     @Autowired
+    private VoteService voteService;
+
+    @Autowired
     private NewsService newsService;
 
     @Autowired
@@ -46,30 +49,22 @@ public class PagesController {
 
 
 
-//        Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if (currentUser instanceof UserDetails) {
-//            String username = ((UserDetails) currentUser).getUsername();
-//        } else {
-//            String username = currentUser.toString();
-//        }
     @GetMapping("/")
-//Працюємо над тим як виводити принціпал навіть якщо його немає, soon be end
     public String index(Model model, Principal principal) {
-        List<News> newsListFull = newsService.findALL();
+        List<News> newsListFull = newsService.findALL(); // Оцей метод наповнює ліст голосувань
 
         Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
         UserDetails byUsername = userService.loadUserByUsername(userName);
 
 
-        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
         List<Voting> votingList = votingService.findALL();
-
         List<DTOActiveVoting> dtoVotingList = new ArrayList<>();
+        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
+
         for (Voting voting : votingList) {
             DTOActiveVoting dtoVoting = new DTOActiveVoting();
 
-//            Оцей метод наповнює ліст голосувань
             dtoVotingList.add(dtoVoting.resultVoting(voting));
         }
 
@@ -145,7 +140,6 @@ public class PagesController {
     public String logout() {
         return "redirect:/index";
     }
-
 
     @GetMapping("/cabinet")
     public String cabinet(Model model, Principal principal) {

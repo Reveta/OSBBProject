@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.somedomen.osbb.dao.VoteDAO;
 import ua.somedomen.osbb.entity.Vote;
+import ua.somedomen.osbb.entity.Voting;
 import ua.somedomen.osbb.service.VoteService;
 
 import java.util.List;

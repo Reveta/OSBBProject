@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 import ua.somedomen.osbb.entity.securityEntity.User;
+import ua.somedomen.osbb.service.VoteService;
+import ua.somedomen.osbb.entity.Voting;
+import ua.somedomen.osbb.service.VotingService;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -76,6 +79,16 @@ public class Voting {
         System.out.println(status);
         return status;
     }
+
+    public static void disableVoting(VotingService votingService){
+
+        List<Voting> votingList = votingService.findALL();
+        for (Voting voting: votingList) {
+            voting.setStatus(false);
+            votingService.save(voting);
+        }
+    }
+
 
 
     @Override

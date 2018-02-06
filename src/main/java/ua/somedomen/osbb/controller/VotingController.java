@@ -2,6 +2,7 @@ package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.somedomen.osbb.entity.Vote;
@@ -16,27 +17,28 @@ import java.util.List;
 
 @Controller
 public class VotingController {
+
     @Autowired
     private VotingService votingService;
 
     @Autowired
-    private VoteService voteService;
-
-    @Autowired
     private UserService userService;
+
+
 
     @PostMapping("/addVoting")
     public String addVoting(
             @RequestParam String votingName,
             @RequestParam String votingShort,
             @RequestParam String votingText) {
-        System.out.println(votingName);
-        System.out.println(votingShort);
-        System.out.println(votingText);
-//        List<Vote> voteList = new ArrayList<>();
+
+        System.out.println("Створення голосування за ім'ям "+ votingName + ". "
+        + "Коротко "+ votingShort + "а також повно, " + votingText + ". ");
+
+        Voting.disableVoting(votingService);
 
         votingService.save(new Voting(true ,votingName, votingShort,
-                votingText, String.valueOf(new Date()) ));
+                votingText, String.valueOf(new Date())));
 
         return "redirect:/";
     }
@@ -46,27 +48,29 @@ public class VotingController {
             @RequestParam int votingId,
             @RequestParam int userId,
             @RequestParam String vote) {
-        System.out.println(votingId);
-        System.out.println(userId);
-        System.out.println(vote);
+
 
         User user= userService.findOne(userId);
-
         Voting thisVoting = votingService.findOne(votingId);
-        System.out.println('\n' + "голосування" + thisVoting + '\n');
+
 
         List<Vote> voteList = thisVoting.getVoteList();
         voteList.add(new Vote(thisVoting, user, vote));
 
         thisVoting.setVoteList(voteList);
-//        System.out.println('\n' + "голосування" + user + '\n');
 
+        System.out.println("Користувач  "+ user + "проголосував" + vote + "для " + thisVoting + ". ");
 
-//        userService.save();
         votingService.save(thisVoting);
 
         return "redirect:/";
     }
 
+    @GetMapping("/disableVoting")
+    public String disableVoting(){
+        Voting.disableVoting(votingService);
 
+        System.out.println("Всі голосування деактивовані");
+        return "redirect:/";
+    }
 }

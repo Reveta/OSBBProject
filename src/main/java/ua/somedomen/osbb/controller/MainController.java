@@ -43,7 +43,7 @@ public class MainController {
             @RequestParam String newsName,
             @RequestParam String newsShort,
             @RequestParam String newsAuthor,
-            @RequestParam("newsbackscreen") MultipartFile multipartFile,
+            @RequestParam("newsBackscreen") MultipartFile multipartFile,
             @RequestParam String newsText){
 
         String path = System.getProperty("user.home") + File.separator + "projectOSBB"
@@ -60,25 +60,13 @@ public class MainController {
 
         news.setBackscreen("\\newsImages\\" + multipartFile.getOriginalFilename());
 
+        System.out.println("Створення новини" + newsName + "від "+ newsAuthor +
+                ". Коротко - " + newsShort +"а, повно - " + newsText +". ");
+
         newsService.addNews(news);
 
         return "redirect:/";
     }
-
-    @PostMapping("/addVoting")
-    public String addVoting(
-            @RequestParam String votingName,
-            @RequestParam String votingShort,
-            @RequestParam String votingText) {
-        System.out.println(votingName);
-        System.out.println(votingShort);
-        System.out.println(votingText);
-
-        votingService.save(new Voting(votingName, votingShort, votingText, String.valueOf(new Date()), 0, 0));
-
-        return "redirect:/";
-    }
-
 
     @PostMapping("/addComment")
     public String addComment(
@@ -99,6 +87,9 @@ public class MainController {
         thisis.setNewsComment(commentsList);
         newsService.save(thisis);
 
+//        System.out.println("Прокоментувано" + commentValue + "від "+ newsAuthor +
+//                ". Коротко - " + newsShort +"а, повно - " + newsText +". ");
+
         return "redirect:/";
     }
 
@@ -109,6 +100,8 @@ public class MainController {
             @RequestParam String statusName,
             @RequestParam String statusAuthor,
             @RequestParam String statusText){
+        System.out.println("Новий статус " + statusName + " від " + statusAuthor +
+                ". Це: " + statusText +". ");
 
         //Зберегти(Створити) новий статус за допомогою наслідуваного метода з сервісРівня
         statusService.save(new Status(String.valueOf(new Date()), statusName, statusText, statusAuthor));

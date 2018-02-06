@@ -19,6 +19,7 @@ public class DTOActiveVoting {
 //    status 2 - означає, що це голосування активне, але юзер за нього
 // вже голосував, показати його лише по кнопці.
 //    status 3 - означає, що немає жодних активних голосувань.
+
     private int votingStatus;
 
     private String votingName;

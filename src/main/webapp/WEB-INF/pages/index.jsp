@@ -6,14 +6,17 @@
 <%@include file="tmp/head.jsp" %>
 
 <%@include file="tmp/navbar.jsp" %>
+
+Статус голосування - ${status}
+
 <sec:authorize access="hasAnyRole('ADMIN','USER')">
     <%@include file="admin/admin-inputNewsAndVoting-Admin.jsp" %>
 </sec:authorize>
-<%@include file="index/index-status-USER.jsp" %>
-<%@include file="index/index-bigPicture-ALL.jsp" %>
+<%@include file="indexOld/index-status-USER.jsp" %>
+<%@include file="indexOld/index-bigPicture-ALL.jsp" %>
 
-<%@include file="index/outputVoting/index-outputVoting-USER.jsp" %>
-<%@include file="index/outputNews/index-outputNews-ALL.jsp" %>
-<%@include file="index/index-googleMap-ALL.jsp" %>
+<%@include file="indexOld/outputVoting/index-outputVoting-USER.jsp" %>
+<%@include file="indexOld/outputNews/index-outputNews-ALL.jsp" %>
+<%@include file="indexOld/index-googleMap-ALL.jsp" %>
 
 <%@include file="tmp/footer.jsp" %>
