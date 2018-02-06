@@ -12,7 +12,6 @@ import javax.xml.ws.soap.MTOM;
 @Entity
 @Getter
 @Setter
-@ToString
 public class Comments {
 
     @Id
@@ -22,7 +21,7 @@ public class Comments {
     private String commentValue;
     private String time;
     private String userName;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private News news;
 
 
@@ -45,5 +44,15 @@ public class Comments {
     }
 
     public Comments() {
+    }
+
+    @Override
+    public String toString() {
+        return "Comments{" +
+                "id=" + id +
+                ", commentValue='" + commentValue + '\'' +
+                ", time='" + time + '\'' +
+                ", userName='" + userName + '\'' +
+                '}'+ '\n';
     }
 }

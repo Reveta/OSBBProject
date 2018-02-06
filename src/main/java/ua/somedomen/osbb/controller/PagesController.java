@@ -9,12 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ua.somedomen.osbb.dto.DTOActiveVoting;
+import ua.somedomen.osbb.entity.News;
+import ua.somedomen.osbb.entity.Voting;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.*;
 import ua.somedomen.osbb.validator.UserValidator;
 
 import javax.xml.stream.events.Comment;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -39,7 +44,9 @@ public class PagesController {
     private CommentService commentService;
 
 
-    //        Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+
+//        Object currentUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        if (currentUser instanceof UserDetails) {
 //            String username = ((UserDetails) currentUser).getUsername();
 //        } else {
@@ -48,19 +55,54 @@ public class PagesController {
     @GetMapping("/")
 //Працюємо над тим як виводити принціпал навіть якщо його немає, soon be end
     public String index(Model model, Principal principal) {
+        List<News> newsListFull = newsService.findALL();
+
         Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
-
         UserDetails byUsername = userService.loadUserByUsername(userName);
 
 
-        model.addAttribute("user", byUsername);
+        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
+        List<Voting> votingList = votingService.findALL();
+
+        List<DTOActiveVoting> dtoVotingList = new ArrayList<>();
+        for (Voting voting : votingList) {
+            DTOActiveVoting dtoVoting = new DTOActiveVoting();
+
+//            Оцей метод наповнює ліст голосувань
+            dtoVotingList.add(dtoVoting.resultVoting(voting));
+        }
+
+
+        int status = 3;
+        dtoActiveVoting.setVotingListVote(dtoVotingList);
+        for (Voting voting : votingList) {
+            if (voting.isActiveStatus()) {
+                status = 2;
+
+//            Оцей метод наповнює актуальне голосування
+                dtoActiveVoting.resultVoting(voting);
+                if (!voting.wasVote(userName)) {
+                    status = 1;
+                }
+            }
+            dtoActiveVoting.setVotingStatus(status);
+        }
+
+//!!!!!!!!!!!!
+//Якщо що, то треба буде переписати, є багато варіантів як це оптимізувати,
+// але поки, головне, що працює правильно
+//!!!!!!!!!!!!
+
+
         model.addAttribute("statusShowAll", statusService.findAll());
-        model.addAttribute("votingShowAll", votingService.findALL());
-        model.addAttribute("newsShowAll", newsService.findALL());
+        model.addAttribute("newsShowAll", newsListFull);
+        model.addAttribute("dtoVoting", dtoActiveVoting);
+        model.addAttribute("user", byUsername);
+        model.addAttribute("status", status);
         return "index";
     }
+
 
 
     @GetMapping("/admin")

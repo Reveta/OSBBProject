@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@ToString
 public class News {
 
     @Id
@@ -56,5 +55,16 @@ public class News {
 
     public void setBackscreen(String backscreen) {
         this.backscreen = backscreen;
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "id=" + id +
+                ", newsName='" + newsName + '\'' +
+                ", newsShort='" + newsShort + '\'' +
+                ", newsText='" + newsText + '\'' +
+                ", newsTime='" + newsTime + '\'' +
+                '}'+ '\n';
     }
 }

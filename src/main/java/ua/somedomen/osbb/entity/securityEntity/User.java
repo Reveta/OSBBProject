@@ -1,44 +1,62 @@
 package ua.somedomen.osbb.entity.securityEntity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ua.somedomen.osbb.entity.Vote;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class User implements UserDetails
-{
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String username;
-//    @Column(updatable = false)
     private String password;
-//    @Column(updatable = false)
     private String passwordConfirm;
 
+    private String name;
+    private String prename;
     @Email(message = "Введіть email коректно")
     private String email;
+    private String phoneNumber;
+    private String someInfo;
 
-    @Enumerated(EnumType.STRING)
-    private Authority authority = Authority.ROLE_USER;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Vote> voteList;
 
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
-    private String name;
-    private String prename;
-    private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private Authority authority = Authority.ROLE_USER;
 
-    private String someInfo;
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(authority.name()));
+        return authorities;
+    }
 
     public String getName() {
         return name;
@@ -72,35 +90,13 @@ public class User implements UserDetails
         this.someInfo = someInfo;
     }
 
-    public User()
-    {
-    }
-
-    public User(String username, String password)
-    {
-        this.username = username;
-        this.password = password;
-    }
-
-
-
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
-        ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(authority.name()));
-        return authorities;
-    }
-
-    @Override
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
     @Override
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
     }
 
@@ -111,97 +107,87 @@ public class User implements UserDetails
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
+
     @Override
-    public boolean isAccountNonExpired()
-    {
+    public boolean isAccountNonExpired() {
         return accountNonExpired;
     }
 
     @Override
-    public boolean isAccountNonLocked()
-    {
+    public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
 
     @Override
-    public boolean isCredentialsNonExpired()
-    {
+    public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
     }
 
     @Override
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return enabled;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setUsername(String username)
-    {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public Authority getAuthority()
-    {
+    public Authority getAuthority() {
         return authority;
     }
 
-    public void setAuthority(Authority authority)
-    {
+    public void setAuthority(Authority authority) {
         this.authority = authority;
     }
 
-    public void setAccountNonExpired(boolean accountNonExpired)
-    {
+    public void setAccountNonExpired(boolean accountNonExpired) {
         this.accountNonExpired = accountNonExpired;
     }
 
-    public void setAccountNonLocked(boolean accountNonLocked)
-    {
+    public void setAccountNonLocked(boolean accountNonLocked) {
         this.accountNonLocked = accountNonLocked;
     }
 
-    public void setCredentialsNonExpired(boolean credentialsNonExpired)
-    {
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
         this.credentialsNonExpired = credentialsNonExpired;
     }
 
-    public void setEnabled(boolean enabled)
-    {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", prename='" + prename + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", someInfo='" + someInfo + '\'' +
                 '}';
     }
+
+
 }

@@ -2,26 +2,14 @@ package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.somedomen.osbb.dao.CommentDAO;
-import ua.somedomen.osbb.dao.NewsDAO;
-import ua.somedomen.osbb.dao.StatusDAO;
-import ua.somedomen.osbb.dao.VotingDAO;
-import ua.somedomen.osbb.entity.Comments;
-import ua.somedomen.osbb.entity.News;
-import ua.somedomen.osbb.entity.Status;
+
 import ua.somedomen.osbb.service.CommentService;
 import ua.somedomen.osbb.service.NewsService;
 import ua.somedomen.osbb.service.StatusService;
 import ua.somedomen.osbb.service.VotingService;
 
-import javax.xml.stream.events.Comment;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 public class DeleteController {
