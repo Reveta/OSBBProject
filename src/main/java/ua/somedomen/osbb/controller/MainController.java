@@ -42,7 +42,8 @@ public class MainController {
     public String addNews(
             @RequestParam String newsName,
             @RequestParam String newsShort,
-            @RequestParam("backscreen") MultipartFile multipartFile,
+            @RequestParam String newsAuthor,
+            @RequestParam("newsbackscreen") MultipartFile multipartFile,
             @RequestParam String newsText){
 
         String path = System.getProperty("user.home") + File.separator + "projectOSBB"
@@ -55,7 +56,7 @@ public class MainController {
         }
 
         News news = new News(newsName, newsShort, newsText,
-                /*Добавляю час створення новини*/String.valueOf(new Date()));
+                /*Добавляю час створення новини*/String.valueOf(new Date()), newsAuthor);
 
         news.setBackscreen("\\newsImages\\" + multipartFile.getOriginalFilename());
 
@@ -104,6 +105,8 @@ public class MainController {
 
         return "redirect:/";
     }
+
+
     @PostMapping("/addComment")
     public String addComment(
             @RequestParam int id,
@@ -131,10 +134,11 @@ public class MainController {
     public String addStatus(
             //Приймає два поля інформації
             @RequestParam String statusName,
+            @RequestParam String statusAuthor,
             @RequestParam String statusText){
 
         //Зберегти(Створити) новий статус за допомогою наслідуваного метода з сервісРівня
-        statusService.save(new Status(String.valueOf(new Date()), statusName, statusText));
+        statusService.save(new Status(String.valueOf(new Date()), statusName, statusText, statusAuthor));
 
         return "redirect:/";
     }

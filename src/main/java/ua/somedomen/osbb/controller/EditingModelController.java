@@ -41,7 +41,7 @@ public class EditingModelController {
 
         //Не зважайте на червоні методи, LomBok працює, все гаразд :)
         thisis.setNewsName(newsName);
-        thisis.setNewsText(newsShort);
+        thisis.setNewsShort(newsShort);
         thisis.setNewsText(newsText);
         newsService.save(thisis);
 

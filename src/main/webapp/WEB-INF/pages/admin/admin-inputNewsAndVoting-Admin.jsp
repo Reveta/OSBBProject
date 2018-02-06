@@ -21,7 +21,8 @@
             <input type="text" name="newsName" placeholder="Заголовок новини">
             <input type="text" name="newsShort" placeholder="Коротко про новину">
             <input type="text" name="newsText" placeholder="Текст новини">
-            <input type="file" name="backscreen" placeholder="Backsreen">
+            <input type="file" name="newsbackscreen" placeholder="Backsreen">
+            <input type="hidden" name="newsAuthor" value="${user.name}">
             <input type="submit" value="addNews">
             <input type="reset">
         </form>

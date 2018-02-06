@@ -23,6 +23,7 @@ public class News {
     private String newsShort;
     private String newsText;
     private String newsTime;
+    private String newsAuthor;
 
     private String backscreen;
 
@@ -38,11 +39,12 @@ public class News {
         this.newsComment = newsComment;
     }
 
-    public News(String newsName, String newsShort, String newsText, String newsTime) {
+    public News(String newsName, String newsShort, String newsText, String newsTime, String newsAuthor) {
         this.newsName = newsName;
         this.newsShort = newsShort;
         this.newsText = newsText;
         this.newsTime = newsTime;
+        this.newsAuthor = newsAuthor;
     }
 
     public News() {

@@ -22,11 +22,13 @@ public class Status {
     String statusTime;
     String statusName;
     String statusText;
+    String statusAuthor;
 
-    public Status(String statusTime, String statusName, String statusText) {
+    public Status(String statusTime, String statusName, String statusText, String statusAuthor) {
         this.statusTime = statusTime;
         this.statusName = statusName;
         this.statusText = statusText;
+        this.statusAuthor = statusAuthor;
     }
 
     public Status() {

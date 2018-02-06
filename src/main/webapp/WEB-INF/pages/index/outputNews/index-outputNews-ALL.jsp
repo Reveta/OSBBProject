@@ -30,7 +30,7 @@
                         <input type="submit" value="X">
                     </form>
                     <h1><a href="/newsPage-${News.id}">${News.newsName}</a></h1>
-                    <p>${News.newsTime}</p>
+                    <p>${News.newsTime}  ${News.newsAuthor}</p>
                     <p>Текст новини: ${News.newsShort}</p>
                     <p>Текст новини: ${News.newsText}</p>
 

@@ -2,6 +2,8 @@ package ua.somedomen.osbb.controller;
 
 import com.sun.xml.internal.ws.encoding.xml.XMLMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,12 +47,15 @@ public class PagesController {
 //        }
     @GetMapping("/")
 //Працюємо над тим як виводити принціпал навіть якщо його немає, soon be end
-    public String index(Model model/*, Principal principal*/) {
-//        User byUsername = userService.findByUsername(principal.getName());
+    public String index(Model model, Principal principal) {
+        Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-//      model.addAttribute("user", principal.getName());
+        String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
+
+        UserDetails byUsername = userService.loadUserByUsername(userName);
 
 
+        model.addAttribute("user", byUsername);
         model.addAttribute("statusShowAll", statusService.findAll());
         model.addAttribute("votingShowAll", votingService.findALL());
         model.addAttribute("newsShowAll", newsService.findALL());
