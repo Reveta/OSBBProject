@@ -44,7 +44,6 @@ public class EditingModelController {
 
         News thisis = newsService.findOne(id);
 
-        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
         thisis.setNewsName(newsName);
         thisis.setNewsShort(newsShort);
         thisis.setNewsText(newsText);
