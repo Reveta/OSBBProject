@@ -25,7 +25,7 @@ import java.util.List;
 
 
 @Controller
-public class MainController {
+public class AdminController {
 
     @Autowired
     private VotingService votingService;
@@ -105,6 +105,24 @@ public class MainController {
 
         //Зберегти(Створити) новий статус за допомогою наслідуваного метода з сервісРівня
         statusService.save(new Status(String.valueOf(new Date()), statusName, statusText, statusAuthor));
+
+        return "redirect:/";
+    }
+
+
+    @PostMapping("/addVoting")
+    public String addVoting(
+            @RequestParam String votingName,
+            @RequestParam String votingShort,
+            @RequestParam String votingText) {
+
+        System.out.println("Створення голосування за ім'ям "+ votingName + ". "
+                + "Коротко "+ votingShort + "а також повно, " + votingText + ". ");
+
+        Voting.disableVoting(votingService);
+
+        votingService.save(new Voting(true ,votingName, votingShort,
+                votingText, String.valueOf(new Date())));
 
         return "redirect:/";
     }

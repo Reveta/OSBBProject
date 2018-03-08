@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.somedomen.osbb.entity.News;
+import ua.somedomen.osbb.entity.Status;
 import ua.somedomen.osbb.entity.Voting;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
+import ua.somedomen.osbb.service.StatusService;
 import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VotingService;
 
@@ -29,9 +31,12 @@ public class EditingModelController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StatusService statusService;
+
 
     @PostMapping("/newsUpdate")
-    public String testUpdate(
+    public String newsUpdate(
             @RequestParam int id,
             @RequestParam String newsName,
             @RequestParam String newsShort,
@@ -44,6 +49,22 @@ public class EditingModelController {
         thisis.setNewsShort(newsShort);
         thisis.setNewsText(newsText);
         newsService.save(thisis);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/statusUpdate")
+    public String statusUpdate(
+            @RequestParam int id,
+            @RequestParam String statusName,
+            @RequestParam String statusText) {
+
+        Status thisis = statusService.findOne(id);
+
+        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
+        thisis.setStatusName(statusName);
+        thisis.setStatusText(statusText);
+        statusService.save(thisis);
 
         return "redirect:/";
     }
@@ -79,9 +100,9 @@ public class EditingModelController {
         Voting thisis = votingService.findOne(id);
 
         //Не зважайте на червоні методи, LomBok працює, все гаразд :)
-//        thisis.setVotingName(votingName);
-//        thisis.setVotingShort(votingShort);
-//        thisis.setVotingText(votingText);
+        thisis.setVotingName(votingName);
+        thisis.setVotingShort(votingShort);
+        thisis.setVotingText(votingText);
         votingService.save(thisis);
 
         return "redirect:/";

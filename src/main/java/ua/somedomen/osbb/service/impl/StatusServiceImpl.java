@@ -31,4 +31,9 @@ public class StatusServiceImpl implements StatusService {
     public void delete(int id) {
         statusDAO.delete(id);
     }
+
+    @Override
+    public Status findOne(int id) {
+        return statusDAO.findOne(id);
+    }
 }

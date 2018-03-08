@@ -102,7 +102,41 @@ public class PagesController {
 
     @GetMapping("/admin")
     public String loginAdm(Principal principal, Model model) {
-        model.addAttribute("user", principal);
+        Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
+        UserDetails byUsername = userService.loadUserByUsername(userName);
+
+        List<Voting> votingList = votingService.findALL();
+        List<DTOActiveVoting> dtoVotingList = new ArrayList<>();
+        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
+
+        for (Voting voting : votingList) {
+            DTOActiveVoting dtoVoting = new DTOActiveVoting();
+
+            dtoVotingList.add(dtoVoting.resultVoting(voting));
+        }
+
+
+        int status = 3;
+        dtoActiveVoting.setVotingListVote(dtoVotingList);
+        for (Voting voting : votingList) {
+            if (voting.isActiveStatus()) {
+                status = 2;
+
+//            Оцей метод наповнює актуальне голосування
+                dtoActiveVoting.resultVoting(voting);
+                if (!voting.wasVote(userName)) {
+                    status = 1;
+                }
+            }
+            dtoActiveVoting.setVotingStatus(status);
+        }
+
+        model.addAttribute("statusShowAll", statusService.findAll());
+        model.addAttribute("newsShowAll", newsService.findALL());
+        model.addAttribute("dtoVoting", dtoActiveVoting);
+        model.addAttribute("status", status);
+        model.addAttribute("user", byUsername);
         return "admin";
     }
 

@@ -7,4 +7,5 @@
 <%@include file="tmp/head.jsp" %>
 <%@include file="tmp/navbar.jsp" %>
 <%@include file="admin/admin-inputNewsAndVoting-Admin.jsp" %>
+<%@include file="admin/admin-outputAll-ADMIN.jsp" %>
 <%@include file="tmp/footer.jsp" %>

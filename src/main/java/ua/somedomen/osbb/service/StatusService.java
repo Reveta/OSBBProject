@@ -12,4 +12,6 @@ public interface StatusService {
     List<Status> findAll();
 
     void delete(int id);
+
+    Status findOne(int id);
 }
