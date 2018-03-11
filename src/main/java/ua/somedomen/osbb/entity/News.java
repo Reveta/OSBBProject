@@ -49,6 +49,20 @@ public class News {
     public News() {
     }
 
+
+    public static News getLastNews(List<News> newsListFull){
+        return (newsListFull.get(newsListFull.size() - 1));
+    }
+
+    public static List<News> getThreeLastNews(List<News> newsListFull){
+        List<News> threeLastNews = new ArrayList<>();
+        threeLastNews.add(newsListFull.get(newsListFull.size() - 1));
+        threeLastNews.add(newsListFull.get(newsListFull.size() - 2));
+        threeLastNews.add(newsListFull.get(newsListFull.size() - 3));
+
+        return threeLastNews;
+    }
+
     public String getBackscreen() {
         return backscreen;
     }

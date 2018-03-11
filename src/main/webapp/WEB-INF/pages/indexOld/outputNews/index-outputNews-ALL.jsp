@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <style>
-
 </style>
 
 <section id="news">
@@ -11,6 +10,18 @@
             <div class="col-lg-12 margin-bottom-70">
                 <h2 class="section-title">Актуальні новини та оголошення</h2>
             </div>
+        </div>
+
+        <div>Test
+            <div>
+                Ім'я останньої новини - ${newsLast.newsName}
+            </div>
+            <div>
+                <c:forEach items="${newsListTree}" var="newsListTree">
+                    <p>Name of newsListTree - ${newsListTree.newsName}</p>
+                </c:forEach>
+            </div>
+
         </div>
 
 
@@ -31,10 +42,9 @@
                         <input type="submit" value="X">
                     </form>
                     <h1><a href="/newsPage-${News.id}">${News.newsName}</a></h1>
-                    <p>${News.newsTime}  ${News.newsAuthor}</p>
+                    <p>${News.newsTime} ${News.newsAuthor}</p>
                     <p>Текст новини: ${News.newsShort}</p>
                     <p>Текст новини: ${News.newsText}</p>
-
 
 
                 </div>

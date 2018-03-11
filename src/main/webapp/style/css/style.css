@@ -19,6 +19,16 @@ h1{
     line-height: .9;
 }
 
+h2{
+    font-family: "Montserrat", sans-serif;
+    font-size: 12pt;
+    color: #fff;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    font-style: italic;
+    letter-spacing: normal;
+}
+
 h3{
     font-family: "Montserrat", sans-serif;
     font-size: 12px;
@@ -31,10 +41,26 @@ h3{
 h4{
     font-size: 13px;
     color: #fff;
-/*    margin-bottom: 10px;*/
+    /*    margin-bottom: 10px;*/
     margin-bottom: 0;
     padding-top: 0;
     line-height: 135% !important;
+}
+
+h5{
+    font-family: "Montserrat", sans-serif;
+    font-size: 18pt;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+h6{
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
 }
 
 p{
@@ -53,9 +79,6 @@ span{
 
 a{
     color: #fff;
-    -webkit-transition: all .3s ease;;
-    -moz-transition: all .3s ease;;
-    -o-transition: all .3s ease;;
     transition: all .3s ease;
 }
 
@@ -65,11 +88,11 @@ a:hover, a:focus, a:visited{
     color: #fff;
 }
 
-a.gold{
+.gold{
     color: #d79c6a;
 }
 
-a.gold:hover, a.gold:focus, a.gold:visited{
+.gold:hover, .gold:focus, .gold:visited{
     color: #d68a46;
 }
 
@@ -94,9 +117,6 @@ a.gold:hover, a.gold:focus, a.gold:visited{
     color: #fff;
     font-size: 10pt;
     font-family: "Montserrat", sans-serif;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
@@ -168,22 +188,11 @@ a.gold:hover, a.gold:focus, a.gold:visited{
     height: calc(100% - 52px);
 }
 
-/* ===== NEWS  ===== */
+/* ===== STATUS ===== */
 
-.news{
-    height: 80%;
-    padding-bottom: 20px;
-}
-
-.container-news{
-    height: 100%;
-}
-
-/* ===== NEWS STATUS ===== */
-
-.news-status-container{
+.status-container{
     width: 100%;
-    height: 10%;
+    /*    height: 10%;*/
 }
 
 .nav-status{
@@ -196,28 +205,150 @@ a.gold:hover, a.gold:focus, a.gold:visited{
     margin-right: 15px;
 }
 
-.navbar-status li a{
+.navbar-status li .status{
+    display: inline-block;
     color: #333;
     position: relative;
+    padding: 15px 10px;
 }
 
-.navbar-status li a:hover,
-.navbar-status li a:focus{
-    color: #999;
+.navbar-status li .status:hover,
+.navbar-status li .status:focus{
+    color: #d79c6a;
     background-color: #fff;
 }
+.navbar-status li .status:hover{
+    cursor: pointer;
+}
 
-.navbar-status li a .glyphicon{
+.navbar-status li .status .glyphicon{
     color: #d79c6a;
     margin-left: 0;
 }
 
+.delete-status,
+.get-more-info-about-status{
+    background-color: #fff;
+    border: 1px solid #d79c6a;
+    visibility: hidden;
+    border-radius: 50%;
+    padding: 4px 5px 1px 4px;
+}
+
+.delete-status:hover,
+.get-more-info-about-status:hover{
+    background-color: #d79c6a;
+}
+
+.delete-status:hover .glyphicon,
+.get-more-info-about-status:hover .glyphicon{
+    color: #fff !important;
+}
+
+.navbar-status li .status:hover .delete-status,
+.navbar-status li .status:hover .get-more-info-about-status{
+    visibility: visible;
+}
+
+.more-info-about-status{
+    width: 300%;
+    position: absolute;
+    z-index: 20;
+    background-color: rgb(215, 156, 106);
+    padding: 20px 20px 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    /*    display: none;*/
+    border-radius: 10px;
+    color: #333;
+}
+
+.more-info-about-status ul{
+    margin-left: 0;
+    padding-left: 10px;
+}
+
+.close-info{
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.close-info:hover{
+    cursor: pointer;
+}
+
+.delete-status-verification{
+    width: 40%;
+    position: absolute;
+    z-index: 20;
+    top: 40%;
+    left: 30%;
+    background-color: rgba(215, 156, 106, .8);
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 10px;
+    display: none;
+}
+
+.btn-delete{
+    background-color: #ddd;
+    color: #333;
+    border: 2px solid #ddd;
+}
+
+.btn-delete:hover{
+    background-color: rgba(215, 156, 106, .0);
+    color: #fff;
+}
+
+.btn-cancel{
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #333;
+}
+
+.btn-cancel:hover{
+    background-color: rgba(215, 156, 106, .0);
+}
+
+.btn-delete{
+    background-color: #d79c6a;
+    color: #fff;
+    border-color: #fff;
+}
+
+.btn-delete:hover{
+    background-color: #fff;
+    color: #d79c6a;
+}
+
+.btn-send{
+    background-color: #d79c6a;
+    color: #fff;
+}
+
+/* ===== NEWS  ===== */
+
+.news{
+    height: 80%;
+    padding-bottom: 20px;
+}
+
+.container-news{
+    height: 100%;
+}
 
 /* ===== NEWS SLIDER ===== */
+.news{
+    height: 70%;
+}
 .news-slider{
     width: 100%;
-    height: 90%;
-    position: relative
+    height: 100%;
+    position: relative;
 }
 
 .news-slider-list{
@@ -248,7 +379,7 @@ a.gold:hover, a.gold:focus, a.gold:visited{
 
 
 #news-slider-item-1{
-    background-image: url('../images/news1.jpg');
+    background-image: url('../images/news4.jpg');
 }
 
 .news-slider-container{
@@ -263,6 +394,7 @@ a.gold:hover, a.gold:focus, a.gold:visited{
     width: 100%;
     height: 100%;
     padding: 0 45px 45px 45px;
+    position: relative;
 }
 
 .news-slider-header{
@@ -278,6 +410,105 @@ a.gold:hover, a.gold:focus, a.gold:visited{
     padding-right: 10px;
     position: relative;
     bottom: 0;
+    margin-bottom: 10px;
+}
+
+.news-slider-section hr{
+    width: 15%;
+    margin: 0 0 10px 0;
+    border-top: 2px solid #d79c6a;
+}
+
+/* ===== Reviews ===== */
+
+.news-slider-reviews{
+    width: 92%;
+    height: 82%;
+    margin-top: 2%;
+    margin-bottom: 4%;
+    /*    background-color: rgba(225, 225, 225, .5);*/
+    position: absolute;
+    top: 0;
+    padding: 20px;
+    display: none;
+    overflow-y: scroll;
+}
+
+.review{
+    width: 100%;
+    height: auto;
+    border-top: 1px solid rgba(225, 225, 225, .5);
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.review:first-child{
+    border-color: rgba(225, 225, 225, 0);
+    padding-top: 5px;
+}
+
+.review-photo{
+    width: 5%;
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.review-photo img{
+    filter: grayscale(100%);
+    transition: .3s all ease-in-out;
+    display: inline-block;
+    border-radius: 5px;
+    max-width: 100%;
+    min-height: 1px;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+    box-sizing: border-box;
+}
+
+.review-name-date{
+    width: calc(95% - 20px);
+    float: left;
+    line-height: 28px;
+    color: #fff;
+    font-size: 8pt;
+}
+
+.review-name{
+    color: #fff;
+    font-size: 10pt;
+    transition: all .3s ease-in-out;
+}
+
+.review-date{
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 0 2px 2px rgba(0,0,0,.5);
+}
+
+.review-text{
+    width: 100%;
+    clear: both;
+    color: #fff;
+}
+
+.review-form{
+
+}
+
+.review-form label{
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 0 2px 2px rgba(0,0,0,.5);
+    color: #fff;
+}
+
+.review-form textarea{
     margin-bottom: 10px;
 }
 
@@ -376,6 +607,10 @@ a.gold:hover, a.gold:focus, a.gold:visited{
     margin-right: 2px;
 }
 
+.close-reviews{
+    display: none;
+}
+
 .news-readtime{
     padding-right: 10px;
     margin-right: 10px;
@@ -422,7 +657,7 @@ a.gold:hover, a.gold:focus, a.gold:visited{
     bottom: 0;  /* 40px 80px */
     right: 30px;
     overflow: hidden;
-    z-index: 200;
+    z-index: 15;
 }
 
 .news-mini-item{
@@ -449,7 +684,6 @@ a.gold:hover, a.gold:focus, a.gold:visited{
 
 .news-mini-content{
     margin-left: 120px;
-    padding: -10px;
     min-height: 70px;
     display: table-cell;
 }
@@ -484,6 +718,10 @@ a.gold:hover, a.gold:focus, a.gold:visited{
 
 /* ===== CARUSEL NEWS ARCHIVE ===== */
 
+.archive-news{
+    /*    height: 10%;*/
+}
+
 .carousel{
     width: 100%;
 }
@@ -504,7 +742,7 @@ a.gold:hover, a.gold:focus, a.gold:visited{
     width: 200px;
     padding: 10px;
     margin-left: 10px;
-    background-image: url(../images/news2.jpg);
+    background-image: url(../images/news1.jpg);
     background-position: center center;
     border-radius: 10px;
     position: relative;
@@ -571,24 +809,78 @@ a.gold:hover, a.gold:focus, a.gold:visited{
 }
 
 /* ===== SCROLLBAR STYLES +++++ */
-.news-slider-section::-webkit-scrollbar {
-	  width: 5px;
+.news-slider-section::-webkit-scrollbar,
+.news-slider-reviews::-webkit-scrollbar{
+    width: 5px;
 }
 
-.news-slider-section::-webkit-scrollbar-button { 
-/*    background-color: rgba(3, 3, 3, 0);*/
+.news-slider-section::-webkit-scrollbar-button,
+.news-slider-reviews::-webkit-scrollbar-button{
+    /*    background-color: rgba(3, 3, 3, 0);*/
 }
 
-.news-slider-section::-webkit-scrollbar-track {
+.news-slider-section::-webkit-scrollbar-track,
+.news-slider-reviews::-webkit-scrollbar-track{
     background-color: rgba(3, 3, 3, .2);
 }
 
-.news-slider-section::-webkit-scrollbar-thumb {
-	  border-radius: 10px;
-      background-color: rgba(225, 225, 225, 0.6);
+.news-slider-section::-webkit-scrollbar-thumb,
+.news-slider-reviews::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: rgba(225, 225, 225, 0.6);
 }
 
-.news-slider-section::-webkit-scrollbar-corner {
+.news-slider-section::-webkit-scrollbar-corner,
+.news-slider-reviews::-webkit-scrollbar-corner{
     background-color: black;
 }
- 
+
+
+/* ===== Chart ===== */
+.bg-grey{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background-color: rgba(3, 3, 3, .8);
+    border-radius: 10px;
+}
+
+.chart_div{
+    position: absolute;
+    left: 50%;
+    margin-left: -250px;
+    top: 45%;
+    margin-top: -150px;
+    z-index: 100;
+}
+
+.chart-buttons{
+    position: relative;
+    top: -40px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-chart{
+    padding: 10px 30px;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.btn-chart-yes{
+    background-color: #d68a46;
+    border: 1px solid #d68a46;
+}
+
+.btn-chart-no{
+    background-color: #d79c6a;
+    border: 1px solid #d79c6a;
+}
+
+.btn-chart:hover{
+    background-color: transparent;
+    color: #fff;
+}

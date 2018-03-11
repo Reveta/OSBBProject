@@ -12,7 +12,7 @@ public interface VotingService{
 
     Voting findOne(int votingId);
 
-    Voting findByVotingAndUserId(int id, String username);
+//    Voting findByVotingAndUserId(int id, String username);
 
     void delete(int id);
 }

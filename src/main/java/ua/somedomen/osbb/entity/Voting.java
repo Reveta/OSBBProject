@@ -84,11 +84,12 @@ public class Voting {
 
         List<Voting> votingList = votingService.findALL();
         for (Voting voting: votingList) {
-            voting.setStatus(false);
-            votingService.save(voting);
+            if(voting.isActiveStatus() == true) {
+                voting.setActiveStatus(false);
+                votingService.save(voting);
+            }
         }
     }
-
 
 
     @Override
@@ -102,54 +103,6 @@ public class Voting {
                 '}' + '\n';
     }
 
-    public boolean isActiveStatus() {
-        return activeStatus;
-    }
-
-    public void setStatus(boolean activeStatus) {
-        this.activeStatus = activeStatus;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getVotingName() {
-        return votingName;
-    }
-
-    public void setVotingName(String votingName) {
-        this.votingName = votingName;
-    }
-
-    public String getVotingShort() {
-        return votingShort;
-    }
-
-    public void setVotingShort(String votingShort) {
-        this.votingShort = votingShort;
-    }
-
-    public String getVotingText() {
-        return votingText;
-    }
-
-    public void setVotingText(String votingText) {
-        this.votingText = votingText;
-    }
-
-    public String getVotingTime() {
-        return votingTime;
-    }
-
-    public void setVotingTime(String votingTime) {
-        this.votingTime = votingTime;
-    }
-
     public List<Vote> getVoteList() {
         return voteList;
     }
@@ -158,4 +111,3 @@ public class Voting {
         this.voteList = voteList;
     }
 }
-

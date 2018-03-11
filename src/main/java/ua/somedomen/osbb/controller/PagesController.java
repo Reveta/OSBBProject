@@ -1,6 +1,5 @@
 package ua.somedomen.osbb.controller;
 
-import com.sun.xml.internal.ws.encoding.xml.XMLMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,15 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ua.somedomen.osbb.dto.DTOActiveVoting;
+import ua.somedomen.osbb.entity.Comments;
 import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.Voting;
 import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.*;
 import ua.somedomen.osbb.validator.UserValidator;
 
-import javax.xml.stream.events.Comment;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,50 +49,47 @@ public class PagesController {
 
     @GetMapping("/")
     public String index(Model model, Principal principal) {
-        List<News> newsListFull = newsService.findALL(); // Оцей метод наповнює ліст голосувань
-
         Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
+
+
         UserDetails byUsername = userService.loadUserByUsername(userName);
-
-
+        List<News> newsListFull = newsService.findALL(); // Оцей метод наповнює ліст голосувань
         List<Voting> votingList = votingService.findALL();
-        List<DTOActiveVoting> dtoVotingList = new ArrayList<>();
-        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
 
-        for (Voting voting : votingList) {
-            DTOActiveVoting dtoVoting = new DTOActiveVoting();
+        DTOActiveVoting dtoActiveVoting = DTOActiveVoting.createDTOAV(votingList, userName);
 
-            dtoVotingList.add(dtoVoting.resultVoting(voting));
+        ///
+        News newsLast = newsListFull.get(newsListFull.size()-1);
+        List<Comments> lastComments = newsLast.getNewsComment();
+        List<News> threeLastNews = new ArrayList<>();
+        int countOfComments = newsLast.getNewsComment().size();
+
+        threeLastNews.add(newsListFull.get(newsListFull.size() - 2));
+        threeLastNews.add(newsListFull.get(newsListFull.size() - 3));
+        threeLastNews.add(newsListFull.get(newsListFull.size() - 4));
+
+        List<News> karuselNews = new ArrayList<>();
+        for (int i = newsListFull.size() - 5; i > 0; i--){
+            karuselNews.add(newsListFull.get(i));
         }
 
-
-        int status = 3;
-        dtoActiveVoting.setVotingListVote(dtoVotingList);
-        for (Voting voting : votingList) {
-            if (voting.isActiveStatus()) {
-                status = 2;
-
-//            Оцей метод наповнює актуальне голосування
-                dtoActiveVoting.resultVoting(voting);
-                if (!voting.wasVote(userName)) {
-                    status = 1;
-                }
-            }
-            dtoActiveVoting.setVotingStatus(status);
-        }
-
-//!!!!!!!!!!!!
-//Якщо що, то треба буде переписати, є багато варіантів як це оптимізувати,
-// але поки, головне, що працює правильно
-//!!!!!!!!!!!!
+        int activeVotingId = dtoActiveVoting.getVotingId();
+        ///
 
 
+
+        model.addAttribute("newsLast", newsLast);
         model.addAttribute("statusShowAll", statusService.findAll());
         model.addAttribute("newsShowAll", newsListFull);
         model.addAttribute("dtoVoting", dtoActiveVoting);
         model.addAttribute("user", byUsername);
-        model.addAttribute("status", status);
+        model.addAttribute("status", dtoActiveVoting.getVotingStatus());
+        model.addAttribute("lastComments", lastComments);
+        model.addAttribute("countOfComments", countOfComments);
+        model.addAttribute("threeLastNews", threeLastNews);
+        model.addAttribute("karuselNews", karuselNews);
+        model.addAttribute("activeVotingId", activeVotingId);
         return "index";
     }
 
@@ -102,7 +97,25 @@ public class PagesController {
 
     @GetMapping("/admin")
     public String loginAdm(Principal principal, Model model) {
-        model.addAttribute("user", principal);
+        Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
+        //Треба буде і принципал переписати, перегести його в клас Юзера
+
+
+        UserDetails byUsername = userService.loadUserByUsername(userName);
+        List<News> newsListFull = newsService.findALL(); // Оцей метод наповнює ліст голосувань
+        List<Voting> votingList = votingService.findALL();
+
+        DTOActiveVoting dtoActiveVoting = DTOActiveVoting.createDTOAV(votingList, userName);
+
+
+        model.addAttribute("user", byUsername);
+        model.addAttribute("statusShowAll", statusService.findAll());
+        model.addAttribute("newsLast", News.getLastNews(newsListFull));
+        model.addAttribute("newsListTree", News.getThreeLastNews(newsListFull));
+        model.addAttribute("newsShowAll", newsListFull);
+        model.addAttribute("dtoVoting", dtoActiveVoting);
+        model.addAttribute("status", dtoActiveVoting.getVotingStatus());
         return "admin";
     }
 
@@ -152,6 +165,8 @@ public class PagesController {
     @GetMapping("newsPage-{id}")
     public String newsPage(@PathVariable("id") int id, Model model) {
         model.addAttribute("News", newsService.findOne(id));
-        return "newsPage";
+        System.out.println("\n" + id);
+//        return "newsPage";
+        return  "redirect:/";
     }
 }

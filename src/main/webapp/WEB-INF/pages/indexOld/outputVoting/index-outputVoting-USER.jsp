@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <div class="col-lg-12 col-md-12 col-sm-12">
-<p>Активне голосування</p>
+    <p>Активне голосування</p>
 
     <div class="col-lg-8 col-md-6 col-sm-6">
         <div>Початок голосування</div>
@@ -27,7 +27,7 @@
 
 <p>Голосування</p>
 
-<c:forEach items="${dtoVoting.votingListVote}" var="Voting">
+<c:forEach items="${dtoVoting.votingListDtoVoting}" var="Voting">
 
 
     <div class="col-lg-8 col-md-6 col-sm-6">

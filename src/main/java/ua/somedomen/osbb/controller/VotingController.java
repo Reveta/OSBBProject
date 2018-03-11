@@ -26,22 +26,7 @@ public class VotingController {
 
 
 
-    @PostMapping("/addVoting")
-    public String addVoting(
-            @RequestParam String votingName,
-            @RequestParam String votingShort,
-            @RequestParam String votingText) {
 
-        System.out.println("Створення голосування за ім'ям "+ votingName + ". "
-        + "Коротко "+ votingShort + "а також повно, " + votingText + ". ");
-
-        Voting.disableVoting(votingService);
-
-        votingService.save(new Voting(true ,votingName, votingShort,
-                votingText, String.valueOf(new Date())));
-
-        return "redirect:/";
-    }
 
     @PostMapping("/addVote")
     public String addVote(
@@ -66,11 +51,5 @@ public class VotingController {
         return "redirect:/";
     }
 
-    @GetMapping("/disableVoting")
-    public String disableVoting(){
-        Voting.disableVoting(votingService);
 
-        System.out.println("Всі голосування деактивовані");
-        return "redirect:/";
-    }
 }

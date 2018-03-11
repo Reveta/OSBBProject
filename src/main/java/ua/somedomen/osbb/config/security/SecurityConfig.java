@@ -73,8 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.addFilterBefore(filter, CsrfFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/**", "/index", "/registration", "/login").permitAll()
+                .antMatchers("/index", "/registration", "/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/admin").access("hasRole('ADMIN')")
                 .antMatchers("/user/**").access("hasRole('USER')")
                 .antMatchers("/cabinet/**").access("hasRole('USER')")
                 .and()
