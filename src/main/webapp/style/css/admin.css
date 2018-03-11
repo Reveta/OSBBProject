@@ -1,0 +1,106 @@
+body{
+    
+}
+
+h3{
+    text-align: center;
+    font-weight: bold;
+}
+
+.sign-in-admin-container{
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    display: table;
+}
+
+.sign-in-admin-content{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.sign-in-admin-form{
+    width: 40%;
+    margin: auto;
+    background-color: #d68a46;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.sign-in-admin-form label{
+    color: #fff;
+}
+
+.sign-in-admin-form .btn{
+    width: 20%;
+    border-color: #999;
+    display: block;
+    margin: auto;
+    color: #999;
+}
+
+.sign-in-admin-form .btn:hover,
+.sign-in-admin-form .btn:focus{
+    color: #fff;
+    background-color: #d68a46;
+    border-color: #fff;
+}
+
+.admin-panel-container{
+
+}
+.admin-panel-container ul{
+    background-color: #333;
+    border-bottom: 0;
+    padding: 0 20px;
+}
+
+.admin-panel-container ul li a{
+    color: #d68a46;
+    border-radius: 0;
+}
+
+.nav-tabs>li.active>a, 
+.nav-tabs>li.active>a:focus, 
+.nav-tabs>li.active>a:hover{
+    background-color: #bdbdbd;
+    color: #fff;
+    font-weight: bold;
+}
+
+.add-new-voiting-container,
+.add-new-news-container,
+.add-new-status-container{
+    background-color: #bdbdbd;
+    padding: 20px 40px;
+}
+
+.all-voiting,
+.all-news,
+.all-status{
+    padding: 20px 40px;
+}
+
+.btn-admin{
+    width: 10%;
+    display: block;
+    margin: auto;
+}
+
+.table tr.dark{
+    color: #fff;
+    background-color: #333;
+}
+
+.table thead tr th{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table tbody tr td{
+    vertical-align: middle;
+}
+
+.table tbody tr td.action{
+    text-align: center;
+}

@@ -131,7 +131,7 @@ public class AdminController {
         votingService.save(new Voting(true ,votingName, votingShort,
                 votingText, String.valueOf(new Date())));
 
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @PostMapping("/newsUpdate")
@@ -241,6 +241,6 @@ public class AdminController {
         Voting.disableVoting(votingService);
 
         System.out.println("Всі голосування деактивовані");
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }

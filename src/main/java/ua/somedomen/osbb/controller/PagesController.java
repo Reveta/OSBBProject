@@ -76,7 +76,7 @@ public class PagesController {
     public String loginAdm(Principal principal, Model model) {
         Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
-        //Треба буде і принципал переписати, перегести його в клас Юзера
+        //Треба буде і принципал переписати, перенести його в клас Юзера
 
 
         UserDetails byUsername = userService.loadUserByUsername(userName);
