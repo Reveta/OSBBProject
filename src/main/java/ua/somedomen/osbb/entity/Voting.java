@@ -92,7 +92,6 @@ public class Voting {
     }
 
 
-
     @Override
     public String toString() {
         return "Voting{" +
@@ -104,5 +103,12 @@ public class Voting {
                 '}' + '\n';
     }
 
+    public List<Vote> getVoteList() {
+        return voteList;
+    }
+
+    public void setVoteList(List<Vote> voteList) {
+        this.voteList = voteList;
+    }
 }
 

@@ -11,8 +11,10 @@ import ua.somedomen.osbb.entity.Comments;
 import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.Status;
 import ua.somedomen.osbb.entity.Voting;
+import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.NewsService;
 import ua.somedomen.osbb.service.StatusService;
+import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VotingService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,9 @@ public class AdminController {
 
     @Autowired
     private StatusService statusService;
+
+    @Autowired
+    private UserService userService;
 
 
 
@@ -63,7 +68,7 @@ public class AdminController {
         System.out.println("Створення новини" + newsName + "від "+ newsAuthor +
                 ". Коротко - " + newsShort +"а, повно - " + newsText +". ");
 
-        newsService.addNews(news);
+        newsService.save(news);
 
         return "redirect:/";
     }
@@ -110,6 +115,8 @@ public class AdminController {
     }
 
 
+
+
     @PostMapping("/addVoting")
     public String addVoting(
             @RequestParam String votingName,
@@ -124,6 +131,116 @@ public class AdminController {
         votingService.save(new Voting(true ,votingName, votingShort,
                 votingText, String.valueOf(new Date())));
 
+        return "redirect:/";
+    }
+
+    @PostMapping("/newsUpdate")
+    public String newsUpdate(
+            @RequestParam int id,
+            @RequestParam String newsName,
+            @RequestParam String newsShort,
+            @RequestParam String newsText) {
+
+        News thisis = newsService.findOne(id);
+
+        thisis.setNewsName(newsName);
+        thisis.setNewsShort(newsShort);
+        thisis.setNewsText(newsText);
+        newsService.save(thisis);
+
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/statusUpdate")
+    public String statusUpdate(
+            @RequestParam int id,
+            @RequestParam String statusName,
+            @RequestParam String statusText) {
+
+        Status thisis = statusService.findOne(id);
+
+        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
+        thisis.setStatusName(statusName);
+        thisis.setStatusText(statusText);
+        statusService.save(thisis);
+
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/updatePersonalInfo")
+    public String updatePersonalInfo(
+            @RequestParam int id,
+            @RequestParam String email,
+            @RequestParam String name,
+            @RequestParam String prename,
+            @RequestParam String phoneNumber,
+            @RequestParam String someInfo) {
+
+        User thisis = userService.findOne(id);
+
+        thisis.setEmail(email);
+        thisis.setName(name);
+        thisis.setPrename(prename);
+        thisis.setPhoneNumber(phoneNumber);
+        thisis.setSomeInfo(someInfo);
+        userService.saveWithoutPassword(thisis);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/votingUpdate")
+    public String votingUpdate(
+            @RequestParam int id,
+            @RequestParam String votingName,
+            @RequestParam String votingShort,
+            @RequestParam String votingText) {
+        System.out.println("\n \n \n"+id+" " + votingName+" " + votingShort+" " + votingText + "\n \n \n");
+
+        Voting thisis = votingService.findOne(id);
+
+        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
+        thisis.setVotingName(votingName);
+        thisis.setVotingShort(votingShort);
+        thisis.setVotingText(votingText);
+        votingService.save(thisis);
+
+        return "redirect:/admin";
+    }
+
+
+    @PostMapping("/deleteNews")
+    public String deleteNews(
+            @RequestParam int id) {
+
+        newsService.delete(id);
+        return "redirect:/admin";
+    }
+
+    //Голосування де вже голосували, не можна видалити
+    @PostMapping("/deleteVoting")
+    public String deleteVoting(
+            @RequestParam int id) {
+        Voting voting = votingService.findOne(id);
+        voting.setVoteList(null);
+        votingService.save(voting);
+
+        votingService.delete(id);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/deleteStatus")
+    public String deleteStatus(
+            @RequestParam int id) {
+
+        statusService.delete(id);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/disableVoting")
+    public String disableVoting(){
+        Voting.disableVoting(votingService);
+
+        System.out.println("Всі голосування деактивовані");
         return "redirect:/";
     }
 }

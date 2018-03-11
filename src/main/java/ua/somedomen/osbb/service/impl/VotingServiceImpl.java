@@ -31,10 +31,10 @@ public class VotingServiceImpl implements VotingService {
         return votingDAO.findOne(votingId);
     }
 
-    @Override
-    public Voting findByVotingAndUserId(int id, String username) {
-        return votingDAO.findByVotingAndUserId(id, username);
-    }
+//    @Override
+//    public Voting findByVotingAndUserId(int id, String username) {
+//        return votingDAO.findByVotingAndUserId(id, username);
+//    }
 
     @Override
     public void delete(int id) {

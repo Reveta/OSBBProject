@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import ua.somedomen.osbb.entity.Voting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -27,19 +28,19 @@ public class DTOActiveVoting {
     private String votingText;
     private String votingDate;
 
-    private List<DTOActiveVoting> votingListVote;
+    private List<DTOActiveVoting> votingListDtoVoting;
 
     private int votingTrue;
     private int votingFalse;
 
-    public DTOActiveVoting(int votingId, int votingStatus, String votingName, String votingShort, String votingText, String votingDate, List<DTOActiveVoting> votingListVote, int votingTrue, int votingFalse) {
+    public DTOActiveVoting(int votingId, int votingStatus, String votingName, String votingShort, String votingText, String votingDate, List<DTOActiveVoting> votingListDtoVoting, int votingTrue, int votingFalse) {
         this.votingId = votingId;
         this.votingStatus = votingStatus;
         this.votingName = votingName;
         this.votingShort = votingShort;
         this.votingText = votingText;
         this.votingDate = votingDate;
-        this.votingListVote = votingListVote;
+        this.votingListDtoVoting = votingListDtoVoting;
         this.votingTrue = votingTrue;
         this.votingFalse = votingFalse;
     }
@@ -51,89 +52,70 @@ public class DTOActiveVoting {
     public DTOActiveVoting() {
     }
 
-    public int getVotingId() {
-        return votingId;
+    public static DTOActiveVoting createDTOAV(List<Voting> votingList, String username) {
+        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
+        dtoActiveVoting.addStatus(votingList, username);
+        Voting activeVoting = findActiveVoting(votingList);
+        if (activeVoting != null) {
+            dtoActiveVoting.resultVoting(activeVoting);
+        }
+        dtoActiveVoting.addDtoVotingList(votingList);
+
+        return dtoActiveVoting;
     }
 
-    public DTOActiveVoting resultVoting(Voting voting){
+    private static Voting findActiveVoting(List<Voting> votingList) {
+        for (Voting voting : votingList) {
+            if (voting.isActiveStatus()) {
+                return voting;
+            }
+
+        }
+        return null;
+    }
+
+
+    private DTOActiveVoting addDtoVotingList(List<Voting> votingList) {
+        List<DTOActiveVoting> votingListDtoVoting = new ArrayList<>();
+
+
+        for (Voting voting : votingList) {
+            DTOActiveVoting dtoVoting = new DTOActiveVoting();
+            votingListDtoVoting.add(dtoVoting.resultVoting(voting));
+        }
+
+        this.setVotingListDtoVoting(votingListDtoVoting);
+
+        return this;
+    }
+
+    private DTOActiveVoting resultVoting(Voting voting) {
 
         this.setVotingId(voting.getId());
         this.setVotingName(voting.getVotingName());
         this.setVotingShort(voting.getVotingShort());
         this.setVotingText(voting.getVotingText());
         this.setVotingDate(voting.getVotingTime());
-
         this.setVotingTrue(0 + voting.nuberOfTrue());
         this.setVotingFalse(0 + voting.nuberOfFalse());
 
         return this;
     }
 
-    public void setVotingId(int votingId) {
-        this.votingId = votingId;
+    private DTOActiveVoting addStatus(List<Voting> votingList, String userName) {
+        int status = 3;
+        for (Voting voting : votingList) {
+            if (voting.isActiveStatus()) {
+                status = 2;
+
+//            Оцей метод наповнює актуальне голосування
+                if (!voting.wasVote(userName)) {
+                    status = 1;
+                }
+            }
+            this.setVotingStatus(status);
+        }
+        return this;
     }
 
-    public int getVotingStatus() {
-        return votingStatus;
-    }
-
-    public void setVotingStatus(int votingStatus) {
-        this.votingStatus = votingStatus;
-    }
-
-    public String getVotingName() {
-        return votingName;
-    }
-
-    public void setVotingName(String votingName) {
-        this.votingName = votingName;
-    }
-
-    public String getVotingShort() {
-        return votingShort;
-    }
-
-    public void setVotingShort(String votingShort) {
-        this.votingShort = votingShort;
-    }
-
-    public String getVotingText() {
-        return votingText;
-    }
-
-    public void setVotingText(String votingText) {
-        this.votingText = votingText;
-    }
-
-    public String getVotingDate() {
-        return votingDate;
-    }
-
-    public void setVotingDate(String votingDate) {
-        this.votingDate = votingDate;
-    }
-
-    public List<DTOActiveVoting> getVotingListVote() {
-        return votingListVote;
-    }
-
-    public void setVotingListVote(List<DTOActiveVoting> votingListVote) {
-        this.votingListVote = votingListVote;
-    }
-
-    public int getVotingTrue() {
-        return votingTrue;
-    }
-
-    public void setVotingTrue(int votingTrue) {
-        this.votingTrue = votingTrue;
-    }
-
-    public int getVotingFalse() {
-        return votingFalse;
-    }
-
-    public void setVotingFalse(int votingFalse) {
-        this.votingFalse = votingFalse;
-    }
 }

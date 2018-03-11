@@ -17,11 +17,6 @@ public class NewsServiceImpl implements NewsService{
     private NewsDAO newsDAO;
 
     @Override
-    public void addNews(News news) {
-        newsDAO.save(news);
-    }
-
-    @Override
     public List<News> findALL() {
         return newsDAO.findAll();
     }

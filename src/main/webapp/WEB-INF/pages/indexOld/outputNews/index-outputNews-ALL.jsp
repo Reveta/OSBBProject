@@ -13,6 +13,18 @@
             </div>
         </div>
 
+        <div>Test
+            <div>
+                Ім'я останньої новини - ${newsLast.newsName}
+            </div>
+            <div>
+                <c:forEach items="${newsListTree}" var="newsListTree">
+                    <p>Name of newsListTree - ${newsListTree.newsName}</p>
+                </c:forEach>
+            </div>
+
+        </div>
+
 
         <c:forEach items="${newsShowAll}" var="News">
             <div class="row one-news">
@@ -31,10 +43,9 @@
                         <input type="submit" value="X">
                     </form>
                     <h1><a href="/newsPage-${News.id}">${News.newsName}</a></h1>
-                    <p>${News.newsTime}  ${News.newsAuthor}</p>
+                    <p>${News.newsTime} ${News.newsAuthor}</p>
                     <p>Текст новини: ${News.newsShort}</p>
                     <p>Текст новини: ${News.newsText}</p>
-
 
 
                 </div>

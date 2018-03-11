@@ -27,7 +27,7 @@
 
 <p>Голосування</p>
 
-<c:forEach items="${dtoVoting.votingListVote}" var="Voting">
+<c:forEach items="${dtoVoting.votingListDtoVoting}" var="Voting">
 
 
     <div class="col-lg-8 col-md-6 col-sm-6">

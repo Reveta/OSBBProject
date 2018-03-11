@@ -26,48 +26,48 @@ public class DeleteController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/deleteNews")
-    public String deleteNews(
-            @RequestParam int id) {
-
-        newsService.delete(id);
-        return "redirect:/";
-    }
-
-    @GetMapping("/deleteVoting")
-    public String deleteVoting(
-            @RequestParam int id) {
+//    @GetMapping("/deleteNews")
+//    public String deleteNews(
+//            @RequestParam int id) {
+//
+//        newsService.delete(id);
+//        return "redirect:/";
+//    }
+//
+//    @GetMapping("/deleteVoting")
+//    public String deleteVoting(
+//            @RequestParam int id) {
 //
 //        votingService.delete(id);
-        return "redirect:/";
-    }
-
-    @GetMapping("/deleteStatus")
-    public String deleteStatus(
-            @RequestParam int id) {
-
-        statusService.delete(id);
-        return "redirect:/";
-    }
-
-    @GetMapping("/deleteComment")
-    public String deleteComment(
-            @RequestParam int newsId,
-            @RequestParam int commentId) {
-        //не працює видалення коментарів
-
-//        News thisis = newsService.findOne(newsId);
+//        return "redirect:/";
+//    }
 //
-//        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
-//        List<Comments> commentsList = thisis.getNewsComment();
-//        commentsList.remove(commentId);
+//    @GetMapping("/deleteStatus")
+//    public String deleteStatus(
+//            @RequestParam int id) {
 //
-//        thisis.setNewsName(thisis.getNewsName());
-//        thisis.setNewsText(thisis.getNewsText());
-//        thisis.setNewsComment(commentsList);
-//        newsService.save(thisis);
-
-//        commentService.delete(commentId);
-        return "redirect:/";
-    }
+//        statusService.delete(id);
+//        return "redirect:/";
+//    }
+//
+//    @GetMapping("/deleteComment")
+//    public String deleteComment(
+//            @RequestParam int newsId,
+//            @RequestParam int commentId) {
+//        //не працює видалення коментарів
+//
+////        News thisis = newsService.findOne(newsId);
+////
+////        //Не зважайте на червоні методи, LomBok працює, все гаразд :)
+////        List<Comments> commentsList = thisis.getNewsComment();
+////        commentsList.remove(commentId);
+////
+////        thisis.setNewsName(thisis.getNewsName());
+////        thisis.setNewsText(thisis.getNewsText());
+////        thisis.setNewsComment(commentsList);
+////        newsService.save(thisis);
+//
+////        commentService.delete(commentId);
+//        return "redirect:/";
+//    }
 }

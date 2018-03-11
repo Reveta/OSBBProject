@@ -1,6 +1,5 @@
 package ua.somedomen.osbb.controller;
 
-import com.sun.xml.internal.ws.encoding.xml.XMLMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ua.somedomen.osbb.dto.DTOActiveVoting;
 import ua.somedomen.osbb.entity.News;
 import ua.somedomen.osbb.entity.Voting;
@@ -16,9 +14,7 @@ import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.*;
 import ua.somedomen.osbb.validator.UserValidator;
 
-import javax.xml.stream.events.Comment;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,50 +47,26 @@ public class PagesController {
 
     @GetMapping("/")
     public String index(Model model, Principal principal) {
-        List<News> newsListFull = newsService.findALL(); // Оцей метод наповнює ліст голосувань
 
         Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
+
+
         UserDetails byUsername = userService.loadUserByUsername(userName);
-
-
+        List<News> newsListFull = newsService.findALL(); // Оцей метод наповнює ліст голосувань
         List<Voting> votingList = votingService.findALL();
-        List<DTOActiveVoting> dtoVotingList = new ArrayList<>();
-        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
 
-        for (Voting voting : votingList) {
-            DTOActiveVoting dtoVoting = new DTOActiveVoting();
-
-            dtoVotingList.add(dtoVoting.resultVoting(voting));
-        }
+        DTOActiveVoting dtoActiveVoting = DTOActiveVoting.createDTOAV(votingList, userName);
 
 
-        int status = 3;
-        dtoActiveVoting.setVotingListVote(dtoVotingList);
-        for (Voting voting : votingList) {
-            if (voting.isActiveStatus()) {
-                status = 2;
-
-//            Оцей метод наповнює актуальне голосування
-                dtoActiveVoting.resultVoting(voting);
-                if (!voting.wasVote(userName)) {
-                    status = 1;
-                }
-            }
-            dtoActiveVoting.setVotingStatus(status);
-        }
-
-//!!!!!!!!!!!!
-//Якщо що, то треба буде переписати, є багато варіантів як це оптимізувати,
-// але поки, головне, що працює правильно
-//!!!!!!!!!!!!
-
-
+        model.addAttribute("user", byUsername);
         model.addAttribute("statusShowAll", statusService.findAll());
+        model.addAttribute("newsLast", News.getLastNews(newsListFull));
+        model.addAttribute("newsListTree", News.getThreeLastNews(newsListFull));
         model.addAttribute("newsShowAll", newsListFull);
         model.addAttribute("dtoVoting", dtoActiveVoting);
-        model.addAttribute("user", byUsername);
-        model.addAttribute("status", status);
+        model.addAttribute("status", dtoActiveVoting.getVotingStatus());
+
         return "index";
     }
 
@@ -104,39 +76,23 @@ public class PagesController {
     public String loginAdm(Principal principal, Model model) {
         Object principalO = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = principalO instanceof UserDetails ? principal.getName() : "adminqweewq";
+        //Треба буде і принципал переписати, перегести його в клас Юзера
+
+
         UserDetails byUsername = userService.loadUserByUsername(userName);
-
+        List<News> newsListFull = newsService.findALL(); // Оцей метод наповнює ліст голосувань
         List<Voting> votingList = votingService.findALL();
-        List<DTOActiveVoting> dtoVotingList = new ArrayList<>();
-        DTOActiveVoting dtoActiveVoting = new DTOActiveVoting();
 
-        for (Voting voting : votingList) {
-            DTOActiveVoting dtoVoting = new DTOActiveVoting();
-
-            dtoVotingList.add(dtoVoting.resultVoting(voting));
-        }
+        DTOActiveVoting dtoActiveVoting = DTOActiveVoting.createDTOAV(votingList, userName);
 
 
-        int status = 3;
-        dtoActiveVoting.setVotingListVote(dtoVotingList);
-        for (Voting voting : votingList) {
-            if (voting.isActiveStatus()) {
-                status = 2;
-
-//            Оцей метод наповнює актуальне голосування
-                dtoActiveVoting.resultVoting(voting);
-                if (!voting.wasVote(userName)) {
-                    status = 1;
-                }
-            }
-            dtoActiveVoting.setVotingStatus(status);
-        }
-
-        model.addAttribute("statusShowAll", statusService.findAll());
-        model.addAttribute("newsShowAll", newsService.findALL());
-        model.addAttribute("dtoVoting", dtoActiveVoting);
-        model.addAttribute("status", status);
         model.addAttribute("user", byUsername);
+        model.addAttribute("statusShowAll", statusService.findAll());
+        model.addAttribute("newsLast", News.getLastNews(newsListFull));
+        model.addAttribute("newsListTree", News.getThreeLastNews(newsListFull));
+        model.addAttribute("newsShowAll", newsListFull);
+        model.addAttribute("dtoVoting", dtoActiveVoting);
+        model.addAttribute("status", dtoActiveVoting.getVotingStatus());
         return "admin";
     }
 
@@ -188,4 +144,5 @@ public class PagesController {
         model.addAttribute("News", newsService.findOne(id));
         return "newsPage";
     }
+
 }

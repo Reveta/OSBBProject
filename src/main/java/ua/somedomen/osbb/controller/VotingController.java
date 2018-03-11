@@ -51,11 +51,5 @@ public class VotingController {
         return "redirect:/";
     }
 
-    @GetMapping("/disableVoting")
-    public String disableVoting(){
-        Voting.disableVoting(votingService);
 
-        System.out.println("Всі голосування деактивовані");
-        return "redirect:/";
-    }
 }
