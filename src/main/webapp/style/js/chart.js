@@ -1,21 +1,28 @@
+//var test = 1;
 
 var google, document;
-google.charts.load('current', {'packages': ['corechart']});
+google.charts.load('current', {
+    callback: function () {
+        drawChart(status);
+    }, packages: ['corechart']
+});
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawChart);
+//google.charts.setOnLoadCallback(drawChart);
 
 // Callback that creates and populates a data table,
 // instantiates the pie chart, passes in the data and
 // draws it.
-function drawChart() {
+function drawChart(status) {
+
+    // var st = status;
     // Create the data table.
     "use strict";
-    
+
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Topping');
     data.addColumn('number', 'Slices');
-    data.addRows([ ['Yes', 1], ['No', 20] ]);
+    data.addRows([['Yes', tr], ['No', fal]]);
 
     // Set chart options
     var options = {
@@ -29,31 +36,41 @@ function drawChart() {
     };
 
     // Instantiate and draw our chart, passing in some options.
-    var a = 3;
+    var a = status;
+    // var tmp = tmp;
     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
 
+    var addTitle = function () {
+        $('.chart_div').prepend('<h6>' + votingText + '</h6>');
+    };
+    var addButtons = function () {
+        $('.chart_div').append(
+            '<form action="/addVote" method="post">'+
+            '<div class="chart-buttons">' +
+            '<input type="hidden" name="votingId" value=' + votingId + '>' +
+            '<button class="btn btn-chart btn-chart-yes" type="submit" name="vote" value="true"> Yes </button>' +
+            '<button class="btn btn-chart btn-chart-yes" type="submit" name="vote" value="false"> No </button>' +
+            '</form>'
+        );
+    };
 
-    // Розібратись!
-    var addTitle = function () {$('.chart_div').prepend('<h6>' + "Hello" + '</h6>')};
-    var addButtons = function () {$('.chart_div').append(
-        // '<input type="hidden" name="id" value="${Voting.id}">' +
-        '<input type="text" name="id" value="${activeVotingId.votingId}">' +
-        '<div class="chart-buttons">' +
-        // '${activeVotingId.votingId}' +
-        '<button class="btn btn-chart btn-chart-yes" type="button"> Yes </button>' +
-        '<button class="btn btn-chart btn-chart-no" type="button"> No </button>'+ '</div>'
-    )};
-    
-    if (a) {
+    if (a == 1 && checkUser === 7) {
         $(".bg-grey").css({"display": "block"});
         chart.draw(data, options);
         addTitle();
         addButtons();
-    } else if (a === 2) {
-        $(".bg-grey").css({"display": "block"});
-        chart.draw(data, options);
-        addTitle();
+    // } else if (a == 2) {
+    //     $(".bg-grey").css({"display": "block"});
+    //     chart.draw(data, options);
+    //     addTitle();
     } else {
         $(".bg-grey").css({"display": "none"});
     }
 }
+
+//$(document).on('click', function(){
+//    var b = Number(prompt("Enter status number:"));
+//    drawChart(2);
+//});
+

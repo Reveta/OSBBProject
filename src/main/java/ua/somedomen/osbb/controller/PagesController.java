@@ -73,10 +73,11 @@ public class PagesController {
         for (int i = newsListFull.size() - 5; i > 0; i--){
             karuselNews.add(newsListFull.get(i));
         }
-
-        int activeVotingId = dtoActiveVoting.getVotingId();
+        String checkUser = "offline"; // перевірка на то, чи юзер залогований, додаткова перевірка в chart.js
+        if (principalO instanceof UserDetails){
+             checkUser = "online";
+        }
         ///
-
 
 
         model.addAttribute("newsLast", newsLast);
@@ -89,7 +90,8 @@ public class PagesController {
         model.addAttribute("countOfComments", countOfComments);
         model.addAttribute("threeLastNews", threeLastNews);
         model.addAttribute("karuselNews", karuselNews);
-        model.addAttribute("activeVotingId", activeVotingId);
+        model.addAttribute("activeVotingId", dtoActiveVoting.getVotingId());
+        model.addAttribute("checkUser", checkUser);
         return "index";
     }
 

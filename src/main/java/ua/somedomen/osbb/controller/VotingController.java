@@ -12,6 +12,7 @@ import ua.somedomen.osbb.service.UserService;
 import ua.somedomen.osbb.service.VoteService;
 import ua.somedomen.osbb.service.VotingService;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -31,11 +32,14 @@ public class VotingController {
     @PostMapping("/addVote")
     public String addVote(
             @RequestParam int votingId,
-            @RequestParam int userId,
+//            @RequestParam int userId,/
+//            @RequestParam String userName,
+            Principal principal,
             @RequestParam String vote) {
 
 
-        User user= userService.findOne(userId);
+//        User user= userService.findByUsername(userName);
+        User user = userService.findByUsername(principal.getName());
         Voting thisVoting = votingService.findOne(votingId);
 
 

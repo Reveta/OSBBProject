@@ -55,7 +55,7 @@
                     </sec:authorize>
                     <sec:authorize access="hasAnyRole('USER')">
                         <li class="active"><a href="/cabinet">Кабінет</a></li>
-                        <li><a href="#">Голосування</a></li>
+                        <li><a href="#" id="Voting">Голосування</a></li>
                         <li><a href="#">Документи</a></li>
                         <li id="log-in">
                             <a href="/logout">Вихід
@@ -72,6 +72,8 @@
     </nav>
 </header>
 
+<p style="color: black">status - ${status}</p>
+<p style="color: black">checkUser - ${checkUser}</p>
 <!-- ===== Main Page ===== -->
 <section id="main-page" class="main-page">
     <!-- ===== Statuses ===== -->
@@ -171,34 +173,6 @@
                                         </div>
 
                                     </div>
-                                    <%--<div id="review-2" class="review">--%>
-                                    <%--<div class="review-photo">--%>
-                                    <%--<img src="style/images/punkiv.jpg" alt="review-img">--%>
-                                    <%--</div>--%>
-                                    <%--<div class="review-name-date">--%>
-                                    <%--<span class="review-name"><a href="#user">Romasia Punkiv</a></span>,--%>
-                                    <%--<span class="review-date gold">26.01.2018</span>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="review-text">--%>
-                                    <%--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita odit--%>
-                                    <%--officia libero inventore labore non nam perferendis alias! Sed ex mollitia--%>
-                                    <%--nostrum officia accusantium quos error voluptatibus aliquid omnis ad.--%>
-                                    <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div id="review-3" class="review">--%>
-                                    <%--<div class="review-photo">--%>
-                                    <%--<img src="style/images/punkiv.jpg" alt="review-img">--%>
-                                    <%--</div>--%>
-                                    <%--<div class="review-name-date">--%>
-                                    <%--<span class="review-name"><a href="#user">Romasia Punkiv</a></span>,--%>
-                                    <%--<span class="review-date gold">26.01.2018</span>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="review-text">--%>
-                                    <%--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita odit--%>
-                                    <%--officia libero inventore labore non nam perferendis alias! Sed ex mollitia--%>
-                                    <%--nostrum officia accusantium quos error voluptatibus aliquid omnis ad.--%>
-                                    <%--</div>--%>
-                                    <%--</div>--%>
 
                                     <!-- Form for send review -->
                                     <sec:authorize access="hasAnyRole('USER', 'ADMIN')">
@@ -206,7 +180,8 @@
                                             <form action="/addComment" method="post">
                                                 <label for="textarea">Write comment:</label>
                                                 <input type="hidden" name="id" value="${newsLast.id}">
-                                                <textarea class="form-control" rows="3" id="textarea" name="commentValue"></textarea>
+                                                <textarea class="form-control" rows="3" id="textarea"
+                                                          name="commentValue"></textarea>
                                                 <input class="btn btn-send" type="submit" value="Відправити">
                                             </form>
                                         </div>
@@ -221,7 +196,8 @@
                                                     <img src="style/images/punkiv.jpg" alt="Punkiv">
                                                 </a>
                                                 <span>
-                                                    <a href="#news-author" class="news-author">${newsLast.newsAuthor},</a>
+                                                    <a href="#news-author"
+                                                       class="news-author">${newsLast.newsAuthor},</a>
                                                 </span>
                                                 <%--<a href="#news-date" class="news-date">11 minute ago</a>--%>
                                             </span>
@@ -233,12 +209,7 @@
                                                id="closeReviews">
                                                 <span class="glyphicon glyphicon-bell"></span> Back to news
                                             </a>
-                                            <%--<span class="news-readtime">--%>
-                                                <%--<span class="glyphicon glyphicon-time"></span>1 min<span>read</span>--%>
-                                            <%--</span>--%>
-                                            <%--<span class="news-views">--%>
-                                                <%--<span class="glyphicon glyphicon-eye-open"></span>2395--%>
-                                            <%--</span>--%>
+
                                             <span></span>
                                         </div>
                                     </div>
@@ -250,53 +221,24 @@
 
                 <div class="news-slider-mini-list">
                     <c:forEach items="${threeLastNews}" var="threeNews">
-                    <div class="news-mini-item">
-                        <div class="news-mini-img" id="news-mini-img-1">
-                            <img src="style/images/news1.jpg" alt="news">
-                        </div>
-
-                        <div class="news-mini-content">
-                            <div class="news-mini-date-container">
-                                <div class="news-mini-dates">
-                                    <a href="#date" class="news-mini-date gold"> ${threeNews.newsTime} </a>
-                                </div>
+                        <div class="news-mini-item">
+                            <div class="news-mini-img" id="news-mini-img-1">
+                                <img src="style/images/news1.jpg" alt="news">
                             </div>
-                            <h4 class="news-mini-title">
-                                <a href="/newsPage-${threeNews.id}">${threeNews.newsShort}</a>
-                            </h4>
+
+                            <div class="news-mini-content">
+                                <div class="news-mini-date-container">
+                                    <div class="news-mini-dates">
+                                        <a href="#date" class="news-mini-date gold"> ${threeNews.newsTime} </a>
+                                    </div>
+                                </div>
+                                <h4 class="news-mini-title">
+                                    <a href="/newsPage-${threeNews.id}">${threeNews.newsShort}</a>
+                                </h4>
+                            </div>
                         </div>
-                    </div>
                     </c:forEach>
-                    <%--<div class="news-mini-item">--%>
-                        <%--<div class="news-mini-img" id="news-mini-img-3">--%>
-                            <%--<img src="style/images/news3.jpg" alt="news">--%>
-                        <%--</div>--%>
-                        <%--<div class="news-mini-content">--%>
-                            <%--<div class="news-mini-date-container">--%>
-                                <%--<div class="news-mini-dates">--%>
-                                    <%--<a href="#date" class="news-mini-date gold"> 15.01.2018 </a>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<h4 class="news-mini-title">--%>
-                                <%--<a href="#news">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>--%>
-                            <%--</h4>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="news-mini-item">--%>
-                        <%--<div class="news-mini-img" id="news-mini-img-4">--%>
-                            <%--<img src="style/images/news4.jpg" alt="news">--%>
-                        <%--</div>--%>
-                        <%--<div class="news-mini-content">--%>
-                            <%--<div class="news-mini-date-container">--%>
-                                <%--<div class="news-mini-dates">--%>
-                                    <%--<a href="#date" class="news-mini-date gold"> 15.01.2018 </a>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<h4 class="news-mini-title">--%>
-                                <%--<a href="#news">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>--%>
-                            <%--</h4>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
+
                 </div>
 
             </div>
@@ -319,67 +261,14 @@
                 <div class="carousel-wrapper">
                     <div class="carousel-items">
                         <c:forEach items="${karuselNews}" var="karuselNews">
-                        <div class="carousel-item">
-                            <div class="archive-news-item">
-                                <p class="archive-news-date"><a href="#date">${karuselNews.newsTime}</a></p>
-                                <p class="archive-news-title"><a href="/newsPage-${karuselNews.id}">${karuselNews.newsName}</a></p>
+                            <div class="carousel-item">
+                                <div class="archive-news-item">
+                                    <p class="archive-news-date"><a href="#date">${karuselNews.newsTime}</a></p>
+                                    <p class="archive-news-title"><a
+                                            href="/newsPage-${karuselNews.id}">${karuselNews.newsName}</a></p>
+                                </div>
                             </div>
-                        </div>
                         </c:forEach>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet. 2</a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet. 3</a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet.4 </a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet. 5</a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet. 6</a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet. 7</a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet. 8</a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet. 9</a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="carousel-item">--%>
-                            <%--<div class="archive-news-item">--%>
-                                <%--<p class="archive-news-date"><a href="#date"> 15.01.2018</a></p>--%>
-                                <%--<p class="archive-news-title"><a href="#news">Lorem ipsum dolore sit amet. 10</a></p>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
                     </div>
                 </div>
             </div>
@@ -387,25 +276,42 @@
     </div>
 </section>
 
-<!-- Google Chart -->
+<!— Google Chart —>
 <!--Load the AJAX API-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
 
-<!-- jQuery v.3 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!— jQuery v.3 —>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+<!— Latest compiled and minified JavaScript —>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 
-<!-- Custom Scripts -->
-<script defer src="style/js/script.js"></script>
-<script defer src="style/js/chart.js"></script>
+<!— Custom Scripts —>
+
+<sec:authorize access="hasAnyRole('ADMIN','USER')">
+    <script type="text/javascript" defer src="/style/js/script.js"></script>
+</sec:authorize>
+
+<script type="text/javascript" defer>
+    <%--var test = ${status};--%>
+    var votingId = ${activeVotingId};
+    <%--var userName = ${user};--%>
+    var status = ${status};
+    var votingText = '${dtoVoting.votingText}';
+    var tr = ${dtoVoting.votingTrue};
+    var fal = ${dtoVoting.votingFalse};
+    var checkUser = ${checkUser};
+
+    $('#Voting').on('click', function () {
+        $(".bg-grey").css({"display": "none"});
+    });
+</script>
+
+<%--<sec:authorize access="hasAnyRole('USER')">--%>
+    <script type="text/javascript" defer src="/style/js/chart.js"></script>
+<%--</sec:authorize>--%>
 </body>
 </html>
