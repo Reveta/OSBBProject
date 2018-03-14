@@ -57,9 +57,19 @@
                         <li class="active"><a href="/cabinet">Кабінет</a></li>
                         <li><a href="#" id="Voting">Голосування</a></li>
                         <li><a href="#">Документи</a></li>
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('USER','ADMIN')">
                         <li id="log-in">
                             <a href="/logout">Вихід
                                 <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                    </sec:authorize>
+
+                    <sec:authorize access="hasAnyRole('ADMIN')">
+                        <li id="log-in">
+                            <a href="/admin">Адмін-панель
+                                <span class="glyphicon glyphicon-ice-lolly-tasted" aria-hidden="true"></span>
                             </a>
                         </li>
                     </sec:authorize>
@@ -74,6 +84,7 @@
 
 <p style="color: black">status - ${status}</p>
 <p style="color: black">checkUser - ${checkUser}</p>
+<%--<p style="color: black">newsId - ${newsId}</p>--%>
 <!-- ===== Main Page ===== -->
 <section id="main-page" class="main-page">
     <!-- ===== Statuses ===== -->
@@ -291,14 +302,14 @@
 
 <!— Custom Scripts —>
 
-<sec:authorize access="hasAnyRole('ADMIN','USER')">
+<%--<sec:authorize access="hasAnyRole('USER')">--%>
     <script type="text/javascript" defer src="/style/js/script.js"></script>
-</sec:authorize>
+<%--</sec:authorize>--%>
 
 <script type="text/javascript" defer>
-    <%--var test = ${status};--%>
+
+    <%--var newsId = ${newsId};--%>
     var votingId = ${activeVotingId};
-    <%--var userName = ${user};--%>
     var status = ${status};
     var votingText = '${dtoVoting.votingText}';
     var tr = ${dtoVoting.votingTrue};

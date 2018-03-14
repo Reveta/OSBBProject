@@ -55,7 +55,7 @@ function drawChart(status) {
         );
     };
 
-    if (a == 1 && checkUser === 7) {
+    if (a == 1 && checkUser == 42) {
         $(".bg-grey").css({"display": "block"});
         chart.draw(data, options);
         addTitle();

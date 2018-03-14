@@ -15,6 +15,8 @@ import ua.somedomen.osbb.entity.securityEntity.User;
 import ua.somedomen.osbb.service.*;
 import ua.somedomen.osbb.validator.UserValidator;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +46,7 @@ public class PagesController {
     @Autowired
     private CommentService commentService;
 
-
-
+//    static int newsId;
 
     @GetMapping("/")
     public String index(Model model, Principal principal) {
@@ -73,10 +74,14 @@ public class PagesController {
         for (int i = newsListFull.size() - 5; i > 0; i--){
             karuselNews.add(newsListFull.get(i));
         }
-        String checkUser = "offline"; // перевірка на то, чи юзер залогований, додаткова перевірка в chart.js
-        if (principalO instanceof UserDetails){
-             checkUser = "online";
+//        String checkUser = "offline"; // перевірка на то, чи юзер залогований, додаткова перевірка в chart.js
+        int checkUser = 7;
+        if (principalO instanceof UserDetails && !((UserDetails) principalO).getUsername().equals("aa")){
+//             checkUser = "online";
+        checkUser = 42;
         }
+
+//        newsId = newsLast.getId();
         ///
 
 
@@ -92,6 +97,7 @@ public class PagesController {
         model.addAttribute("karuselNews", karuselNews);
         model.addAttribute("activeVotingId", dtoActiveVoting.getVotingId());
         model.addAttribute("checkUser", checkUser);
+//        model.addAttribute("newsId", newsId);
         return "index";
     }
 
@@ -165,10 +171,10 @@ public class PagesController {
     }
 
     @GetMapping("newsPage-{id}")
-    public String newsPage(@PathVariable("id") int id, Model model) {
+    public String newsPage(@PathVariable("id") int id, Model model) throws MalformedURLException {
         model.addAttribute("News", newsService.findOne(id));
-        System.out.println("\n" + id);
-//        return "newsPage";
+//        newsId = id;
+        model.addAttribute("newsId", id);
         return  "redirect:/";
     }
 }

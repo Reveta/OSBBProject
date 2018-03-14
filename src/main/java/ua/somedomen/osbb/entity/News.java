@@ -49,6 +49,9 @@ public class News {
     public News() {
     }
 
+    public static int getIdFromURL(News lastNews){
+        return lastNews.getId();
+    }
 
     public static News getLastNews(List<News> newsListFull){
         return (newsListFull.get(newsListFull.size() - 1));

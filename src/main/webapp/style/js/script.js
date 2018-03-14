@@ -9,13 +9,25 @@ function getTopDate() {
         return monthName[this.getMonth()];
     };
     
-    var topDate = new Date();
+    var topDate = new Date(),
+        code = '<span class="date-day">' + topDate.getDate() + '</span>' +
+               '<span class="date-meta">' + '<span class="date-month">' + topDate.getMonthName() + '</span>' + '<br>' +
+               '<span class="date-year">' + topDate.getFullYear() + '</span>' + '</span>';
+    $("#nav-date").empty().append(code);
     
-    $("#nav-date").append(
-        '<span class="date-day">' + topDate.getDate() + '</span>' + '<span class="date-meta">' +
-            '<span class="date-month">' + topDate.getMonthName() + '</span>' + '<br>' +
-            '<span class="date-year">' + topDate.getFullYear() + '</span>' + '</span>'
-    );
+    $(window).resize(function () {
+        var w = $(window).width();
+        
+        if (w <= 750) {
+            $("#nav-date").css("display", "none");
+            $(".navbar-header .nav-date").detach();
+            $(".navbar-header").prepend('<span class="nav-date">' + code + '</span>');
+        } else {
+            $(".navbar-header .nav-date").detach();
+            $("#nav-date").css("display", "block");
+            $("#nav-date").empty().append(code);
+        }
+    });
 }
 
 function carouselStart() {
@@ -110,16 +122,35 @@ function openReview() {
     $(".news-slider-reviews").css({"display": "block"});
 }
 
+function workWithNews() {
+    "use strict";
+    
+    // отримати айдішку елемента, по якому був клік та витягнути з нього id елемента і перетворити в Number
+    var newsIdNumber = Number($(this).attr("id").replace(/\D+/g, ""));
+    
+    var newsName = 'News Name', newsShort = 'News Short', newsText = 'News Text', newsTime = '12.03.2018', newsAuthor = 'News Author', newsImage = '../sources/img/news' + newsIdNumber + '.jpg';
+
+    $(".news-slider-item").css({"background-image": "url(" + newsImage + ")"}).removeAttr("id").attr("id", "news-slider-item-" + newsIdNumber);
+    $(".news-slider-content h3 span").empty().text(newsTime);
+    $(".news-slider-content h1").empty().text(newsName);
+    $(".news-slider-content h2").empty().text(newsShort);
+    $(".news-slider-content p").empty().text(newsText);
+    $(".news-slider-content a.news-author").empty().text(newsAuthor);
+}
+
 // Document ready function
 $('document').ready(function () {
     "use strict";
     
     getTopDate();
     carouselStart();
-//    createDiagram();
+    // createDiagram();
     
     $(".get-more-info-about-status").on("click", GetStatusMore);
     $(".delete-status").on("click", deleteStatus);
     $("#openReviews").on("click", openReview);
     $("#closeReviews").on("click", closeReview);
+    
+    // News
+    $(".news-item").on("click", workWithNews);
 });
