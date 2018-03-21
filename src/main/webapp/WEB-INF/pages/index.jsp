@@ -84,7 +84,7 @@
 
 <p style="color: black">status - ${status}</p>
 <p style="color: black">checkUser - ${checkUser}</p>
-<%--<p style="color: black">newsId - ${newsId}</p>--%>
+<p style="color: black">newsId - ${newsId}</p>
 <!-- ===== Main Page ===== -->
 <section id="main-page" class="main-page">
     <!-- ===== Statuses ===== -->
@@ -244,7 +244,7 @@
                                     </div>
                                 </div>
                                 <h4 class="news-mini-title">
-                                    <a href="/newsPage-${threeNews.id}">${threeNews.newsShort}</a>
+                                    <a href="/newsPage-${threeNews.id}">${threeNews.newsName}</a>
                                 </h4>
                             </div>
                         </div>
@@ -308,7 +308,14 @@
 
 <script type="text/javascript" defer>
 
-    <%--var newsId = ${newsId};--%>
+    var newsId = ${newsId};
+    var newsName = ${newsName};
+
+    <%--var newsTime = ${newsTime};--%>
+
+    var newsShort = ${newsShort};
+    var newsText = ${newsText};
+    var newsAuthor = ${newsAuthor};
     var votingId = ${activeVotingId};
     var status = ${status};
     var votingText = '${dtoVoting.votingText}';

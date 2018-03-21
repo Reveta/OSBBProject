@@ -2,9 +2,6 @@ package ua.somedomen.osbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import ua.somedomen.osbb.service.CommentService;
 import ua.somedomen.osbb.service.NewsService;
 import ua.somedomen.osbb.service.StatusService;
@@ -14,17 +11,17 @@ import ua.somedomen.osbb.service.VotingService;
 @Controller
 public class DeleteController {
 
-    @Autowired
-    private NewsService newsService;
+  @Autowired
+  private NewsService newsService;
 
-    @Autowired
-    private VotingService votingService;
+  @Autowired
+  private VotingService votingService;
 
-    @Autowired
-    private StatusService statusService;
+  @Autowired
+  private StatusService statusService;
 
-    @Autowired
-    private CommentService commentService;
+  @Autowired
+  private CommentService commentService;
 
 //    @GetMapping("/deleteNews")
 //    public String deleteNews(
