@@ -30,20 +30,20 @@
 <div class="admin-panel-container">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab"
-                                                  data-toggle="tab">Головна</a></li>
+        <%--<li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab"--%>
+                                                  <%--data-toggle="tab">Головна</a></li>--%>
         <li role="presentation"><a href="#voting" aria-controls="voting" role="tab" data-toggle="tab">Голосування</a>
         </li>
         <li role="presentation"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">Новини</a></li>
         <li role="presentation"><a href="#statuses" aria-controls="statuses" role="tab" data-toggle="tab">Статуси</a>
         </li>
-        <li role="presentation"><a href="#documents" aria-controls="documents" role="tab"
-                                   data-toggle="tab">Документи</a></li>
+        <%--<li role="presentation"><a href="#documents" aria-controls="documents" role="tab"--%>
+                                   <%--data-toggle="tab">Документи</a></li>--%>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="main">Головна</div>
+        <%--<div role="tabpanel" class="tab-pane active" id="main">Головна</div>--%>
         <div role="tabpanel" class="tab-pane" id="voting">
             <div class="add-new-voiting-container">
                 <h3>Add new voiting</h3>
@@ -248,9 +248,9 @@
                 </table>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="documents">
-            Документи
-        </div>
+        <%--<div role="tabpanel" class="tab-pane" id="documents">--%>
+            <%--Документи--%>
+        <%--</div>--%>
     </div>
 </div>
 

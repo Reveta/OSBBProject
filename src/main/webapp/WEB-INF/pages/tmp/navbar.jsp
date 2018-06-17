@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="/"><i class="fa fa-circle"></i>SBB</a>
+            <a class="navbar-brand" href="/">Ваше ОСББ</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -26,10 +26,10 @@
                     <li class="active"><a href="/logout"> Вийти </a></li>
                 </sec:authorize>
 
-                <li><a href="#">Архів</a></li>
+                <%--<li><a href="#">Архів</a></li>--%>
 
                 <sec:authorize access="hasAnyRole('USER')">
-                    <li><a href="/cabinet"><i class="fa fa-envelope-o" aria-hidden="true">Cabinet</i></a></li>
+                    <%--<li><a href="/cabinet"><i class="fa fa-envelope-o" aria-hidden="true">Cabinet</i></a></li>--%>
                 </sec:authorize>
 
 

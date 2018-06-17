@@ -14,7 +14,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title> OSBB </title>
+    <title> Ваше ОСББ </title>
 
     <!-- Normalize.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
@@ -40,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/index"> OSSB Струмочок </a>
+                <a class="navbar-brand" href="/index"> Ваше ОСББ </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -55,8 +55,8 @@
                     </sec:authorize>
                     <sec:authorize access="hasAnyRole('USER')">
                         <li class="active"><a href="/cabinet">Кабінет</a></li>
-                        <li><a href="#" id="Voting">Голосування</a></li>
-                        <li><a href="#">Документи</a></li>
+                        <%--<li><a href="#" id="Voting">Голосування</a></li>--%>
+                        <%--<li><a href="#">Документи</a></li>--%>
                     </sec:authorize>
                     <sec:authorize access="hasAnyRole('USER','ADMIN')">
                         <li id="log-in">
@@ -82,55 +82,60 @@
     </nav>
 </header>
 
-<p style="color: black">status - ${status}</p>
-<p style="color: black">checkUser - ${checkUser}</p>
-<p style="color: black">newsId - ${newsId}</p>
+<%--<p style="color: black">status - ${status}</p>--%>
+<%--<p style="color: black">checkUser - ${checkUser}</p>--%>
+<%--<p style="color: black">newsId - ${newsId}</p>--%>
 <!-- ===== Main Page ===== -->
 <section id="main-page" class="main-page">
+
+    <br>
+    <br>
+    <br>
+
     <!-- ===== Statuses ===== -->
-    <div id="status-container" class="status-container">
-        <div class="container">
-            <div id="status" class="nav-status">
-                <ul class="nav navbar-nav navbar-left navbar-status">
-                    <li id="status-1">
-                       <span class="status">Status1...
-                            <button class="get-more-info-about-status"><span
-                                    class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></button>
-                            <button class="delete-status"><span class="glyphicon glyphicon-remove"
-                                                                aria-hidden="true"></span></button>
-                        </span>
-                        <!-- ===== More Info About Status ===== -->
-                    </li>
-                    <li id="status-2">
-                       <span class="status">Status2...
-                            <button class="get-more-info-about-status"><span
-                                    class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></button>
-                            <button class="delete-status"><span class="glyphicon glyphicon-remove"
-                                                                aria-hidden="true"></span></button>
-                        </span>
-                        <!-- ===== More Info About Status ===== -->
-                    </li>
-                    <li id="status-3">
-                       <span class="status">Status3...
-                            <button class="get-more-info-about-status"><span
-                                    class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></button>
-                            <button class="delete-status"><span class="glyphicon glyphicon-remove"
-                                                                aria-hidden="true"></span></button>
-                        </span>
-                        <!-- ===== More Info About Status ===== -->
-                    </li>
-                </ul>
+    <%--<div id="status-container" class="status-container">--%>
+        <%--<div class="container">--%>
+            <%--<div id="status" class="nav-status">--%>
+                <%--<ul class="nav navbar-nav navbar-left navbar-status">--%>
+                    <%--<li id="status-1">--%>
+                       <%--<span class="status">--%>
+                            <%--<button class="get-more-info-about-status"><span--%>
+                                    <%--class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></button>--%>
+                            <%--<button class="delete-status"><span class="glyphicon glyphicon-remove"--%>
+                                                                <%--aria-hidden="true"></span></button>--%>
+                        <%--</span>--%>
+                        <%--<!-- ===== More Info About Status ===== -->--%>
+                    <%--</li>--%>
+                    <%--<li id="status-2">--%>
+                       <%--<span class="status">--%>
+                            <%--<button class="get-more-info-about-status"><span--%>
+                                    <%--class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></button>--%>
+                            <%--<button class="delete-status"><span class="glyphicon glyphicon-remove"--%>
+                                                                <%--aria-hidden="true"></span></button>--%>
+                        <%--</span>--%>
+                        <%--<!-- ===== More Info About Status ===== -->--%>
+                    <%--</li>--%>
+                    <%--<li id="status-3">--%>
+                       <%--<span class="status">--%>
+                            <%--<button class="get-more-info-about-status"><span--%>
+                                    <%--class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></button>--%>
+                            <%--<button class="delete-status"><span class="glyphicon glyphicon-remove"--%>
+                                                                <%--aria-hidden="true"></span></button>--%>
+                        <%--</span>--%>
+                        <%--<!-- ===== More Info About Status ===== -->--%>
+                    <%--</li>--%>
+                <%--</ul>--%>
 
 
-                <!-- ===== Delete Status Verefication ===== -->
-                <div class="delete-status-verification">
-                    <h5>Ви дійсно хочете видалити статус?</h5>
-                    <input type="submit" id="delete" class="btn btn-delete" value="Так">
-                    <input type="submit" id="cancel" class="btn btn-cancel" value="Ні">
-                </div>
-            </div>
-        </div>
-    </div>
+                <%--<!-- ===== Delete Status Verefication ===== -->--%>
+                <%--<div class="delete-status-verification">--%>
+                    <%--<h5>Ви дійсно хочете видалити статус?</h5>--%>
+                    <%--<input type="submit" id="delete" class="btn btn-delete" value="Так">--%>
+                    <%--<input type="submit" id="cancel" class="btn btn-cancel" value="Ні">--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</div>--%>
 
     <!-- ===== News ===== -->
 
@@ -244,7 +249,7 @@
                                     </div>
                                 </div>
                                 <h4 class="news-mini-title">
-                                    <a href="/newsPage-${threeNews.id}">${threeNews.newsName}</a>
+                                    <a href="/newsPage-${threeNews.id}">${threeNews.newsShort}</a>
                                 </h4>
                             </div>
                         </div>
@@ -308,14 +313,7 @@
 
 <script type="text/javascript" defer>
 
-    var newsId = ${newsId};
-    var newsName = ${newsName};
-
-    <%--var newsTime = ${newsTime};--%>
-
-    var newsShort = ${newsShort};
-    var newsText = ${newsText};
-    var newsAuthor = ${newsAuthor};
+    <%--var newsId = ${newsId};--%>
     var votingId = ${activeVotingId};
     var status = ${status};
     var votingText = '${dtoVoting.votingText}';

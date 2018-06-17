@@ -3,5 +3,5 @@
 
 <!-- Велика картинка з написом -->
 <div class="img_elastic" id="headerwrap">
-    <h1 class="margin-top-70">Твори своє майбунє разом з ОСББ "Струмочок"</h1>
+    <h1 class="margin-top-70">Твори своє майбунє разом з ОСББ </h1>
 </div>
